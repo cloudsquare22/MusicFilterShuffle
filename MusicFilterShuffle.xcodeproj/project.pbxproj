@@ -11,6 +11,7 @@
 		8DB8F4D425E5ACE800ED995F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8F4D325E5ACE800ED995F /* ContentView.swift */; };
 		8DB8F4D625E5ACE900ED995F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DB8F4D525E5ACE900ED995F /* Assets.xcassets */; };
 		8DB8F4D925E5ACE900ED995F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DB8F4D825E5ACE900ED995F /* Preview Assets.xcassets */; };
+		8DB8F4E325E5AD2100ED995F /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8F4E225E5AD2100ED995F /* Music.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		8DB8F4D525E5ACE900ED995F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DB8F4D825E5ACE900ED995F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8DB8F4DA25E5ACE900ED995F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DB8F4E225E5AD2100ED995F /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 		8DB8F4D025E5ACE800ED995F /* MusicFilterShuffle */ = {
 			isa = PBXGroup;
 			children = (
+				8DB8F4E125E5AD0600ED995F /* Model */,
 				8DB8F4D125E5ACE800ED995F /* MusicFilterShuffleApp.swift */,
 				8DB8F4D325E5ACE800ED995F /* ContentView.swift */,
 				8DB8F4D525E5ACE900ED995F /* Assets.xcassets */,
@@ -67,6 +70,14 @@
 				8DB8F4D825E5ACE900ED995F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8DB8F4E125E5AD0600ED995F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8DB8F4E225E5AD2100ED995F /* Music.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +151,7 @@
 			files = (
 				8DB8F4D425E5ACE800ED995F /* ContentView.swift in Sources */,
 				8DB8F4D225E5ACE800ED995F /* MusicFilterShuffleApp.swift in Sources */,
+				8DB8F4E325E5AD2100ED995F /* Music.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

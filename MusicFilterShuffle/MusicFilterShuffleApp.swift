@@ -12,6 +12,7 @@ struct MusicFilterShuffleApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(Music())
         }
     }
 }
