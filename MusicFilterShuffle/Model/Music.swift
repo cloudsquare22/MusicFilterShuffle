@@ -27,9 +27,6 @@ final class Music: ObservableObject {
         let mPMediaQuery = MPMediaQuery.songs()
         if let collections = mPMediaQuery.collections {
             print(collections.count)
-            for index in 0..<10  {
-                print("\(collections[index].items[0].title!):\(collections[index].items[0].albumTitle!)")
-            }
 
             print(Date())
             print("---------- randam ----------")
@@ -64,9 +61,6 @@ final class Music: ObservableObject {
         let mPMediaQuery = MPMediaQuery.songs()
         if let collections = mPMediaQuery.collections {
             print(collections.count)
-            for index in 0..<10  {
-                print("\(collections[index].items[0].title!):\(collections[index].items[0].albumTitle!):\(collections[index].items[0].playCount)")
-            }
             
             print(Date())
             print("---------- randam ----------")

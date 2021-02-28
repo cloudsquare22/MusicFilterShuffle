@@ -9,20 +9,57 @@ import SwiftUI
 
 struct FiltersView: View {
     @EnvironmentObject var music: Music
+    
+    @State var dispProgress = false
+    @State var onTap = false
 
     var body: some View {
-        List {
-            Text("Last Played Date Old")
-                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                .onTapGesture {
-                    self.music.lastPlayedDateOld()
+        NavigationView {
+            List {
+                if self.dispProgress == true {
+                    HStack {
+                        Spacer()
+                        ProgressView("selecting music...")
+                        Spacer()
+                    }
                 }
-            Text("Play Count Min")
-                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                .onTapGesture {
-                    self.music.playCountMin()
-                }
+                Text("Last Played Date Old")
+                    .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                    .onTapGesture {
+                        if self.onTap == false {
+                            self.onTap = true
+                            self.dispProgress.toggle()
+                            DispatchQueue.global().async {
+                                self.music.lastPlayedDateOld()
+                                self.dispProgress.toggle()
+                                self.onTap = false
+                            }
+                        }
+                        else {
+                            print("onTap Noaction!!")
+                        }
+                    }
+                Text("Play Count Min")
+                    .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                    .onTapGesture {
+                        if self.onTap == false {
+                            self.onTap = true
+                            self.dispProgress.toggle()
+                            DispatchQueue.global().async {
+                                self.music.playCountMin()
+                                self.dispProgress.toggle()
+                                self.onTap = false
+                            }
+                        }
+                        else {
+                            print("onTap Noaction!!")
+                        }
+                    }
+            }
+            .padding(8.0)
+            .navigationBarTitle("Filters", displayMode: .inline)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
