@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,10 @@
 		8DB8F4D625E5ACE900ED995F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DB8F4D525E5ACE900ED995F /* Assets.xcassets */; };
 		8DB8F4D925E5ACE900ED995F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DB8F4D825E5ACE900ED995F /* Preview Assets.xcassets */; };
 		8DB8F4E325E5AD2100ED995F /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8F4E225E5AD2100ED995F /* Music.swift */; };
+		8DEFFC4C25EB723E00A2FAE5 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEFFC4B25EB723E00A2FAE5 /* FiltersView.swift */; };
+		8DEFFC4F25EB724E00A2FAE5 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEFFC4E25EB724E00A2FAE5 /* SettingView.swift */; };
+		8DEFFC5225EB727C00A2FAE5 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEFFC5125EB727C00A2FAE5 /* AboutView.swift */; };
+		8DEFFC5725EB7DCC00A2FAE5 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 8DEFFC5625EB7DCC00A2FAE5 /* Algorithms */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,9 @@
 		8DB8F4D825E5ACE900ED995F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8DB8F4DA25E5ACE900ED995F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DB8F4E225E5AD2100ED995F /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
+		8DEFFC4B25EB723E00A2FAE5 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
+		8DEFFC4E25EB724E00A2FAE5 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		8DEFFC5125EB727C00A2FAE5 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DEFFC5725EB7DCC00A2FAE5 /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,10 +64,13 @@
 			children = (
 				8DB8F4E125E5AD0600ED995F /* Model */,
 				8DB8F4D125E5ACE800ED995F /* MusicFilterShuffleApp.swift */,
-				8DB8F4D325E5ACE800ED995F /* ContentView.swift */,
 				8DB8F4D525E5ACE900ED995F /* Assets.xcassets */,
 				8DB8F4DA25E5ACE900ED995F /* Info.plist */,
 				8DB8F4D725E5ACE900ED995F /* Preview Content */,
+				8DB8F4D325E5ACE800ED995F /* ContentView.swift */,
+				8DEFFC4B25EB723E00A2FAE5 /* FiltersView.swift */,
+				8DEFFC4E25EB724E00A2FAE5 /* SettingView.swift */,
+				8DEFFC5125EB727C00A2FAE5 /* AboutView.swift */,
 			);
 			path = MusicFilterShuffle;
 			sourceTree = "<group>";
@@ -96,6 +107,9 @@
 			dependencies = (
 			);
 			name = MusicFilterShuffle;
+			packageProductDependencies = (
+				8DEFFC5625EB7DCC00A2FAE5 /* Algorithms */,
+			);
 			productName = MusicFilterShuffle;
 			productReference = 8DB8F4CE25E5ACE800ED995F /* MusicFilterShuffle.app */;
 			productType = "com.apple.product-type.application";
@@ -123,6 +137,9 @@
 				Base,
 			);
 			mainGroup = 8DB8F4C525E5ACE800ED995F;
+			packageReferences = (
+				8DEFFC5525EB7DCC00A2FAE5 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+			);
 			productRefGroup = 8DB8F4CF25E5ACE800ED995F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -149,8 +166,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DEFFC4C25EB723E00A2FAE5 /* FiltersView.swift in Sources */,
+				8DEFFC4F25EB724E00A2FAE5 /* SettingView.swift in Sources */,
 				8DB8F4D425E5ACE800ED995F /* ContentView.swift in Sources */,
 				8DB8F4D225E5ACE800ED995F /* MusicFilterShuffleApp.swift in Sources */,
+				8DEFFC5225EB727C00A2FAE5 /* AboutView.swift in Sources */,
 				8DB8F4E325E5AD2100ED995F /* Music.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,6 +360,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8DEFFC5525EB7DCC00A2FAE5 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8DEFFC5625EB7DCC00A2FAE5 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8DEFFC5525EB7DCC00A2FAE5 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8DB8F4C625E5ACE800ED995F /* Project object */;
 }

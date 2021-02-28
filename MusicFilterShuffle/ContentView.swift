@@ -10,15 +10,34 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var music: Music
 
+    @State private var selection = 1
+
     var body: some View {
-        VStack {
-            Text("Count Min Filter")
-                .padding()
-            Button(action: {
-                self.music.countMinFilter()
-            }, label: {
-                Text("Filter")
-            })
+        TabView(selection: self.$selection) {
+            SettingView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "gearshape")
+                        Text("Setting")
+                    }
+                }
+                .tag(0)
+            FiltersView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "music.quarternote.3")
+                        Text("Filters")
+                    }
+                }
+                .tag(1)
+            AboutView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "doc")
+                        Text("About")
+                    }
+                }
+                .tag(2)
         }
     }
 }
