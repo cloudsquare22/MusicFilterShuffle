@@ -57,7 +57,7 @@ final class Music: ObservableObject {
         }
     }
     
-    func playCountMin() {
+    func playCountMin(selectMusicCount: Int) {
         let mPMediaQuery = MPMediaQuery.songs()
         if let collections = mPMediaQuery.collections {
             print(collections.count)
@@ -66,7 +66,7 @@ final class Music: ObservableObject {
             print("---------- randam ----------")
             let randamcollections = collections.randomSample(count: collections.count)
             print(Date())
-            for index in 0..<10  {
+            for index in 0..<selectMusicCount  {
                 print("\(randamcollections[index].items[0].title!):\(randamcollections[index].items[0].albumTitle!):\(randamcollections[index].items[0].playCount)")
             }
 
@@ -77,7 +77,7 @@ final class Music: ObservableObject {
             })
             print(Date())
             var playItems: [MPMediaItem] = []
-            for index in 0..<10  {
+            for index in 0..<selectMusicCount  {
                 print("\(sortcollections[index].items[0].title!):\(sortcollections[index].items[0].albumTitle!):\(sortcollections[index].items[0].playCount)")
                 playItems.append(sortcollections[index].items[0])
             }

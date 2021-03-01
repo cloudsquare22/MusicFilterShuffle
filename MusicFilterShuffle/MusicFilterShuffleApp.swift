@@ -13,6 +13,7 @@ struct MusicFilterShuffleApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(Music())
+                .environmentObject(SettingData())
         }
     }
 }

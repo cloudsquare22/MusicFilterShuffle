@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var music: Music
+    @EnvironmentObject var settingData: SettingData
 
     @State private var selection = 1
 

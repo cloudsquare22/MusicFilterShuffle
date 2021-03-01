@@ -9,7 +9,8 @@ import SwiftUI
 
 struct FiltersView: View {
     @EnvironmentObject var music: Music
-    
+    @EnvironmentObject var settingData: SettingData
+
     @State var onTap = false
 
     var body: some View {
@@ -29,6 +30,7 @@ struct FiltersView_Previews: PreviewProvider {
     static var previews: some View {
         FiltersView()
             .environmentObject(Music())
+            .environmentObject(SettingData())
     }
 }
 
@@ -55,7 +57,7 @@ struct FilterView: View {
                                 self.music.lastPlayedDateOld()
                             }
                             else if self.filter == 1 {
-                                self.music.playCountMin()
+                                self.music.playCountMin(selectMusicCount: 10)
                             }
                             self.dispProgress.toggle()
                             self.onTap = false
