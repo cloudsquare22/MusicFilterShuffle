@@ -36,6 +36,7 @@ struct FiltersView_Previews: PreviewProvider {
 
 struct FilterView: View {
     @EnvironmentObject var music: Music
+    @EnvironmentObject var settingData: SettingData
     @State var dispProgress: Bool = false
 
     @Binding var onTap: Bool
@@ -57,7 +58,7 @@ struct FilterView: View {
                                 self.music.lastPlayedDateOld()
                             }
                             else if self.filter == 1 {
-                                self.music.playCountMin(selectMusicCount: 10)
+                                self.music.playCountMin(selectMusicCount: self.settingData.selectMusicCount)
                             }
                             self.dispProgress.toggle()
                             self.onTap = false

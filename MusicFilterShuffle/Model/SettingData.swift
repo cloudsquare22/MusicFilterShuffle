@@ -12,7 +12,15 @@ final class SettingData: ObservableObject {
     
     let userdefault = UserDefaults.standard
     
+    init() {
+        self.selectMusicCount = self.userdefault.integer(forKey: "selectMusicCount")
+        if self.selectMusicCount == 0 {
+            self.selectMusicCount = 10
+        }
+    }
+    
     func save() {
         print("SettingData." + #function)
+        self.userdefault.set(self.selectMusicCount, forKey: "selectMusicCount")
     }
 }
