@@ -13,7 +13,7 @@ struct SettingView: View {
     var body: some View {
         NavigationView {
             Form {
-                NumberPlusMinusInputView(title: "選択曲", bounds: 1...30, number: self.$settingData.selectMusicCount)
+                NumberPlusMinusInputView(title: "選択曲数", bounds: 1...30, number: self.$settingData.selectMusicCount)
             }
             .padding(8.0)
             .navigationBarTitle("Setting", displayMode: .inline)
