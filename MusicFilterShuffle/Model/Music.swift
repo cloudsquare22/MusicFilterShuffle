@@ -62,28 +62,33 @@ final class Music: ObservableObject {
         if let collections = mPMediaQuery.collections {
             print(collections.count)
             
+            print("---------- change ----------")
             print(Date())
+            let items: [MPMediaItem] = collections.map({collection in collection.items[0]})
+            print(Date())
+
             print("---------- randam ----------")
-            let randamcollections = collections.randomSample(count: collections.count)
+            print(Date())
+            let randamcitems = items.randomSample(count: items.count)
             print(Date())
             for index in 0..<selectMusicCount  {
-                print("\(randamcollections[index].items[0].title!):\(randamcollections[index].items[0].albumTitle!):\(randamcollections[index].items[0].playCount)")
+                print("\(randamcitems[index].title!):\(randamcitems[index].albumTitle!):\(randamcitems[index].playCount)")
             }
 
-            print(Date())
             print("---------- sort ----------")
-            let sortcollections = randamcollections.sorted(by: { a, b in
-                return a.items[0].playCount < b.items[0].playCount
+            print(Date())
+            let sortcitems = randamcitems.sorted(by: { a, b in
+                return a.playCount < b.playCount
             })
             print(Date())
             var playItems: [MPMediaItem] = []
             for index in 0..<selectMusicCount  {
-                print("\(sortcollections[index].items[0].title!):\(sortcollections[index].items[0].albumTitle!):\(sortcollections[index].items[0].playCount)")
-                playItems.append(sortcollections[index].items[0])
+                print("\(sortcitems[index].title!):\(sortcitems[index].albumTitle!):\(sortcitems[index].playCount)")
+                playItems.append(sortcitems[index])
             }
             let playQueue: MPMediaItemCollection = MPMediaItemCollection(items: playItems)
             player?.setQueue(with: playQueue)
-            player?.play()
+            player?.play()            
         }
     }
 
