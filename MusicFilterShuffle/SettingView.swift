@@ -14,6 +14,11 @@ struct SettingView: View {
         NavigationView {
             Form {
                 NumberPlusMinusInputView(title: "選択曲数", bounds: 1...30, number: self.$settingData.selectMusicCount)
+                HStack {
+                    Toggle(isOn: self.$settingData.autoPlay, label: {
+                        Text("自動再生")
+                    })
+                }
             }
             .padding(8.0)
             .navigationBarTitle("Setting", displayMode: .inline)
