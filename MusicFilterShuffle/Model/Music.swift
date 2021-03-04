@@ -11,6 +11,7 @@ import Algorithms
 
 final class Music: ObservableObject {
     var player: MPMusicPlayerController? = nil
+    var items: [MPMediaItem] = []
     
     init() {
         self.player = MPMusicPlayerController.systemMusicPlayer
@@ -59,14 +60,9 @@ final class Music: ObservableObject {
     
     func playCountMin(selectMusicCount: Int) {
         let mPMediaQuery = MPMediaQuery.songs()
-        if let collections = mPMediaQuery.collections {
-            print(collections.count)
+        if let items = mPMediaQuery.items {
+            print(items.count)
             
-            print("---------- change ----------")
-            print(Date())
-            let items: [MPMediaItem] = collections.map({collection in collection.items[0]})
-            print(Date())
-
             print("---------- randam ----------")
             print(Date())
             let randamcitems = items.randomSample(count: items.count)
@@ -86,10 +82,14 @@ final class Music: ObservableObject {
                 print("\(sortcitems[index].title!):\(sortcitems[index].albumTitle!):\(sortcitems[index].playCount)")
                 playItems.append(sortcitems[index])
             }
-            let playQueue: MPMediaItemCollection = MPMediaItemCollection(items: playItems)
-            player?.setQueue(with: playQueue)
-            player?.play()            
+            self.items = playItems
         }
+    }
+    
+    func play() {
+        let playQueue: MPMediaItemCollection = MPMediaItemCollection(items: self.items)
+        player?.setQueue(with: playQueue)
+        player?.play()
     }
 
 }

@@ -14,9 +14,17 @@ struct SettingView: View {
         NavigationView {
             Form {
                 NumberPlusMinusInputView(title: "選択曲数", bounds: 1...30, number: self.$settingData.selectMusicCount)
+                    .onChange(of: self.settingData.selectMusicCount, perform: { value in
+                        print("Setting onChange:\(value)")
+                        self.settingData.save()
+                    })
                 HStack {
                     Toggle(isOn: self.$settingData.autoPlay, label: {
                         Text("自動再生")
+                    })
+                    .onChange(of: self.settingData.autoPlay, perform: { value in
+                        print("Setting onChange:\(value)")
+                        self.settingData.save()
                     })
                 }
             }
@@ -30,10 +38,6 @@ struct SettingView: View {
         .onDisappear() {
             print("Setting onDisappear")
         }
-        .onChange(of: self.settingData.selectMusicCount, perform: { value in
-            print("Setting onChange:\(value)")
-            self.settingData.save()
-        })
     }
 }
 

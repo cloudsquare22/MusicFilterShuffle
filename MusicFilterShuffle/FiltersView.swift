@@ -38,6 +38,7 @@ struct FilterView: View {
     @EnvironmentObject var music: Music
     @EnvironmentObject var settingData: SettingData
     @State var dispProgress: Bool = false
+    @State var disapItemsView: Bool = false
 
     @Binding var onTap: Bool
     let title: String
@@ -60,8 +61,12 @@ struct FilterView: View {
                             else if self.filter == 1 {
                                 self.music.playCountMin(selectMusicCount: self.settingData.selectMusicCount)
                             }
+                            if self.settingData.autoPlay == true {
+                                self.music.play()
+                            }
                             self.dispProgress.toggle()
                             self.onTap = false
+                            self.disapItemsView.toggle()
                         }
                     }
                     else {
@@ -71,6 +76,9 @@ struct FilterView: View {
             Spacer()
         }
         .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
+        .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
+            ItemsView()
+        })
     }
 }
 

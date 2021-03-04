@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D34A41A25ED9257005450CE /* NumberPlusMinusInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D34A41925ED9257005450CE /* NumberPlusMinusInputView.swift */; };
 		8D34A41D25ED96EF005450CE /* SettingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D34A41C25ED96EF005450CE /* SettingData.swift */; };
+		8D34A42125F1030E005450CE /* ItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D34A42025F1030E005450CE /* ItemsView.swift */; };
 		8DB8F4D225E5ACE800ED995F /* MusicFilterShuffleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8F4D125E5ACE800ED995F /* MusicFilterShuffleApp.swift */; };
 		8DB8F4D425E5ACE800ED995F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8F4D325E5ACE800ED995F /* ContentView.swift */; };
 		8DB8F4D625E5ACE900ED995F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DB8F4D525E5ACE900ED995F /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		8D34A41925ED9257005450CE /* NumberPlusMinusInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPlusMinusInputView.swift; sourceTree = "<group>"; };
 		8D34A41C25ED96EF005450CE /* SettingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingData.swift; sourceTree = "<group>"; };
+		8D34A42025F1030E005450CE /* ItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsView.swift; sourceTree = "<group>"; };
 		8DB8F4CE25E5ACE800ED995F /* MusicFilterShuffle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicFilterShuffle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DB8F4D125E5ACE800ED995F /* MusicFilterShuffleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicFilterShuffleApp.swift; sourceTree = "<group>"; };
 		8DB8F4D325E5ACE800ED995F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				8DEFFC4E25EB724E00A2FAE5 /* SettingView.swift */,
 				8DEFFC5125EB727C00A2FAE5 /* AboutView.swift */,
 				8D34A41925ED9257005450CE /* NumberPlusMinusInputView.swift */,
+				8D34A42025F1030E005450CE /* ItemsView.swift */,
 			);
 			path = MusicFilterShuffle;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DEFFC4C25EB723E00A2FAE5 /* FiltersView.swift in Sources */,
+				8D34A42125F1030E005450CE /* ItemsView.swift in Sources */,
 				8DEFFC4F25EB724E00A2FAE5 /* SettingView.swift in Sources */,
 				8DB8F4D425E5ACE800ED995F /* ContentView.swift in Sources */,
 				8DB8F4D225E5ACE800ED995F /* MusicFilterShuffleApp.swift in Sources */,
