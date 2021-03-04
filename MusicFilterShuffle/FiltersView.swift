@@ -23,7 +23,7 @@ struct FiltersView: View {
                         FilterView(onTap: self.$onTap, title: "Last Played Date Old", filter: 0)
                             .frame(width: geometry.size.width / 2, height: geometry.size.width, alignment: .center)
                         FilterView(onTap: self.$onTap, title: "Play Count Min", filter: 1)
-                            .frame(width: geometry.size.width / 2, height: geometry.size.width, alignment: .center)
+                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2, alignment: .center)
                     }
                     .padding(8.0)
                 }
