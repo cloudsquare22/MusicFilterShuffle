@@ -21,9 +21,19 @@ struct FiltersView: View {
                 GeometryReader { geometry in
                     LazyVGrid(columns: columns) {
                         FilterView(onTap: self.$onTap, title: "Last Played Date Old", filter: 0)
-                            .frame(width: geometry.size.width / 2, height: geometry.size.width, alignment: .center)
+                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2, alignment: .center)
+                            .background(
+                                Image(systemName: "play")
+                                    .resizable()
+//                                    .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
+                                    .foregroundColor(Color(.lightGray).opacity(0.5)))
                         FilterView(onTap: self.$onTap, title: "Play Count Min", filter: 1)
                             .frame(width: geometry.size.width / 2, height: geometry.size.width / 2, alignment: .center)
+                            .background(
+                                Image(systemName: "play")
+                                    .resizable()
+//                                    .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
+                                    .foregroundColor(Color(.lightGray).opacity(0.5)))
                     }
                     .padding(8.0)
                 }
@@ -68,7 +78,11 @@ struct FilterView: View {
                 .font(.title2)
                 .fontWeight(.light)
                 .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                .background(Image(systemName: "play").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/))
+//                .background(
+//                    Image(systemName: "play")
+//                        .resizable()
+//                        .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
+//                        .foregroundColor(Color(.lightGray).opacity(0.5)))
                 .onTapGesture {
                     if self.onTap == false {
                         self.onTap = true
