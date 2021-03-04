@@ -18,7 +18,7 @@ struct ItemsView: View {
                 if self.settingData.autoPlay == false {
                     HStack {
                         Spacer()
-                        Image(systemName: "play")
+                        Image(systemName: "play.fill")
                             .foregroundColor(.blue)
                             .font(.largeTitle)
                             .onTapGesture {
@@ -43,7 +43,7 @@ struct ItemsView: View {
                 if self.settingData.autoPlay == false {
                     HStack {
                         Spacer()
-                        Image(systemName: "play")
+                        Image(systemName: "play.fill")
                             .foregroundColor(.blue)
                             .font(.largeTitle)
                             .onTapGesture {
@@ -59,6 +59,7 @@ struct ItemsView: View {
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Image(systemName: "xmark")
+                    .font(.title2)
             }))
         }
         .navigationViewStyle(StackNavigationViewStyle())
