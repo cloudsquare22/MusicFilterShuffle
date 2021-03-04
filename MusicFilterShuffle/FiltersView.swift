@@ -13,16 +13,34 @@ struct FiltersView: View {
 
     @State var onTap = false
 
+    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+
     var body: some View {
         NavigationView {
-            List {
-                FilterView(onTap: self.$onTap, title: "Last Played Date Old", filter: 0)
-                FilterView(onTap: self.$onTap, title: "Play Count Min", filter: 1)
+            ScrollView {
+                GeometryReader { geometry in
+                    LazyVGrid(columns: columns) {
+                        FilterView(onTap: self.$onTap, title: "Last Played Date Old", filter: 0)
+                            .frame(width: geometry.size.width / 2, height: geometry.size.width, alignment: .center)
+                        FilterView(onTap: self.$onTap, title: "Play Count Min", filter: 1)
+                            .frame(width: geometry.size.width / 2, height: geometry.size.width, alignment: .center)
+                    }
+                    .padding(8.0)
+                }
             }
             .padding(8.0)
             .navigationBarTitle("Filters", displayMode: .inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
+//        NavigationView {
+//            List {
+//                FilterView(onTap: self.$onTap, title: "Last Played Date Old", filter: 0)
+//                FilterView(onTap: self.$onTap, title: "Play Count Min", filter: 1)
+//            }
+//            .padding(8.0)
+//            .navigationBarTitle("Filters", displayMode: .inline)
+//        }
+//        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
@@ -50,6 +68,7 @@ struct FilterView: View {
                 .font(.title2)
                 .fontWeight(.light)
                 .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                .background(Image(systemName: "play").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/))
                 .onTapGesture {
                     if self.onTap == false {
                         self.onTap = true
@@ -73,8 +92,8 @@ struct FilterView: View {
                         print("onTap Noaction!!")
                     }
                 }
-            Spacer()
         }
+        .padding(8.0)
         .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
         .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
             ItemsView()
