@@ -13,32 +13,19 @@ struct FiltersView: View {
 
     @State var onTap = false
 
-    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+//    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+    var columns: [GridItem] = [GridItem(spacing: 0), GridItem(spacing: 8)]
 
     var body: some View {
         NavigationView {
             ScrollView {
                 GeometryReader { geometry in
                     LazyVGrid(columns: columns) {
-                        FilterView(onTap: self.$onTap, title: "Last Played Date Old", filter: 0)
-                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2, alignment: .center)
-                            .background(
-                                Image(systemName: "play")
-                                    .resizable()
-//                                    .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
-                                    .foregroundColor(Color(.lightGray).opacity(0.5)))
-                        FilterView(onTap: self.$onTap, title: "Play Count Min", filter: 1)
-                            .frame(width: geometry.size.width / 2, height: geometry.size.width / 2, alignment: .center)
-                            .background(
-                                Image(systemName: "play")
-                                    .resizable()
-//                                    .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
-                                    .foregroundColor(Color(.lightGray).opacity(0.5)))
+                        FilterView(onTap: self.$onTap, title: "Last Played Date Old", filter: 0, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "Play Count Min", filter: 1, size: geometry.size.width)
                     }
-                    .padding(8.0)
                 }
             }
-            .padding(8.0)
             .navigationBarTitle("Filters", displayMode: .inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
@@ -71,47 +58,44 @@ struct FilterView: View {
     @Binding var onTap: Bool
     let title: String
     let filter: Int
+    let size: CGFloat
     
     var body: some View {
-        HStack {
-            Text(self.title)
-                .font(.title2)
-                .fontWeight(.light)
-                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-//                .background(
-//                    Image(systemName: "play")
-//                        .resizable()
-//                        .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
-//                        .foregroundColor(Color(.lightGray).opacity(0.5)))
-                .onTapGesture {
-                    if self.onTap == false {
-                        self.onTap = true
-                        self.dispProgress.toggle()
-                        DispatchQueue.global().async {
-                            if self.filter == 0 {
-                                self.music.lastPlayedDateOld()
-                            }
-                            else if self.filter == 1 {
-                                self.music.playCountMin(selectMusicCount: self.settingData.selectMusicCount)
-                            }
-                            if self.settingData.autoPlay == true {
-                                self.music.play()
-                            }
-                            self.dispProgress.toggle()
-                            self.onTap = false
-                            self.disapItemsView.toggle()
+        RoundedRectangle(cornerRadius: 32)
+            .frame(width: CGFloat(size / 2), height: CGFloat(size / 2), alignment: .center)
+            .overlay(
+                Text(self.title)
+                    .font(.title2)
+                    .fontWeight(.light)
+                    .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+            )
+            .onTapGesture {
+                if self.onTap == false {
+                    self.onTap = true
+                    self.dispProgress.toggle()
+                    DispatchQueue.global().async {
+                        if self.filter == 0 {
+                            self.music.lastPlayedDateOld()
                         }
-                    }
-                    else {
-                        print("onTap Noaction!!")
+                        else if self.filter == 1 {
+                            self.music.playCountMin(selectMusicCount: self.settingData.selectMusicCount)
+                        }
+                        if self.settingData.autoPlay == true {
+                            self.music.play()
+                        }
+                        self.dispProgress.toggle()
+                        self.onTap = false
+                        self.disapItemsView.toggle()
                     }
                 }
-        }
-        .padding(8.0)
-        .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
-        .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
-            ItemsView()
-        })
+                else {
+                    print("onTap Noaction!!")
+                }
+            }
+            .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
+            .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
+                ItemsView()
+            })
     }
 }
 
