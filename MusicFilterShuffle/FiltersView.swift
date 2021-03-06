@@ -24,7 +24,7 @@ struct FiltersView: View {
                         FilterView(onTap: self.$onTap, title: "Last Played Date Old", filter: 0, size: geometry.size.width)
                         FilterView(onTap: self.$onTap, title: "Play Count Min", filter: 1, size: geometry.size.width)
                     }
-                    .padding(8.0)
+                    .padding(16)
                 }
             }
             .navigationBarTitle("Filters", displayMode: .inline)
@@ -65,7 +65,8 @@ struct FilterView: View {
         Text(self.title)
             .font(.title2)
             .fontWeight(.light)
-            .frame(width: CGFloat(abs(size / 2 - 16)), height: CGFloat(abs(size / 2 - 16)), alignment: .center)
+            .padding(16)
+            .frame(width: CGFloat(abs(size / 2 - 24)), height: CGFloat(abs(size / 2 - 24)), alignment: .center)
             .overlay(RoundedRectangle(cornerRadius: 32).stroke())
             .overlay(RoundedRectangle(cornerRadius: 32).foregroundColor(Color.gray.opacity(0.0000001))
             .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
@@ -94,6 +95,8 @@ struct FilterView: View {
             }
             .onLongPressGesture {
                 print("cc long")
+                print("\(self.size)")
+                print("\(abs(self.size / 2 - 16))")
             })
             .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
                 ItemsView()
