@@ -14,7 +14,7 @@ struct FiltersView: View {
     @State var onTap = false
 
 //    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
-    var columns: [GridItem] = [GridItem(spacing: 8), GridItem(spacing: 8)]
+    var columns: [GridItem] = [GridItem(spacing: 16), GridItem(spacing: 16)]
 
     var body: some View {
         NavigationView {
@@ -62,55 +62,41 @@ struct FilterView: View {
     let size: CGFloat
     
     var body: some View {
-        Button(action: {
-            if self.onTap == false {
-                self.onTap = true
-                self.dispProgress.toggle()
-                DispatchQueue.global().async {
-                    if self.filter == 0 {
-                        self.music.lastPlayedDateOld()
-                    }
-                    else if self.filter == 1 {
-                        self.music.playCountMin(selectMusicCount: self.settingData.selectMusicCount)
-                    }
-                    if self.settingData.autoPlay == true {
-                        self.music.play()
-                    }
-                    self.dispProgress.toggle()
-                    self.onTap = false
-                    self.disapItemsView.toggle()
-                }
-            }
-            else {
-                print("onTap Noaction!!")
-            }
-        }, label: {
-            Text(self.title)
-                .font(.title2)
-                .fontWeight(.light)
-                .frame(width: CGFloat(abs(size / 2 - 8)), height: CGFloat(abs(size / 2 - 8)), alignment: .center)
-//                .background(Color.red)
-                .cornerRadius(32, antialiased: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-        })
-        .overlay(RoundedRectangle(cornerRadius: 32).stroke())
-        .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
-        .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
-            ItemsView()
-        })
         Text(self.title)
             .font(.title2)
             .fontWeight(.light)
-            .frame(width: CGFloat(abs(size / 2 - 8)), height: CGFloat(abs(size / 2 - 8)), alignment: .center)
+            .frame(width: CGFloat(abs(size / 2 - 16)), height: CGFloat(abs(size / 2 - 16)), alignment: .center)
+            .overlay(RoundedRectangle(cornerRadius: 32).stroke())
+            .overlay(RoundedRectangle(cornerRadius: 32).foregroundColor(Color.gray.opacity(0.0000001))
+            .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
             .onTapGesture {
-                print("aa")
+                if self.onTap == false {
+                    self.onTap = true
+                    self.dispProgress.toggle()
+                    DispatchQueue.global().async {
+                        if self.filter == 0 {
+                            self.music.lastPlayedDateOld()
+                        }
+                        else if self.filter == 1 {
+                            self.music.playCountMin(selectMusicCount: self.settingData.selectMusicCount)
+                        }
+                        if self.settingData.autoPlay == true {
+                            self.music.play()
+                        }
+                        self.dispProgress.toggle()
+                        self.onTap = false
+                        self.disapItemsView.toggle()
+                    }
+                }
+                else {
+                    print("onTap Noaction!!")
+                }
             }
-            .overlay(RoundedRectangle(cornerRadius: 32).stroke().onTapGesture {
-                print("bb")
-            })
-            .overlay(RoundedRectangle(cornerRadius: 32).foregroundColor(Color.gray.opacity(0.00001)).onTapGesture {
-                print("cc")
-            }.onLongPressGesture {
+            .onLongPressGesture {
                 print("cc long")
+            })
+            .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
+                ItemsView()
             })
     }
 }
