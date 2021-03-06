@@ -54,13 +54,20 @@ struct ItemsView: View {
                 }
             }
             .padding(8.0)
-            .navigationBarTitle("Items", displayMode: .inline)
-            .navigationBarItems(trailing: Button(action: {
+            .overlay(Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
-                Image(systemName: "xmark")
-                    .font(.title2)
-            }))
+                Image(systemName: "xmark.circle")
+                    .font(.largeTitle)
+                    .padding(8.0)
+            }), alignment: .bottom)
+            .navigationBarTitle("Items", displayMode: .inline)
+//            .navigationBarItems(trailing: Button(action: {
+//                self.presentationMode.wrappedValue.dismiss()
+//            }, label: {
+//                Image(systemName: "xmark")
+//                    .font(.title2)
+//            }))
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
