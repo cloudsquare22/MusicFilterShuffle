@@ -21,12 +21,12 @@ struct FiltersView: View {
             ScrollView {
                 GeometryReader { geometry in
                     LazyVGrid(columns: columns) {
-                        FilterView(onTap: self.$onTap, title: "Old Play", filter: 0, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, title: "New Play", filter: 1, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, title: "Forgotten", filter: 2, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, title: "Heavy Rotation", filter: 3, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, title: "Album Shuffle", filter: 4, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, title: "Album Not Complete", filter: 5, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, imageName: "music.note", title: "Old Play", filter: 0, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, imageName: "music.note", title: "New Play", filter: 1, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, imageName: "music.note", title: "Forgotten", filter: 2, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, imageName: "music.note", title: "Heavy Rotation", filter: 3, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, imageName: "opticaldisc", title: "Album Shuffle", filter: 4, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, imageName: "music.note.list", title: "Album Not Complete", filter: 5, size: geometry.size.width)
                     }
                     .padding(16)
                 }
@@ -52,21 +52,14 @@ struct FilterView: View {
     @State var disapItemsView: Bool = false
 
     @Binding var onTap: Bool
+    let imageName: String
     let title: String
     let filter: Int
     let size: CGFloat
     
     var body: some View {
         VStack(spacing: 8) {
-            if self.filter == 4 {
-                Image(systemName: "opticaldisc")
-            }
-            else if self.filter == 5 {
-                Image(systemName: "music.note.list")
-            }
-            else {
-                Image(systemName: "music.note")
-            }
+            Image(systemName: imageName)
             Text(self.title)
                 .fontWeight(.light)
         }
