@@ -22,7 +22,8 @@ struct FiltersView: View {
                 GeometryReader { geometry in
                     LazyVGrid(columns: columns) {
                         FilterView(onTap: self.$onTap, title: "Last Played Date Old", filter: 0, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, title: "Play Count Min", filter: 1, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "Forgotten", filter: 1, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "Heavy rotation", filter: 2, size: geometry.size.width)
                     }
                     .padding(16)
                 }
@@ -30,15 +31,6 @@ struct FiltersView: View {
             .navigationBarTitle("Filters", displayMode: .inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
-//        NavigationView {
-//            List {
-//                FilterView(onTap: self.$onTap, title: "Last Played Date Old", filter: 0)
-//                FilterView(onTap: self.$onTap, title: "Play Count Min", filter: 1)
-//            }
-//            .padding(8.0)
-//            .navigationBarTitle("Filters", displayMode: .inline)
-//        }
-//        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
@@ -80,6 +72,9 @@ struct FilterView: View {
                         }
                         else if self.filter == 1 {
                             self.music.playCountMin(selectMusicCount: self.settingData.selectMusicCount)
+                        }
+                        else if self.filter == 2 {
+                            self.music.playCountMax(selectMusicCount: self.settingData.selectMusicCount)
                         }
                         if self.settingData.autoPlay == true {
                             self.music.play()

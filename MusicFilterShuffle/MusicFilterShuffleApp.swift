@@ -9,11 +9,13 @@ import SwiftUI
 
 @main
 struct MusicFilterShuffleApp: App {
+    static var settingData: SettingData = SettingData()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(Music())
-                .environmentObject(SettingData())
+                .environmentObject(MusicFilterShuffleApp.settingData)
         }
     }
 }

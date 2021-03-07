@@ -11,8 +11,7 @@ import Algorithms
 
 final class Music: ObservableObject {
     var player: MPMusicPlayerController? = nil
-    var items: [MPMediaItem] = []
-    var iCloud: Bool = false
+    var playItems: [MPMediaItem] = []
     
     init() {
         self.player = MPMusicPlayerController.systemMusicPlayer
@@ -59,9 +58,35 @@ final class Music: ObservableObject {
         }
     }
     
+    func playCountMax(selectMusicCount: Int) {
+        let items = self.songs()
+        print("---------- sort ----------")
+        print(Date())
+        let sortcitems = items.sorted(by: { a, b in
+            return a.playCount > b.playCount
+        })
+        print(Date())
+        print("---------- play items ----------")
+        self.playItems = Array(sortcitems.prefix(selectMusicCount))
+        self.printPlayItems()
+    }
+    
     func playCountMin(selectMusicCount: Int) {
-        var selectMusicCount = selectMusicCount
-        let iCloudFilter = MPMediaPropertyPredicate(value: self.iCloud,
+        let items = self.songs()
+        print("---------- sort ----------")
+        print(Date())
+        let sortcitems = items.sorted(by: { a, b in
+            return a.playCount < b.playCount
+        })
+        print(Date())
+        print("---------- play items ----------")
+        self.playItems = Array(sortcitems.prefix(selectMusicCount))
+        self.printPlayItems()
+    }
+    
+    func songs() -> [MPMediaItem] {
+        var retsult: [MPMediaItem] = []
+        let iCloudFilter = MPMediaPropertyPredicate(value: MusicFilterShuffleApp.settingData.iCloud,
                                                     forProperty: MPMediaItemPropertyIsCloudItem,
                                                     comparisonType: .equalTo)
         let mPMediaQuery = MPMediaQuery.songs()
@@ -69,38 +94,25 @@ final class Music: ObservableObject {
         if let items = mPMediaQuery.items {
             print(items.count)
 
-            if items.count < selectMusicCount {
-                selectMusicCount = items.count
-            }
-            
             print("---------- randam ----------")
             print(Date())
             let randamcitems = items.randomSample(count: items.count)
             print(Date())
-            randamcitems.forEach({ item in})
-            for index in 0..<selectMusicCount  {
-                print("\(randamcitems[index].title!):\(randamcitems[index].albumTitle!):\(randamcitems[index].playCount)")
-            }
-
-            print("---------- sort ----------")
-            print(Date())
-            let sortcitems = randamcitems.sorted(by: { a, b in
-                return a.playCount < b.playCount
-            })
-            print(Date())
-            var playItems: [MPMediaItem] = []
-            for index in 0..<selectMusicCount  {
-                print("\(sortcitems[index].title!):\(sortcitems[index].albumTitle!):\(sortcitems[index].playCount)")
-                playItems.append(sortcitems[index])
-            }
-            self.items = playItems
+            retsult = randamcitems
         }
+        return retsult
     }
     
     func play() {
-        let playQueue: MPMediaItemCollection = MPMediaItemCollection(items: self.items)
+        let playQueue: MPMediaItemCollection = MPMediaItemCollection(items: self.playItems)
         player?.setQueue(with: playQueue)
         player?.play()
+    }
+    
+    func printPlayItems() {
+        self.playItems.forEach({ item in
+            print("\(item.title!):\(item.albumTitle!):\(item.playCount)")
+        })
     }
 
 }

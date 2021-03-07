@@ -15,15 +15,15 @@ struct ItemsView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(0..<self.music.items.count) { index in
+                ForEach(0..<self.music.playItems.count) { index in
                     VStack(alignment: .leading) {
-                        Text("\(self.music.items[index].title!)")
-                        if self.music.items[index].albumArtist != nil {
-                            Text("\(self.music.items[index].albumArtist!)")
+                        Text("\(self.music.playItems[index].title!)")
+                        if self.music.playItems[index].albumArtist != nil {
+                            Text("\(self.music.playItems[index].albumArtist!)")
                                 .font(.caption)
                         }
                         else {
-                            Text("\(self.music.items[index].artist!)")
+                            Text("\(self.music.playItems[index].artist!)")
                                 .font(.caption)
                         }
                     }

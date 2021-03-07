@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SettingView: View {
-    @EnvironmentObject var music: Music
     @EnvironmentObject var settingData: SettingData
 
     var body: some View {
@@ -34,7 +33,6 @@ struct SettingView: View {
                     })
                     .onChange(of: self.settingData.iCloud, perform: { value in
                         print("Setting onChange:\(value)")
-                        self.music.iCloud = value
                         self.settingData.save()
                     })
                 }
@@ -54,7 +52,6 @@ struct SettingView: View {
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
         SettingView()
-            .environmentObject(Music())
             .environmentObject(SettingData())
     }
 }
