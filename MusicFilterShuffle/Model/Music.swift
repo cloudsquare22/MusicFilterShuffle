@@ -82,6 +82,23 @@ final class Music: ObservableObject {
         self.printPlayItems()
     }
     
+    func playAlbumShuffle() {
+        let collections = self.albums()
+        print("---------- select ----------")
+        print(Date())
+        var items: [MPMediaItem] = []
+        for collection in collections {
+            if collection.items.count >= MusicFilterShuffleApp.settingData.selectAlbumMinTracks {
+                items = collection.items
+                break
+            }
+        }
+        print(Date())
+        print("---------- play items ----------")
+        self.playItems = items
+        self.printPlayItems()
+    }
+    
     func songs() -> [MPMediaItem] {
         var retsult: [MPMediaItem] = []
         let iCloudFilter = MPMediaPropertyPredicate(value: MusicFilterShuffleApp.settingData.iCloud,
@@ -99,6 +116,25 @@ final class Music: ObservableObject {
             retsult = randamcitems
         }
         return retsult
+    }
+    
+    func albums() ->  [MPMediaItemCollection] {
+        var result: [MPMediaItemCollection] = []
+        let iCloudFilter = MPMediaPropertyPredicate(value: MusicFilterShuffleApp.settingData.iCloud,
+                                                    forProperty: MPMediaItemPropertyIsCloudItem,
+                                                    comparisonType: .equalTo)
+        let mPMediaQuery = MPMediaQuery.albums()
+        mPMediaQuery.addFilterPredicate(iCloudFilter)
+        if let collections = mPMediaQuery.collections {
+            print(collections.count)
+
+            print("---------- randam ----------")
+            print(Date())
+            let randamcollections = collections.randomSample(count: collections.count)
+            print(Date())
+            result = randamcollections
+        }
+        return result
     }
     
     func play() {

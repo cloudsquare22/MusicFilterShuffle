@@ -13,28 +13,47 @@ struct SettingView: View {
     var body: some View {
         NavigationView {
             Form {
-                NumberPlusMinusInputView(title: "Select music count", bounds: 1...100, number: self.$settingData.selectMusicCount)
-                    .onChange(of: self.settingData.selectMusicCount, perform: { value in
-                        print("Setting onChange:\(value)")
-                        self.settingData.save()
-                    })
-                HStack {
-                    Toggle(isOn: self.$settingData.autoPlay, label: {
-                        Text("Auto play")
-                    })
-                    .onChange(of: self.settingData.autoPlay, perform: { value in
-                        print("Setting onChange:\(value)")
-                        self.settingData.save()
-                    })
+                Section(header: Text("All")) {
+                    HStack {
+                        Toggle(isOn: self.$settingData.iCloud, label: {
+                            Text("Use iCloud")
+                        })
+                        .onChange(of: self.settingData.iCloud, perform: { value in
+                            print("Setting onChange:\(value)")
+                            self.settingData.save()
+                        })
+                    }
+                    HStack {
+                        Toggle(isOn: self.$settingData.autoPlay, label: {
+                            Text("Auto play")
+                        })
+                        .onChange(of: self.settingData.autoPlay, perform: { value in
+                            print("Setting onChange:\(value)")
+                            self.settingData.save()
+                        })
+                    }
+
                 }
-                HStack {
-                    Toggle(isOn: self.$settingData.iCloud, label: {
-                        Text("Use iCloud")
-                    })
-                    .onChange(of: self.settingData.iCloud, perform: { value in
-                        print("Setting onChange:\(value)")
-                        self.settingData.save()
-                    })
+                Section(header: HStack {
+                    Image(systemName: "music.note")
+                    Text("Song select")
+                }) {
+                    NumberPlusMinusInputView(title: "Select song count", bounds: 1...100, number: self.$settingData.selectMusicCount)
+                        .onChange(of: self.settingData.selectMusicCount, perform: { value in
+                            print("Setting onChange:\(value)")
+                            self.settingData.save()
+                        })
+                }
+                Section(header: HStack {
+                    Image(systemName: "opticaldisc")
+                    Text("Album select")
+                })
+                {
+                    NumberPlusMinusInputView(title: "Select min tracks", bounds: 1...100, number: self.$settingData.selectAlbumMinTracks)
+                        .onChange(of: self.settingData.selectAlbumMinTracks, perform: { value in
+                            print("Setting onChange:\(value)")
+                            self.settingData.save()
+                        })
                 }
             }
             .navigationBarTitle("Setting", displayMode: .inline)

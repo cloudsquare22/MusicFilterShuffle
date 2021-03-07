@@ -11,10 +11,21 @@ struct ItemsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var music: Music
     @EnvironmentObject var settingData: SettingData
+    let isAlbum:Bool
 
     var body: some View {
         NavigationView {
             List {
+                if self.isAlbum == true {
+                    HStack {
+                        Spacer()
+                        if self.music.playItems.count > 0 {
+                            Text(self.music.playItems[0].albumTitle!)
+                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        }
+                        Spacer()
+                    }
+                }
                 ForEach(0..<self.music.playItems.count) { index in
                     VStack(alignment: .leading) {
                         Text("\(self.music.playItems[index].title!)")
@@ -54,7 +65,7 @@ struct ItemsView: View {
 
 struct ItemsView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemsView()
+        ItemsView(isAlbum: false)
             .environmentObject(Music())
             .environmentObject(SettingData())
     }

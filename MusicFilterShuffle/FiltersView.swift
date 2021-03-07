@@ -21,10 +21,11 @@ struct FiltersView: View {
             ScrollView {
                 GeometryReader { geometry in
                     LazyVGrid(columns: columns) {
-                        FilterView(onTap: self.$onTap, title: "Oldadays", filter: 0, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "Olddays", filter: 0, size: geometry.size.width)
                         FilterView(onTap: self.$onTap, title: "Nowadays", filter: 1, size: geometry.size.width)
                         FilterView(onTap: self.$onTap, title: "Forgotten", filter: 2, size: geometry.size.width)
                         FilterView(onTap: self.$onTap, title: "Heavy rotation", filter: 3, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "Album Shuffle", filter: 4, size: geometry.size.width)
                     }
                     .padding(16)
                 }
@@ -55,9 +56,18 @@ struct FilterView: View {
     let size: CGFloat
     
     var body: some View {
-        Text(self.title)
+        VStack {
+            if self.filter == 4 {
+                Image(systemName: "opticaldisc")
+            }
+            else {
+                Image(systemName: "music.note")
+            }
+            Text(self.title)
+                .fontWeight(.light)
+
+        }
             .font(.title2)
-            .fontWeight(.light)
             .padding(16)
             .frame(width: CGFloat(abs(size / 2 - 24)), height: CGFloat(abs(size / 2 - 24)), alignment: .center)
             .overlay(RoundedRectangle(cornerRadius: 32).stroke())
@@ -80,6 +90,9 @@ struct FilterView: View {
                         else if self.filter == 3 {
                             self.music.playCountMax(selectMusicCount: self.settingData.selectMusicCount)
                         }
+                        else if self.filter == 4 {
+                            self.music.playAlbumShuffle()
+                        }
                         if self.settingData.autoPlay == true {
                             self.music.play()
                         }
@@ -98,7 +111,12 @@ struct FilterView: View {
                 print("\(abs(self.size / 2 - 16))")
             })
             .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
-                ItemsView()
+                if self.filter == 4 {
+                    ItemsView(isAlbum: true)
+                }
+                else {
+                    ItemsView(isAlbum: false)
+                }
             })
     }
 }
