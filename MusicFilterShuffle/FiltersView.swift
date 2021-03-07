@@ -56,7 +56,7 @@ struct FilterView: View {
     let size: CGFloat
     
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
             if self.filter == 4 {
                 Image(systemName: "opticaldisc")
             }
@@ -65,59 +65,58 @@ struct FilterView: View {
             }
             Text(self.title)
                 .fontWeight(.light)
-
         }
-            .font(.title2)
-            .padding(16)
-            .frame(width: CGFloat(abs(size / 2 - 24)), height: CGFloat(abs(size / 2 - 24)), alignment: .center)
-            .overlay(RoundedRectangle(cornerRadius: 32).stroke())
-            .overlay(RoundedRectangle(cornerRadius: 32).foregroundColor(Color.gray.opacity(0.0000001))
-            .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
-            .onTapGesture {
-                if self.onTap == false {
-                    self.onTap = true
-                    self.dispProgress.toggle()
-                    DispatchQueue.global().async {
-                        if self.filter == 0 {
-                            self.music.lastPlayedDateOld(selectMusicCount: self.settingData.selectMusicCount)
-                        }
-                        if self.filter == 1 {
-                            self.music.lastPlayedDateNew(selectMusicCount: self.settingData.selectMusicCount)
-                        }
-                        else if self.filter == 2 {
-                            self.music.playCountMin(selectMusicCount: self.settingData.selectMusicCount)
-                        }
-                        else if self.filter == 3 {
-                            self.music.playCountMax(selectMusicCount: self.settingData.selectMusicCount)
-                        }
-                        else if self.filter == 4 {
-                            self.music.playAlbumShuffle()
-                        }
-                        if self.settingData.autoPlay == true {
-                            self.music.play()
-                        }
-                        self.dispProgress.toggle()
-                        self.onTap = false
-                        self.disapItemsView.toggle()
+        .font(.title2)
+        .padding(16)
+        .frame(width: CGFloat(abs(size / 2 - 24)), height: CGFloat(abs(size / 2 - 24)), alignment: .center)
+        .overlay(RoundedRectangle(cornerRadius: 32).stroke())
+        .overlay(RoundedRectangle(cornerRadius: 32).foregroundColor(Color.gray.opacity(0.0000001)))
+        .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
+        .onTapGesture {
+            if self.onTap == false {
+                self.onTap = true
+                self.dispProgress.toggle()
+                DispatchQueue.global().async {
+                    if self.filter == 0 {
+                        self.music.lastPlayedDateOld(selectMusicCount: self.settingData.selectMusicCount)
                     }
-                }
-                else {
-                    print("onTap Noaction!!")
+                    if self.filter == 1 {
+                        self.music.lastPlayedDateNew(selectMusicCount: self.settingData.selectMusicCount)
+                    }
+                    else if self.filter == 2 {
+                        self.music.playCountMin(selectMusicCount: self.settingData.selectMusicCount)
+                    }
+                    else if self.filter == 3 {
+                        self.music.playCountMax(selectMusicCount: self.settingData.selectMusicCount)
+                    }
+                    else if self.filter == 4 {
+                        self.music.playAlbumShuffle()
+                    }
+                    if self.settingData.autoPlay == true {
+                        self.music.play()
+                    }
+                    self.dispProgress.toggle()
+                    self.onTap = false
+                    self.disapItemsView.toggle()
                 }
             }
-            .onLongPressGesture {
-                print("cc long")
-                print("\(self.size)")
-                print("\(abs(self.size / 2 - 16))")
-            })
-            .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
-                if self.filter == 4 {
-                    ItemsView(isAlbum: true)
-                }
-                else {
-                    ItemsView(isAlbum: false)
-                }
-            })
+            else {
+                print("onTap Noaction!!")
+            }
+        }
+        .onLongPressGesture {
+            print("cc long")
+            print("\(self.size)")
+            print("\(abs(self.size / 2 - 16))")
+        }
+        .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
+            if self.filter == 4 {
+                ItemsView(isAlbum: true)
+            }
+            else {
+                ItemsView(isAlbum: false)
+            }
+        })
     }
 }
 
