@@ -15,18 +15,6 @@ struct ItemsView: View {
     var body: some View {
         NavigationView {
             List {
-                if self.settingData.autoPlay == false {
-                    HStack {
-                        Spacer()
-                        Image(systemName: "play.fill")
-                            .foregroundColor(.blue)
-                            .font(.largeTitle)
-                            .onTapGesture {
-                                self.music.play()
-                            }
-                        Spacer()
-                    }
-                }
                 ForEach(0..<self.music.items.count) { index in
                     VStack(alignment: .leading) {
                         Text("\(self.music.items[index].title!)")
@@ -40,34 +28,25 @@ struct ItemsView: View {
                         }
                     }
                 }
-                if self.settingData.autoPlay == false {
-                    HStack {
-                        Spacer()
-                        Image(systemName: "play.fill")
-                            .foregroundColor(.blue)
-                            .font(.largeTitle)
-                            .onTapGesture {
-                                self.music.play()
-                        }
-                        Spacer()
-                    }
-                }
+                Spacer()
             }
             .padding(8.0)
             .overlay(Button(action: {
+                    self.music.play()
+            }, label: {
+                if self.settingData.autoPlay == false {
+                    Image(systemName: "play")
+                        .font(Font.system(size: 48))
+                        .padding(8.0)
+                }
+            }), alignment: .bottom)
+            .navigationBarTitle("Items", displayMode: .inline)
+            .navigationBarItems(trailing: Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Image(systemName: "xmark.circle")
-                    .font(.largeTitle)
-                    .padding(8.0)
-            }), alignment: .bottom)
-            .navigationBarTitle("Items", displayMode: .inline)
-//            .navigationBarItems(trailing: Button(action: {
-//                self.presentationMode.wrappedValue.dismiss()
-//            }, label: {
-//                Image(systemName: "xmark")
-//                    .font(.title2)
-//            }))
+                    .font(.title)
+            }))
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
