@@ -21,10 +21,10 @@ struct FiltersView: View {
             ScrollView {
                 GeometryReader { geometry in
                     LazyVGrid(columns: columns) {
-                        FilterView(onTap: self.$onTap, title: "Olddays", filter: 0, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, title: "Nowadays", filter: 1, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "Old Play", filter: 0, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "New Play", filter: 1, size: geometry.size.width)
                         FilterView(onTap: self.$onTap, title: "Forgotten", filter: 2, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, title: "Heavy rotation", filter: 3, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "Heavy Rotation", filter: 3, size: geometry.size.width)
                         FilterView(onTap: self.$onTap, title: "Album Shuffle", filter: 4, size: geometry.size.width)
                     }
                     .padding(16)
