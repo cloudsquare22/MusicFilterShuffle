@@ -98,7 +98,34 @@ final class Music: ObservableObject {
         self.playItems = items
         self.printPlayItems()
     }
+
+    func playAlbumComplete() {
+        let collections = self.albums()
+        print("---------- select ----------")
+        print(Date())
+        var items: [MPMediaItem] = []
+        for collection in collections {
+            items = self.albumNotPlay(items: collection.items)
+            if items.isEmpty == false {
+                break
+            }
+        }
+        print(Date())
+        print("---------- play items ----------")
+        self.playItems = items
+        self.printPlayItems()
+    }
     
+    func albumNotPlay(items: [MPMediaItem]) -> [MPMediaItem] {
+        var result : [MPMediaItem] = []
+        for item in items {
+            if item.playCount == 0 {
+                result.append(item)
+            }
+        }
+        return result
+    }
+
     func songs() -> [MPMediaItem] {
         var retsult: [MPMediaItem] = []
         let iCloudFilter = MPMediaPropertyPredicate(value: MusicFilterShuffleApp.settingData.iCloud,

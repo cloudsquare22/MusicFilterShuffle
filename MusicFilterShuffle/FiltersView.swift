@@ -26,6 +26,7 @@ struct FiltersView: View {
                         FilterView(onTap: self.$onTap, title: "Forgotten", filter: 2, size: geometry.size.width)
                         FilterView(onTap: self.$onTap, title: "Heavy Rotation", filter: 3, size: geometry.size.width)
                         FilterView(onTap: self.$onTap, title: "Album Shuffle", filter: 4, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "Album Not Complete", filter: 5, size: geometry.size.width)
                     }
                     .padding(16)
                 }
@@ -60,6 +61,9 @@ struct FilterView: View {
             if self.filter == 4 {
                 Image(systemName: "opticaldisc")
             }
+            else if self.filter == 5 {
+                Image(systemName: "music.note.list")
+            }
             else {
                 Image(systemName: "music.note")
             }
@@ -92,6 +96,9 @@ struct FilterView: View {
                     else if self.filter == 4 {
                         self.music.playAlbumShuffle()
                     }
+                    else if self.filter == 5 {
+                        self.music.playAlbumComplete()
+                    }
                     if self.settingData.autoPlay == true {
                         self.music.play()
                     }
@@ -110,7 +117,7 @@ struct FilterView: View {
             print("\(abs(self.size / 2 - 16))")
         }
         .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
-            if self.filter == 4 {
+            if self.filter >= 4 {
                 ItemsView(isAlbum: true)
             }
             else {
