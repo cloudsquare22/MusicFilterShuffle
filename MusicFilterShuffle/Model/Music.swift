@@ -24,40 +24,38 @@ final class Music: ObservableObject {
         }
     }
     
-    func lastPlayedDateOld() {
-        let mPMediaQuery = MPMediaQuery.songs()
-        if let collections = mPMediaQuery.collections {
-            print(collections.count)
-
-            print(Date())
-            print("---------- randam ----------")
-            let randamcollections = collections.randomSample(count: collections.count)
-            print(Date())
-            for index in 0..<10  {
-                print("\(randamcollections[index].items[0].title!):\(randamcollections[index].items[0].albumTitle!)")
-            }
-
-            print(Date())
-            print("---------- sort ----------")
-            let sortcollections = randamcollections.sorted(by: { a, b in
-                var result = true
-                let adate = a.items[0].lastPlayedDate
-                let bdate = b.items[0].lastPlayedDate
-                if adate != nil && bdate != nil {
-                    result = adate! < bdate!
-                }
-                else if adate != nil && bdate == nil{
-                    result = false
-                }
-                return result
-            })
-            print(Date())
-            for index in 0..<10  {
-                print("\(sortcollections[index].items[0].title!):\(sortcollections[index].items[0].albumTitle!)")
-            }
-        }
+    func lastPlayedDateOld(selectMusicCount: Int) {
+        let items = self.songs()
+        let filteritems = items.filter{$0.lastPlayedDate != nil}
+        print("---------- sort ----------")
+        print(Date())
+        let sortcitems = filteritems.sorted(by: { a, b in
+            let adate = a.lastPlayedDate!
+            let bdate = b.lastPlayedDate!
+            return adate < bdate
+        })
+        print(Date())
+        print("---------- play items ----------")
+        self.playItems = Array(sortcitems.prefix(selectMusicCount))
+        self.printPlayItems()
     }
     
+    func lastPlayedDateNew(selectMusicCount: Int) {
+        let items = self.songs()
+        let filteritems = items.filter{$0.lastPlayedDate != nil}
+        print("---------- sort ----------")
+        print(Date())
+        let sortcitems = filteritems.sorted(by: { a, b in
+            let adate = a.lastPlayedDate!
+            let bdate = b.lastPlayedDate!
+            return adate > bdate
+        })
+        print(Date())
+        print("---------- play items ----------")
+        self.playItems = Array(sortcitems.prefix(selectMusicCount))
+        self.printPlayItems()
+    }
+
     func playCountMax(selectMusicCount: Int) {
         let items = self.songs()
         print("---------- sort ----------")
@@ -111,7 +109,12 @@ final class Music: ObservableObject {
     
     func printPlayItems() {
         self.playItems.forEach({ item in
-            print("\(item.title!):\(item.albumTitle!):\(item.playCount)")
+            if item.lastPlayedDate != nil {
+                print("\(item.title!):\(item.albumTitle!):\(item.playCount):\(item.lastPlayedDate!)")
+            }
+            else {
+                print("\(item.title!):\(item.albumTitle!):\(item.playCount):-")
+            }
         })
     }
 

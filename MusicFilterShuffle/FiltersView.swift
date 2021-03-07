@@ -21,9 +21,10 @@ struct FiltersView: View {
             ScrollView {
                 GeometryReader { geometry in
                     LazyVGrid(columns: columns) {
-                        FilterView(onTap: self.$onTap, title: "Last Played Date Old", filter: 0, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, title: "Forgotten", filter: 1, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, title: "Heavy rotation", filter: 2, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "Oldadays", filter: 0, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "Nowadays", filter: 1, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "Forgotten", filter: 2, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, title: "Heavy rotation", filter: 3, size: geometry.size.width)
                     }
                     .padding(16)
                 }
@@ -68,12 +69,15 @@ struct FilterView: View {
                     self.dispProgress.toggle()
                     DispatchQueue.global().async {
                         if self.filter == 0 {
-                            self.music.lastPlayedDateOld()
+                            self.music.lastPlayedDateOld(selectMusicCount: self.settingData.selectMusicCount)
                         }
-                        else if self.filter == 1 {
-                            self.music.playCountMin(selectMusicCount: self.settingData.selectMusicCount)
+                        if self.filter == 1 {
+                            self.music.lastPlayedDateNew(selectMusicCount: self.settingData.selectMusicCount)
                         }
                         else if self.filter == 2 {
+                            self.music.playCountMin(selectMusicCount: self.settingData.selectMusicCount)
+                        }
+                        else if self.filter == 3 {
                             self.music.playCountMax(selectMusicCount: self.settingData.selectMusicCount)
                         }
                         if self.settingData.autoPlay == true {
