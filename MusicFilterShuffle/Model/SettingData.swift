@@ -10,6 +10,7 @@ import Foundation
 final class SettingData: ObservableObject {
     @Published var selectMusicCount:Int = 10
     @Published var autoPlay: Bool = true
+    @Published var iCloud: Bool = false
     
     let userdefault = UserDefaults.standard
     
@@ -21,11 +22,15 @@ final class SettingData: ObservableObject {
         if let autoPlay = userdefault.object(forKey: "autoPlay") as? Bool {
             self.autoPlay = autoPlay
         }
+        if let iCloud = userdefault.object(forKey: "iCloud") as? Bool {
+            self.iCloud = iCloud
+        }
     }
     
     func save() {
         print("SettingData." + #function)
         self.userdefault.set(self.selectMusicCount, forKey: "selectMusicCount")
         self.userdefault.set(self.autoPlay, forKey: "autoPlay")
+        self.userdefault.set(self.iCloud, forKey: "iCloud")
     }
 }

@@ -8,27 +8,37 @@
 import SwiftUI
 
 struct SettingView: View {
+    @EnvironmentObject var music: Music
     @EnvironmentObject var settingData: SettingData
 
     var body: some View {
         NavigationView {
             Form {
-                NumberPlusMinusInputView(title: "選択曲数", bounds: 1...30, number: self.$settingData.selectMusicCount)
+                NumberPlusMinusInputView(title: "Select music count", bounds: 1...100, number: self.$settingData.selectMusicCount)
                     .onChange(of: self.settingData.selectMusicCount, perform: { value in
                         print("Setting onChange:\(value)")
                         self.settingData.save()
                     })
                 HStack {
                     Toggle(isOn: self.$settingData.autoPlay, label: {
-                        Text("自動再生")
+                        Text("Auto play")
                     })
                     .onChange(of: self.settingData.autoPlay, perform: { value in
                         print("Setting onChange:\(value)")
                         self.settingData.save()
                     })
                 }
+                HStack {
+                    Toggle(isOn: self.$settingData.iCloud, label: {
+                        Text("Use iCloud")
+                    })
+                    .onChange(of: self.settingData.iCloud, perform: { value in
+                        print("Setting onChange:\(value)")
+                        self.music.iCloud = value
+                        self.settingData.save()
+                    })
+                }
             }
-            .padding(8.0)
             .navigationBarTitle("Setting", displayMode: .inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
@@ -44,6 +54,7 @@ struct SettingView: View {
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
         SettingView()
+            .environmentObject(Music())
             .environmentObject(SettingData())
     }
 }

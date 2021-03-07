@@ -12,6 +12,7 @@ import Algorithms
 final class Music: ObservableObject {
     var player: MPMusicPlayerController? = nil
     var items: [MPMediaItem] = []
+    var iCloud: Bool = false
     
     init() {
         self.player = MPMusicPlayerController.systemMusicPlayer
@@ -59,14 +60,24 @@ final class Music: ObservableObject {
     }
     
     func playCountMin(selectMusicCount: Int) {
+        var selectMusicCount = selectMusicCount
+        let iCloudFilter = MPMediaPropertyPredicate(value: self.iCloud,
+                                                    forProperty: MPMediaItemPropertyIsCloudItem,
+                                                    comparisonType: .equalTo)
         let mPMediaQuery = MPMediaQuery.songs()
+        mPMediaQuery.addFilterPredicate(iCloudFilter)
         if let items = mPMediaQuery.items {
             print(items.count)
+
+            if items.count < selectMusicCount {
+                selectMusicCount = items.count
+            }
             
             print("---------- randam ----------")
             print(Date())
             let randamcitems = items.randomSample(count: items.count)
             print(Date())
+            randamcitems.forEach({ item in})
             for index in 0..<selectMusicCount  {
                 print("\(randamcitems[index].title!):\(randamcitems[index].albumTitle!):\(randamcitems[index].playCount)")
             }
