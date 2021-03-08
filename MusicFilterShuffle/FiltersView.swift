@@ -15,18 +15,23 @@ struct FiltersView: View {
 
 //    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var columns: [GridItem] = [GridItem(spacing: 16), GridItem(spacing: 16)]
+    
+    let filtersData: [(String, String, Int)] =
+        [("music.note", "A long time ago in a...", 0),
+         ("music.note", "Nowadays", 1),
+         ("music.note", "Forgotten", 2),
+         ("music.note", "Heavy Rotation", 3),
+         ("opticaldisc", "Album Shuffle", 4),
+         ("music.note.list", "Album Not Complete", 5)]
 
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
                 ScrollView {
                     LazyVGrid(columns: columns) {
-                        FilterView(onTap: self.$onTap, imageName: "music.note", title: "A long time ago in a...", filter: 0, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, imageName: "music.note", title: "Nowadays", filter: 1, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, imageName: "music.note", title: "Forgotten", filter: 2, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, imageName: "music.note", title: "Heavy Rotation", filter: 3, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, imageName: "opticaldisc", title: "Album Shuffle", filter: 4, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, imageName: "music.note.list", title: "Album Not Complete", filter: 5, size: geometry.size.width)
+                        ForEach(0..<filtersData.count) { index in
+                            FilterView(onTap: self.$onTap, imageName: self.filtersData[index].0, title: self.filtersData[index].1, filter: self.filtersData[index].2, size: geometry.size.width)
+                        }
                     }
                     .padding(16)
                 }
