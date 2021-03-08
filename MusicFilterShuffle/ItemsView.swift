@@ -10,8 +10,8 @@ import SwiftUI
 struct ItemsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var music: Music
-    @EnvironmentObject var settingData: SettingData
     let isAlbum:Bool
+    @State var dispPlay: Bool
 
     var body: some View {
         NavigationView {
@@ -44,8 +44,9 @@ struct ItemsView: View {
             .padding(8.0)
             .overlay(Button(action: {
                     self.music.play()
+                self.dispPlay = false
             }, label: {
-                if self.settingData.autoPlay == false {
+                if self.dispPlay == true {
                     Image(systemName: "play")
                         .font(Font.system(size: 48))
                         .padding(8.0)
@@ -65,8 +66,7 @@ struct ItemsView: View {
 
 struct ItemsView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemsView(isAlbum: false)
+        ItemsView(isAlbum: false, dispPlay: true)
             .environmentObject(Music())
-            .environmentObject(SettingData())
     }
 }

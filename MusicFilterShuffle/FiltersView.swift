@@ -21,8 +21,8 @@ struct FiltersView: View {
             GeometryReader { geometry in
                 ScrollView {
                     LazyVGrid(columns: columns) {
-                        FilterView(onTap: self.$onTap, imageName: "music.note", title: "Old Play", filter: 0, size: geometry.size.width)
-                        FilterView(onTap: self.$onTap, imageName: "music.note", title: "New Play", filter: 1, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, imageName: "music.note", title: "A long time ago in a...", filter: 0, size: geometry.size.width)
+                        FilterView(onTap: self.$onTap, imageName: "music.note", title: "Nowadays", filter: 1, size: geometry.size.width)
                         FilterView(onTap: self.$onTap, imageName: "music.note", title: "Forgotten", filter: 2, size: geometry.size.width)
                         FilterView(onTap: self.$onTap, imageName: "music.note", title: "Heavy Rotation", filter: 3, size: geometry.size.width)
                         FilterView(onTap: self.$onTap, imageName: "opticaldisc", title: "Album Shuffle", filter: 4, size: geometry.size.width)
@@ -111,10 +111,10 @@ struct FilterView: View {
         }
         .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
             if self.filter >= 4 {
-                ItemsView(isAlbum: true)
+                ItemsView(isAlbum: true, dispPlay: !self.settingData.autoPlay)
             }
             else {
-                ItemsView(isAlbum: false)
+                ItemsView(isAlbum: false, dispPlay: !self.settingData.autoPlay)
             }
         })
     }
