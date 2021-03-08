@@ -18,8 +18,8 @@ struct FiltersView: View {
 
     var body: some View {
         NavigationView {
-            ScrollView {
-                GeometryReader { geometry in
+            GeometryReader { geometry in
+                ScrollView {
                     LazyVGrid(columns: columns) {
                         FilterView(onTap: self.$onTap, imageName: "music.note", title: "Old Play", filter: 0, size: geometry.size.width)
                         FilterView(onTap: self.$onTap, imageName: "music.note", title: "New Play", filter: 1, size: geometry.size.width)
