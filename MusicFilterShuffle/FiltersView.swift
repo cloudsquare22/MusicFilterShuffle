@@ -22,7 +22,8 @@ struct FiltersView: View {
          ("music.note", "Forgotten", 2),
          ("music.note", "Heavy Rotation", 3),
          ("opticaldisc", "Album Shuffle", 4),
-         ("music.note.list", "Album Not Complete", 5)]
+         ("music.note.list", "Album Not Complete", 5),
+         ("music.note", "1989", 6)]
 
     var body: some View {
         NavigationView {
@@ -97,6 +98,9 @@ struct FilterView: View {
                     else if self.filter == 5 {
                         self.music.playAlbumComplete()
                     }
+                    else if self.filter == 6 {
+                        self.music.songsReleaseYear(selectMusicCount: self.settingData.selectMusicCount)
+                    }
                     if self.settingData.autoPlay == true {
                         self.music.play()
                     }
@@ -115,7 +119,7 @@ struct FilterView: View {
             print("\(abs(self.size / 2 - 16))")
         }
         .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
-            if self.filter >= 4 {
+            if self.filter >= 4 && self.filter != 6 {
                 ItemsView(isAlbum: true, dispPlay: !self.settingData.autoPlay)
             }
             else {

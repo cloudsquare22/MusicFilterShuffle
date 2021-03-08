@@ -126,6 +126,17 @@ final class Music: ObservableObject {
         return result
     }
 
+    func songsReleaseYear(selectMusicCount: Int) {
+        let calendar = Calendar(identifier: .gregorian)
+        let startDate = calendar.date(from: DateComponents(year: 1989, month: 1, day: 1))!
+        let endDate = calendar.date(from: DateComponents(year: 1989, month: 12, day: 31))!
+        let items = self.songs()
+        let filteritems = items.filter{$0.releaseDate != nil && startDate <= $0.releaseDate! && $0.releaseDate! <= endDate}
+        print("---------- play items ----------")
+        self.playItems = Array(filteritems.prefix(selectMusicCount))
+        self.printPlayItems()
+    }
+
     func songs() -> [MPMediaItem] {
         var retsult: [MPMediaItem] = []
         let iCloudFilter = MPMediaPropertyPredicate(value: MusicFilterShuffleApp.settingData.iCloud,
