@@ -150,18 +150,31 @@ struct OverlayProgressView: View {
 
 struct OverlaySettingView: View {
     let filter: Int
+    @State var dispSetting: Bool = false
 
     var body: some View {
         if self.filter == 6 {
-            Image(systemName: "gearshape")
-                .font(Font.system(size: 24))
-                .foregroundColor(.gray)
-                .padding(8)
-//            Button(action: {
-//                print("Grid Setting")
-//            }, label: {
-//                Image(systemName: "gear").font(Font.system(size: 24)).foregroundColor(.gray)
-//            }).padding(8)
+//            Image(systemName: "gearshape")
+//                .font(Font.system(size: 24))
+//                .foregroundColor(.gray)
+//                .onTapGesture {
+//                    print("action")
+//                    self.dispSetting.toggle()
+//                    print(self.dispSetting)
+//                }
+            Button(action: {
+                print("action")
+                self.dispSetting.toggle()
+                print(self.dispSetting)
+            }, label: {
+                Image(systemName: "gearshape")
+                    .font(Font.system(size: 24))
+                    .foregroundColor(.gray)
+            })
+            .padding(8)
+            .fullScreenCover(isPresented: self.$dispSetting, onDismiss: {}, content: {
+                ReleaseSettingView()
+            })
         }
     }
 }
