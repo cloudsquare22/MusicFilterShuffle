@@ -127,9 +127,10 @@ final class Music: ObservableObject {
     }
 
     func songsReleaseYear(selectMusicCount: Int) {
+        let releaseYear = Int(MusicFilterShuffleApp.settingData.releaseYear)
         let calendar = Calendar(identifier: .gregorian)
-        let startDate = calendar.date(from: DateComponents(year: 1989, month: 1, day: 1))!
-        let endDate = calendar.date(from: DateComponents(year: 1989, month: 12, day: 31))!
+        let startDate = calendar.date(from: DateComponents(year: releaseYear, month: 1, day: 1))!
+        let endDate = calendar.date(from: DateComponents(year: releaseYear, month: 12, day: 31))!
         let items = self.songs()
         let filteritems = items.filter{$0.releaseDate != nil && startDate <= $0.releaseDate! && $0.releaseDate! <= endDate}
         print("---------- play items ----------")
@@ -183,8 +184,8 @@ final class Music: ObservableObject {
     
     func printPlayItems() {
         self.playItems.forEach({ item in
-            if item.lastPlayedDate != nil {
-                print("\(item.title!):\(item.albumTitle!):\(item.playCount):\(item.lastPlayedDate!)")
+            if item.releaseDate != nil {
+                print("\(item.title!):\(item.albumTitle!):\(item.playCount):\(item.releaseDate!)")
             }
             else {
                 print("\(item.title!):\(item.albumTitle!):\(item.playCount):-")

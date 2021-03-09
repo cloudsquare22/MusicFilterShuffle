@@ -16,14 +16,14 @@ struct FiltersView: View {
 //    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var columns: [GridItem] = [GridItem(spacing: 16), GridItem(spacing: 16)]
     
-    let filtersData: [(String, String, Int)] =
-        [("music.note", "A long time ago in a...", 0),
-         ("music.note", "Nowadays", 1),
-         ("music.note", "Forgotten", 2),
-         ("music.note", "Heavy Rotation", 3),
-         ("opticaldisc", "Album Shuffle", 4),
-         ("music.note.list", "Album Not Complete", 5),
-         ("music.note", "1989", 6)]
+    let filtersData: [(String, String, Int, UIColor)] =
+        [("music.note", "A long time ago in a...", 0, .blue),
+         ("music.note", "Nowadays", 1, .brown),
+         ("music.note", "Forgotten", 2, .cyan),
+         ("music.note", "Heavy Rotation", 3, .green),
+         ("opticaldisc", "Album Shuffle", 4, .magenta),
+         ("music.note.list", "Album Not Complete", 5, .orange),
+         ("music.note", "Release", 6, .red)]
 
     var body: some View {
         NavigationView {
@@ -31,13 +31,13 @@ struct FiltersView: View {
                 ScrollView {
                     LazyVGrid(columns: columns) {
                         ForEach(0..<filtersData.count) { index in
-                            FilterView(onTap: self.$onTap, imageName: self.filtersData[index].0, title: self.filtersData[index].1, filter: self.filtersData[index].2, size: geometry.size.width)
+                            FilterView(onTap: self.$onTap, imageName: self.filtersData[index].0, title: self.filtersData[index].1, filter: self.filtersData[index].2, size: geometry.size.width, color: self.filtersData[index].3)
                         }
                     }
                     .padding(16)
                 }
             }
-            .navigationBarTitle("Filters", displayMode: .inline)
+            .navigationBarTitle("oto-sai", displayMode: .inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
@@ -62,19 +62,24 @@ struct FilterView: View {
     let title: String
     let filter: Int
     let size: CGFloat
+    let color: UIColor
     
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: imageName)
             Text(self.title)
                 .fontWeight(.light)
+            if self.filter == 6 {
+                Text(Int(self.settingData.releaseYear).description)
+            }
         }
         .font(.title2)
         .padding(16)
         .frame(width: CGFloat(abs(size / 2 - 24)), height: CGFloat(abs(size / 2 - 24)), alignment: .center)
-        .overlay(RoundedRectangle(cornerRadius: 32).stroke())
+        .overlay(RoundedRectangle(cornerRadius: 32).stroke().foregroundColor(Color(color)))
         .overlay(RoundedRectangle(cornerRadius: 32).foregroundColor(Color.gray.opacity(0.0000001)))
         .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
+        .overlay(OverlaySettingView(filter: self.filter), alignment: .bottomTrailing)
         .onTapGesture {
             if self.onTap == false {
                 self.onTap = true
@@ -141,5 +146,22 @@ struct OverlayProgressView: View {
             }
         }
     }
+}
 
+struct OverlaySettingView: View {
+    let filter: Int
+
+    var body: some View {
+        if self.filter == 6 {
+            Image(systemName: "gearshape")
+                .font(Font.system(size: 24))
+                .foregroundColor(.gray)
+                .padding(8)
+//            Button(action: {
+//                print("Grid Setting")
+//            }, label: {
+//                Image(systemName: "gear").font(Font.system(size: 24)).foregroundColor(.gray)
+//            }).padding(8)
+        }
+    }
 }

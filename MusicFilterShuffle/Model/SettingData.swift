@@ -12,6 +12,7 @@ final class SettingData: ObservableObject {
     @Published var selectAlbumMinTracks: Int = 6
     @Published var autoPlay: Bool = true
     @Published var iCloud: Bool = false
+    @Published var releaseYear: Double = 2000
     
     let userdefault = UserDefaults.standard
     
@@ -29,6 +30,9 @@ final class SettingData: ObservableObject {
         if let iCloud = userdefault.object(forKey: "iCloud") as? Bool {
             self.iCloud = iCloud
         }
+        if let releaseYear = userdefault.object(forKey: "releaseYear") as? Double {
+            self.releaseYear = releaseYear
+        }
     }
     
     func save() {
@@ -37,5 +41,6 @@ final class SettingData: ObservableObject {
         self.userdefault.set(self.selectMusicCount, forKey: "selectMusicCount")
         self.userdefault.set(self.autoPlay, forKey: "autoPlay")
         self.userdefault.set(self.iCloud, forKey: "iCloud")
+        self.userdefault.set(self.releaseYear, forKey: "releaseYear")
     }
 }
