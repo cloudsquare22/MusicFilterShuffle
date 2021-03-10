@@ -56,6 +56,7 @@ struct FilterView: View {
     @EnvironmentObject var settingData: SettingData
     @State var dispProgress: Bool = false
     @State var disapItemsView: Bool = false
+    @State var dispSetting: Bool = false
 
     @Binding var onTap: Bool
     let imageName: String
@@ -79,7 +80,10 @@ struct FilterView: View {
         .overlay(RoundedRectangle(cornerRadius: 32).stroke().foregroundColor(Color(color)))
         .overlay(RoundedRectangle(cornerRadius: 32).foregroundColor(Color.gray.opacity(0.0000001)))
         .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
-        .overlay(OverlaySettingView(filter: self.filter), alignment: .bottomTrailing)
+        .overlay(OverlaySettingView(filter: self.filter).onTapGesture {
+            self.dispSetting = true
+            self.disapItemsView.toggle()
+        }, alignment: .bottomTrailing)
         .onTapGesture {
             if self.onTap == false {
                 self.onTap = true
@@ -123,12 +127,19 @@ struct FilterView: View {
             print("\(self.size)")
             print("\(abs(self.size / 2 - 16))")
         }
-        .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {}, content: {
-            if self.filter >= 4 && self.filter != 6 {
-                ItemsView(isAlbum: true, dispPlay: !self.settingData.autoPlay)
+        .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {
+            self.dispSetting = false
+        }, content: {
+            if self.dispSetting == true {
+                ReleaseSettingView()
             }
             else {
-                ItemsView(isAlbum: false, dispPlay: !self.settingData.autoPlay)
+                if self.filter >= 4 && self.filter != 6 {
+                    ItemsView(isAlbum: true, dispPlay: !self.settingData.autoPlay)
+                }
+                else {
+                    ItemsView(isAlbum: false, dispPlay: !self.settingData.autoPlay)
+                }
             }
         })
     }
@@ -150,31 +161,27 @@ struct OverlayProgressView: View {
 
 struct OverlaySettingView: View {
     let filter: Int
-    @State var dispSetting: Bool = false
+//    @State var dispSetting: Bool = false
 
     var body: some View {
         if self.filter == 6 {
-//            Image(systemName: "gearshape")
-//                .font(Font.system(size: 24))
-//                .foregroundColor(.gray)
-//                .onTapGesture {
-//                    print("action")
-//                    self.dispSetting.toggle()
-//                    print(self.dispSetting)
-//                }
-            Button(action: {
-                print("action")
-                self.dispSetting.toggle()
-                print(self.dispSetting)
-            }, label: {
-                Image(systemName: "gearshape")
-                    .font(Font.system(size: 24))
-                    .foregroundColor(.gray)
-            })
-            .padding(8)
-            .fullScreenCover(isPresented: self.$dispSetting, onDismiss: {}, content: {
-                ReleaseSettingView()
-            })
+            Image(systemName: "calendar.circle")
+                .font(Font.system(size: 32))
+                .foregroundColor(.blue)
+                .padding(8)
+//            Button(action: {
+//                print("action")
+//                self.dispSetting.toggle()
+//                print(self.dispSetting)
+//            }, label: {
+//                Image(systemName: "gearshape")
+//                    .font(Font.system(size: 24))
+//                    .foregroundColor(.gray)
+//            })
+//            .padding(8)
+//            .fullScreenCover(isPresented: self.$dispSetting, onDismiss: {}, content: {
+//                ReleaseSettingView()
+//            })
         }
     }
 }
