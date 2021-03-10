@@ -26,20 +26,16 @@ struct FiltersView: View {
          ("music.note", "Release", 6, .red)]
 
     var body: some View {
-        NavigationView {
-            GeometryReader { geometry in
-                ScrollView {
-                    LazyVGrid(columns: columns) {
-                        ForEach(0..<filtersData.count) { index in
-                            FilterView(onTap: self.$onTap, imageName: self.filtersData[index].0, title: self.filtersData[index].1, filter: self.filtersData[index].2, size: geometry.size.width, color: self.filtersData[index].3)
-                        }
+        GeometryReader { geometry in
+            ScrollView {
+                LazyVGrid(columns: columns) {
+                    ForEach(0..<filtersData.count) { index in
+                        FilterView(onTap: self.$onTap, imageName: self.filtersData[index].0, title: self.filtersData[index].1, filter: self.filtersData[index].2, size: geometry.size.width, color: self.filtersData[index].3)
                     }
-                    .padding(16)
                 }
+                .padding(16)
             }
-            .navigationBarTitle("oto-sai", displayMode: .inline)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
