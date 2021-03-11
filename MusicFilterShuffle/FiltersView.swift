@@ -47,20 +47,11 @@ struct FiltersView_Previews: PreviewProvider {
     }
 }
 
-class DispSettingState: ObservableObject {
-    @Published var dispSetting: Bool = false
-    
-    func update(dispSetting: Bool) {
-        self.dispSetting = dispSetting
-    }
-}
-
 struct FilterView: View {
     @EnvironmentObject var music: Music
     @EnvironmentObject var settingData: SettingData
     @State var dispProgress: Bool = false
     @State var disapItemsView: Bool = false
-    @ObservedObject var dispSetting = DispSettingState()
 
     @Binding var onTap: Bool
     let imageName: String
@@ -84,10 +75,7 @@ struct FilterView: View {
         .overlay(RoundedRectangle(cornerRadius: 32).stroke().foregroundColor(Color(color)))
         .overlay(RoundedRectangle(cornerRadius: 32).foregroundColor(Color.gray.opacity(0.0000001)))
         .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
-        .overlay(OverlaySettingView(filter: self.filter).onTapGesture {
-            self.dispSetting.update(dispSetting: true)
-            self.disapItemsView.toggle()
-        }, alignment: .bottomTrailing)
+        .overlay(OverlaySettingView(filter: self.filter), alignment: .bottomTrailing)
         .onTapGesture {
             if self.onTap == false {
                 self.onTap = true
@@ -132,18 +120,12 @@ struct FilterView: View {
             print("\(abs(self.size / 2 - 16))")
         }
         .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {
-            self.dispSetting.update(dispSetting: false)
         }, content: {
-            if self.dispSetting.dispSetting == true {
-                ReleaseSettingView()
+            if self.filter >= 4 && self.filter != 6 {
+                ItemsView(isAlbum: true, dispPlay: !self.settingData.autoPlay)
             }
             else {
-                if self.filter >= 4 && self.filter != 6 {
-                    ItemsView(isAlbum: true, dispPlay: !self.settingData.autoPlay)
-                }
-                else {
-                    ItemsView(isAlbum: false, dispPlay: !self.settingData.autoPlay)
-                }
+                ItemsView(isAlbum: false, dispPlay: !self.settingData.autoPlay)
             }
         })
     }
@@ -169,9 +151,9 @@ struct OverlaySettingView: View {
 
     var body: some View {
         if self.filter == 6 {
-            Image(systemName: "calendar.circle")
-                .font(Font.system(size: 32))
-                .foregroundColor(.blue)
+            Image(systemName: "gearshape")
+                .font(Font.system(size: 24))
+                .foregroundColor(.gray)
                 .padding(8)
 //            Button(action: {
 //                print("action")

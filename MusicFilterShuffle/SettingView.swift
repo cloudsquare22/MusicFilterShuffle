@@ -55,6 +55,19 @@ struct SettingView: View {
                             self.settingData.save()
                         })
                 }
+                Section(header: HStack {
+                     Text("Release Year")
+                 })
+                 {
+                     HStack {
+                         Text(Int(self.settingData.releaseYear).description)
+                         Slider(value: self.$settingData.releaseYear, in: 1950...2021, step: 1)
+                             .onChange(of: self.settingData.releaseYear, perform: { value in
+                                 print("Setting onChange:\(value)")
+                                 self.settingData.save()
+                             })
+                     }
+                 }
             }
             .navigationBarTitle("Setting", displayMode: .inline)
         }
