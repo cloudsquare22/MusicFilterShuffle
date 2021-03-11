@@ -52,7 +52,6 @@ struct FilterView: View {
     @EnvironmentObject var settingData: SettingData
     @State var dispProgress: Bool = false
     @State var disapItemsView: Bool = false
-    @State var dispSetting: Bool = false
 
     @Binding var onTap: Bool
     let imageName: String
@@ -62,6 +61,7 @@ struct FilterView: View {
     let color: UIColor
     
     var body: some View {
+        var dispSetting: Bool = false
         VStack(spacing: 8) {
             Image(systemName: imageName)
             Text(self.title)
@@ -77,7 +77,7 @@ struct FilterView: View {
         .overlay(RoundedRectangle(cornerRadius: 32).foregroundColor(Color.gray.opacity(0.0000001)))
         .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
         .overlay(OverlaySettingView(filter: self.filter).onTapGesture {
-            self.dispSetting = true
+            dispSetting = true
             self.disapItemsView.toggle()
         }, alignment: .bottomTrailing)
         .onTapGesture {
@@ -124,9 +124,9 @@ struct FilterView: View {
             print("\(abs(self.size / 2 - 16))")
         }
         .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {
-            self.dispSetting = false
+            dispSetting = false
         }, content: {
-            if self.dispSetting == true {
+            if dispSetting == true {
                 ReleaseSettingView()
             }
             else {
