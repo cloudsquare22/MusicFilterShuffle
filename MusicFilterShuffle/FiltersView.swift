@@ -13,17 +13,16 @@ struct FiltersView: View {
 
     @State var onTap = false
 
-//    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var columns: [GridItem] = [GridItem(spacing: 16), GridItem(spacing: 16)]
     
-    let filtersData: [(String, String, Int, UIColor)] =
-        [("music.note", "A long time ago in a...", 0, .blue),
-         ("music.note", "Nowadays", 1, .brown),
-         ("music.note", "Forgotten", 2, .cyan),
-         ("music.note", "Heavy Rotation", 3, .green),
-         ("opticaldisc", "Album Shuffle", 4, .magenta),
-         ("music.note.list", "Album Not Complete", 5, .orange),
-         ("music.note", "Release", 6, .red)]
+    let filtersData: [(String, String, Music.Filter, UIColor)] =
+        [("music.note", "A long time ago in a...", .oldday, .blue),
+         ("music.note", "Nowadays", .nowaday, .brown),
+         ("music.note", "Forgotten", .forgotten, .cyan),
+         ("music.note", "Heavy Rotation", .heavyrotation, .green),
+         ("opticaldisc", "Album Shuffle", .albumshuffle, .magenta),
+         ("music.note.list", "Album Not Complete", .albumnotcomplete, .orange),
+         ("music.note", "Release", .release, .red)]
 
     var body: some View {
         GeometryReader { geometry in
@@ -56,7 +55,7 @@ struct FilterView: View {
     @Binding var onTap: Bool
     let imageName: String
     let title: String
-    let filter: Int
+    let filter: Music.Filter
     let size: CGFloat
     let color: UIColor
     
@@ -65,7 +64,7 @@ struct FilterView: View {
             Image(systemName: imageName)
             Text(self.title)
                 .fontWeight(.light)
-            if self.filter == 6 {
+            if self.filter == .release {
                 Text(Int(self.settingData.releaseYear).description)
             }
         }
@@ -81,30 +80,7 @@ struct FilterView: View {
                 self.onTap = true
                 self.dispProgress.toggle()
                 DispatchQueue.global().async {
-                    if self.filter == 0 {
-                        self.music.lastPlayedDateOld(selectMusicCount: self.settingData.selectMusicCount)
-                    }
-                    if self.filter == 1 {
-                        self.music.lastPlayedDateNew(selectMusicCount: self.settingData.selectMusicCount)
-                    }
-                    else if self.filter == 2 {
-                        self.music.playCountMin(selectMusicCount: self.settingData.selectMusicCount)
-                    }
-                    else if self.filter == 3 {
-                        self.music.playCountMax(selectMusicCount: self.settingData.selectMusicCount)
-                    }
-                    else if self.filter == 4 {
-                        self.music.playAlbumShuffle()
-                    }
-                    else if self.filter == 5 {
-                        self.music.playAlbumComplete()
-                    }
-                    else if self.filter == 6 {
-                        self.music.songsReleaseYear(selectMusicCount: self.settingData.selectMusicCount)
-                    }
-                    if self.settingData.autoPlay == true {
-                        self.music.play()
-                    }
+                    self.music.runFilter(filter: self.filter)
                     self.dispProgress.toggle()
                     self.onTap = false
                     self.disapItemsView.toggle()
@@ -121,10 +97,10 @@ struct FilterView: View {
         }
         .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {
         }, content: {
-            if self.filter >= 4 && self.filter != 6 {
+            switch self.filter {
+            case .albumshuffle, .albumnotcomplete:
                 ItemsView(isAlbum: true, dispPlay: !self.settingData.autoPlay)
-            }
-            else {
+            default:
                 ItemsView(isAlbum: false, dispPlay: !self.settingData.autoPlay)
             }
         })
@@ -146,28 +122,14 @@ struct OverlayProgressView: View {
 }
 
 struct OverlaySettingView: View {
-    let filter: Int
-//    @State var dispSetting: Bool = false
+    let filter: Music.Filter
 
     var body: some View {
-        if self.filter == 6 {
+        if self.filter == .release {
             Image(systemName: "gearshape")
                 .font(Font.system(size: 24))
                 .foregroundColor(.gray)
                 .padding(8)
-//            Button(action: {
-//                print("action")
-//                self.dispSetting.toggle()
-//                print(self.dispSetting)
-//            }, label: {
-//                Image(systemName: "gearshape")
-//                    .font(Font.system(size: 24))
-//                    .foregroundColor(.gray)
-//            })
-//            .padding(8)
-//            .fullScreenCover(isPresented: self.$dispSetting, onDismiss: {}, content: {
-//                ReleaseSettingView()
-//            })
         }
     }
 }

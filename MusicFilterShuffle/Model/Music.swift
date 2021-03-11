@@ -12,15 +12,38 @@ import Algorithms
 final class Music: ObservableObject {
     var player: MPMusicPlayerController? = nil
     var playItems: [MPMediaItem] = []
+
+    enum Filter {
+        case oldday
+        case nowaday
+        case forgotten
+        case heavyrotation
+        case albumshuffle
+        case albumnotcomplete
+        case release
+    }
     
     init() {
         self.player = MPMusicPlayerController.systemMusicPlayer
     }
 
-    func countMinFilter() {
-        let mPMediaQuery = MPMediaQuery.songs()
-        if let collections = mPMediaQuery.collections {
-            print(collections.count)
+    func runFilter(filter: Filter) {
+        let selectMusicCount = MusicFilterShuffleApp.settingData.selectMusicCount
+        switch filter {
+        case .oldday:
+            self.lastPlayedDateOld(selectMusicCount: selectMusicCount)
+        case .nowaday:
+            self.lastPlayedDateNew(selectMusicCount: selectMusicCount)
+        case .forgotten:
+            self.playCountMin(selectMusicCount: selectMusicCount)
+        case .heavyrotation:
+            self.playCountMax(selectMusicCount: selectMusicCount)
+        case .albumshuffle:
+            self.playAlbumShuffle()
+        case .albumnotcomplete:
+            self.playAlbumComplete()
+        case .release:
+            self.songsReleaseYear(selectMusicCount: selectMusicCount)
         }
     }
     
