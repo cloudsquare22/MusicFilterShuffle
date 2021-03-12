@@ -12,25 +12,38 @@ struct FiltersView: View {
     @EnvironmentObject var settingData: SettingData
 
     @State var onTap = false
+    @State var tapSetting: Bool = false
 
     var columns: [GridItem] = [GridItem(spacing: 16), GridItem(spacing: 16)]
     
-    let filtersData: [(String, String, Music.Filter, UIColor)] =
-        [("music.note", "A long time ago in a...", .oldday, .blue),
-         ("music.note", "Nowadays", .nowaday, .brown),
-         ("music.note", "Forgotten", .forgotten, .cyan),
-         ("music.note", "Heavy Rotation", .heavyrotation, .green),
-         ("opticaldisc", "Album Shuffle", .albumshuffle, .magenta),
-         ("music.note.list", "Album Not Complete", .albumnotcomplete, .orange),
-         ("music.note", "Release", .release, .red)]
+    let filtersData: [(String, Music.Filter, UIColor)] =
+        [("A long time ago in a...", .oldday, .blue),
+         ("Nowadays", .nowaday, .brown),
+         ("Forgotten", .forgotten, .cyan),
+         ("Heavy Rotation", .heavyrotation, .green),
+         ("Album Shuffle", .albumshuffle, .magenta),
+         ("Album Not Complete", .albumnotcomplete, .orange),
+         ("Release", .release, .red)]
 
     var body: some View {
         GeometryReader { geometry in
+            let width = geometry.size.width
             ScrollView {
                 LazyVGrid(columns: columns) {
                     ForEach(0..<filtersData.count) { index in
-                        FilterView(onTap: self.$onTap, imageName: self.filtersData[index].0, title: self.filtersData[index].1, filter: self.filtersData[index].2, size: geometry.size.width, color: self.filtersData[index].3)
+                        FilterView(onTap: self.$onTap, title: self.filtersData[index].0, filter: self.filtersData[index].1, size: width, color: self.filtersData[index].2)
                     }
+                    Image(systemName: "gearshape")
+                        .resizable()
+                        .foregroundColor(Color(UIColor.gray).opacity(0.5))
+                        .frame(width: CGFloat(abs(width / 2 - 24)), height: CGFloat(abs(width / 2 - 24)), alignment: .center)
+                        .onTapGesture {
+                            self.tapSetting.toggle()
+                        }
+                        .sheet(isPresented: self.$tapSetting, content: {
+                            SettingView()
+                                .environmentObject(self.settingData)
+                        })
                 }
                 .padding(16)
             }
@@ -53,7 +66,6 @@ struct FilterView: View {
     @State var disapItemsView: Bool = false
 
     @Binding var onTap: Bool
-    let imageName: String
     let title: String
     let filter: Music.Filter
     let size: CGFloat
@@ -61,11 +73,12 @@ struct FilterView: View {
     
     var body: some View {
         ZStack {
-            Image(systemName: "opticaldisc").resizable().foregroundColor(Color(color).opacity(0.5))
+            Image(systemName: "opticaldisc")
+                .resizable()
+                .foregroundColor(Color(color).opacity(0.5))
             VStack(spacing: 8) {
-//                Image(systemName: imageName)
                 Text(self.title)
-                    .fontWeight(.regular).background(Color(UIColor.systemGray6).opacity(0.5))
+                    .fontWeight(.regular)
                 if self.filter == .release {
                     HStack {
                         Image(systemName: "gearshape")
@@ -73,10 +86,10 @@ struct FilterView: View {
                             .foregroundColor(.gray)
                         Text(Int(self.settingData.releaseYear).description)
                     }
-                    .background(Color(UIColor.systemGray6).opacity(0.5))
                 }
             }
             .font(.title2)
+            .background(Color(UIColor.systemGray6).opacity(0.5))
             .padding(16)
         }
             .frame(width: CGFloat(abs(size / 2 - 24)), height: CGFloat(abs(size / 2 - 24)), alignment: .center)
