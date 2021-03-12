@@ -52,7 +52,7 @@ struct ItemsView: View {
                         .padding(8.0)
                 }
             }), alignment: .bottom)
-            .navigationBarTitle("Items", displayMode: .inline)
+            .navigationBarTitle("Play Songs", displayMode: .inline)
             .navigationBarItems(trailing: Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
