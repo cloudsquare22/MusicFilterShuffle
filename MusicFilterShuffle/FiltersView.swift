@@ -60,54 +60,53 @@ struct FilterView: View {
     let color: UIColor
     
     var body: some View {
-        VStack(spacing: 8) {
-            Image(systemName: imageName)
-            Text(self.title)
-                .fontWeight(.light)
-            if self.filter == .release {
-                HStack {
-                    Image(systemName: "gearshape")
-                        .font(Font.system(size: 16))
-                        .foregroundColor(.gray)
-                    Text(Int(self.settingData.releaseYear).description)
+        ZStack {
+            Image(systemName: "opticaldisc").resizable().foregroundColor(Color(color).opacity(0.5))
+            VStack(spacing: 8) {
+//                Image(systemName: imageName)
+                Text(self.title)
+                    .fontWeight(.regular).background(Color(UIColor.systemGray6).opacity(0.5))
+                if self.filter == .release {
+                    HStack {
+                        Image(systemName: "gearshape")
+                            .font(Font.system(size: 16))
+                            .foregroundColor(.gray)
+                        Text(Int(self.settingData.releaseYear).description)
+                    }
+                    .background(Color(UIColor.systemGray6).opacity(0.5))
                 }
             }
+            .font(.title2)
+            .padding(16)
         }
-        .font(.title2)
-        .padding(16)
-        .frame(width: CGFloat(abs(size / 2 - 24)), height: CGFloat(abs(size / 2 - 24)), alignment: .center)
-        .overlay(RoundedRectangle(cornerRadius: 32).foregroundColor(Color.gray.opacity(0.0000001)))
-        .overlay(RoundedRectangle(cornerRadius: 32).stroke().foregroundColor(Color(color)))
-        .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
-//        .overlay(OverlaySettingView(filter: self.filter), alignment: .bottomTrailing)
-        .onTapGesture {
-            if self.onTap == false {
-                self.onTap = true
-                self.dispProgress.toggle()
-                DispatchQueue.global().async {
-                    self.music.runFilter(filter: self.filter)
+            .frame(width: CGFloat(abs(size / 2 - 24)), height: CGFloat(abs(size / 2 - 24)), alignment: .center)
+//            .overlay(RoundedRectangle(cornerRadius: 32).foregroundColor(Color.gray.opacity(0.0000001)))
+//            .overlay(RoundedRectangle(cornerRadius: 32).stroke().foregroundColor(Color(color)))
+            .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
+    //        .overlay(OverlaySettingView(filter: self.filter), alignment: .bottomTrailing)
+            .onTapGesture {
+                if self.onTap == false {
+                    self.onTap = true
                     self.dispProgress.toggle()
-                    self.onTap = false
-                    self.disapItemsView.toggle()
+                    DispatchQueue.global().async {
+                        self.music.runFilter(filter: self.filter)
+                        self.dispProgress.toggle()
+                        self.onTap = false
+                        self.disapItemsView.toggle()
+                    }
+                }
+                else {
+                    print("onTap Noaction!!")
                 }
             }
-            else {
-                print("onTap Noaction!!")
-            }
-        }
-        .onLongPressGesture {
-            print("cc long")
-            print("\(self.size)")
-            print("\(abs(self.size / 2 - 16))")
-        }
-        .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {
-        }, content: {
-            switch self.filter {
-            case .albumshuffle, .albumnotcomplete:
-                ItemsView(isAlbum: true, dispPlay: !self.settingData.autoPlay)
-            default:
-                ItemsView(isAlbum: false, dispPlay: !self.settingData.autoPlay)
-            }
+            .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {
+            }, content: {
+                switch self.filter {
+                case .albumshuffle, .albumnotcomplete:
+                    ItemsView(isAlbum: true, dispPlay: !self.settingData.autoPlay)
+                default:
+                    ItemsView(isAlbum: false, dispPlay: !self.settingData.autoPlay)
+                }
         })
     }
 }
