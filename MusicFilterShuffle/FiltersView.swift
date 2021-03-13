@@ -109,12 +109,7 @@ struct FilterView: View {
         }
         .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {
         }, content: {
-            switch self.filter {
-            case .albumshuffle, .albumnotcomplete:
-                ItemsView(isAlbum: true, dispPlay: !self.settingData.autoPlay)
-            default:
-                ItemsView(isAlbum: false, dispPlay: !self.settingData.autoPlay)
-            }
+            ItemsView(filter: self.filter, dispPlay: !self.settingData.autoPlay)
         })
     }
 }

@@ -10,13 +10,13 @@ import SwiftUI
 struct ItemsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var music: Music
-    let isAlbum:Bool
+    let filter: Music.Filter
     @State var dispPlay: Bool
 
     var body: some View {
         NavigationView {
             List {
-                if self.isAlbum == true {
+                if self.filter == .albumshuffle || self.filter == .albumnotcomplete {
                     HStack {
                         Spacer()
                         if self.music.playItems.count > 0 {
@@ -25,17 +25,32 @@ struct ItemsView: View {
                         }
                         Spacer()
                     }
+
                 }
                 ForEach(0..<self.music.playItems.count) { index in
+                    let item = self.music.playItems[index]
                     VStack(alignment: .leading) {
-                        Text("\(self.music.playItems[index].title!)")
-                        if self.music.playItems[index].albumArtist != nil {
-                            Text("\(self.music.playItems[index].albumArtist!)")
-                                .font(.caption)
-                        }
-                        else {
-                            Text("\(self.music.playItems[index].artist!)")
-                                .font(.caption)
+                        Text("\(item.title!)")
+                        HStack {
+                            switch self.filter {
+                            case .oldday, .nowaday:
+                                Text("Last Play:\(Util.dateDisp(date: item.lastPlayedDate!))")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            default:
+                                Text("Play Count:\(item.playCount)")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
+                            Spacer()
+                            if item.albumArtist != nil {
+                                Text("\(item.albumArtist!)")
+                                    .font(.caption)
+                            }
+                            else {
+                                Text("\(item.artist!)")
+                                    .font(.caption)
+                            }
                         }
                     }
                 }
@@ -66,7 +81,7 @@ struct ItemsView: View {
 
 struct ItemsView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemsView(isAlbum: false, dispPlay: true)
+        ItemsView(filter: Music.Filter.forgotten, dispPlay: true)
             .environmentObject(Music())
     }
 }
