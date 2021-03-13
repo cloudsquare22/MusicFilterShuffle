@@ -21,8 +21,8 @@ struct FiltersView: View {
          ("Nowadays", .nowaday, .brown),
          ("Forgotten", .forgotten, .cyan),
          ("Heavy Rotation", .heavyrotation, .green),
-         ("Album Shuffle", .albumshuffle, .magenta),
-         ("Album Not Complete", .albumnotcomplete, .orange),
+//         ("Album Shuffle", .albumshuffle, .magenta),
+         ("Album Play Complete", .albumnotcomplete, .orange),
          ("Release", .release, .red)]
 
     var body: some View {
@@ -76,68 +76,45 @@ struct FilterView: View {
             Image(systemName: "opticaldisc")
                 .resizable()
                 .foregroundColor(Color(color).opacity(1.0))
-//            VStack(spacing: 8) {
-//                Text(self.title)
-//                    .fontWeight(.regular)
-//                if self.filter == .release {
-//                    HStack {
-//                        Image(systemName: "gearshape")
-//                            .font(Font.system(size: 16))
-//                            .foregroundColor(.gray)
-//                        Text(Int(self.settingData.releaseYear).description)
-//                    }
-//                }
-//            }
-//            .font(.title2)
-//            .background(Color(UIColor.systemGray6).opacity(0.5))
-//            .padding(16)
         }
-            .frame(width: CGFloat(abs(size / 2 - 24)), height: CGFloat(abs(size / 2 - 24)), alignment: .center)
-        .overlay(Circle().foregroundColor(Color(UIColor.systemGray6).opacity(0.5)))
+        .frame(width: CGFloat(abs(size / 2 - 24)), height: CGFloat(abs(size / 2 - 24)), alignment: .center)
+        .overlay(Circle().foregroundColor(Color(UIColor.systemGray6).opacity(0.6)))
         .overlay(
-            VStack(spacing: 8) {
+            VStack(alignment: .center, spacing: 8) {
                 Text(self.title)
-                    .fontWeight(.regular)
+                    .fontWeight(.medium)
                 if self.filter == .release {
-                    HStack {
-                        Image(systemName: "gearshape")
-                            .font(Font.system(size: 16))
-                            .foregroundColor(.gray)
                         Text(Int(self.settingData.releaseYear).description)
-                    }
+                            .fontWeight(.medium)
                 }
             }
             .font(.title2)
             .padding(16)
 
         )
-//            .overlay(RoundedRectangle(cornerRadius: 32).foregroundColor(Color.gray.opacity(0.0000001)))
-//            .overlay(RoundedRectangle(cornerRadius: 32).stroke().foregroundColor(Color(color)))
-            .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
-    //        .overlay(OverlaySettingView(filter: self.filter), alignment: .bottomTrailing)
-            .onTapGesture {
-                if self.onTap == false {
-                    self.onTap = true
+        .onTapGesture {
+            if self.onTap == false {
+                self.onTap = true
+                self.dispProgress.toggle()
+                DispatchQueue.global().async {
+                    self.music.runFilter(filter: self.filter)
                     self.dispProgress.toggle()
-                    DispatchQueue.global().async {
-                        self.music.runFilter(filter: self.filter)
-                        self.dispProgress.toggle()
-                        self.onTap = false
-                        self.disapItemsView.toggle()
-                    }
-                }
-                else {
-                    print("onTap Noaction!!")
+                    self.onTap = false
+                    self.disapItemsView.toggle()
                 }
             }
-            .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {
-            }, content: {
-                switch self.filter {
-                case .albumshuffle, .albumnotcomplete:
-                    ItemsView(isAlbum: true, dispPlay: !self.settingData.autoPlay)
-                default:
-                    ItemsView(isAlbum: false, dispPlay: !self.settingData.autoPlay)
-                }
+            else {
+                print("onTap Noaction!!")
+            }
+        }
+        .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {
+        }, content: {
+            switch self.filter {
+            case .albumshuffle, .albumnotcomplete:
+                ItemsView(isAlbum: true, dispPlay: !self.settingData.autoPlay)
+            default:
+                ItemsView(isAlbum: false, dispPlay: !self.settingData.autoPlay)
+            }
         })
     }
 }

@@ -15,7 +15,7 @@ struct SettingView: View {
             Form {
                 AllSettingView()
                 SongsSettingView()
-                AlbumSettingView()
+//                AlbumSettingView()
                 ReleaseYearSettingView()
                 AboutView()
             }
@@ -106,6 +106,7 @@ struct ReleaseYearSettingView: View {
 
     var body: some View {
         Section(header: HStack {
+            Image(systemName: "calendar")
             Text("Release Year")
         })
         {
