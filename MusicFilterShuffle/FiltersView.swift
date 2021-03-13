@@ -21,9 +21,9 @@ struct FiltersView: View {
          ("Nowadays", .nowaday, .brown),
          ("Forgotten", .forgotten, .cyan),
          ("Heavy Rotation", .heavyrotation, .green),
-//         ("Album Shuffle", .albumshuffle, .magenta),
+//         ("Album Shuffle", .albumshuffle, .red),
          ("Album Play Complete", .albumnotcomplete, .orange),
-         ("Release", .release, .red)]
+         ("Release", .release, .magenta)]
 
     var body: some View {
         GeometryReader { geometry in
