@@ -131,7 +131,8 @@ struct AboutView: View {
                 HStack {
                     Spacer()
                     Text("oto-sai")
-                        .font(.largeTitle)
+//                        .font(.largeTitle)
+                        .font(Font.custom("HiraMinProN-W6", size: 32))
                     Spacer()
                 }
                 HStack {
