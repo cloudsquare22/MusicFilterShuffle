@@ -20,10 +20,11 @@ struct FiltersView: View {
         [("A long time ago in a...", .oldday, .blue),
          ("Nowadays", .nowaday, .brown),
          ("Forgotten", .forgotten, .cyan),
-         ("Heavy Rotation", .heavyrotation, .green),
+         ("Heavy Rotation", .heavyrotation, .magenta),
 //         ("Album Shuffle", .albumshuffle, .red),
          ("Album Play Complete", .albumnotcomplete, .orange),
-         ("Release", .release, .magenta)]
+         ("Release", .release, .green),
+         ("Shuffle", .shuffle, .red)]
 
     var body: some View {
         GeometryReader { geometry in
@@ -81,7 +82,7 @@ struct FilterView: View {
         .overlay(Circle().foregroundColor(Color(UIColor.systemGray6).opacity(0.6)))
         .overlay(
             VStack(alignment: .center, spacing: 8) {
-                Text(self.title)
+                Text(NSLocalizedString(self.title, comment: ""))
                     .fontWeight(.medium)
                 if self.filter == .release {
                         Text(Int(self.settingData.releaseYear).description)

@@ -74,7 +74,7 @@ struct SongsSettingView: View {
             Image(systemName: "music.note")
             Text("Song select")
         }) {
-            NumberPlusMinusInputView(title: "Select song count", bounds: 1...100, number: self.$settingData.selectMusicCount)
+            NumberPlusMinusInputView(title: NSLocalizedString("Select song count", comment: ""), bounds: 1...100, number: self.$settingData.selectMusicCount)
                 .onChange(of: self.settingData.selectMusicCount, perform: { value in
                     print("Setting onChange:\(value)")
                     self.settingData.save()

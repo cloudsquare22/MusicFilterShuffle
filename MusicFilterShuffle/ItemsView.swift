@@ -31,27 +31,28 @@ struct ItemsView: View {
                     let item = self.music.playItems[index]
                     VStack(alignment: .leading) {
                         Text("\(item.title!)")
-                        HStack {
+                        HStack(spacing: 0) {
                             switch self.filter {
                             case .oldday, .nowaday:
-                                Text("Last Play:\(Util.dateDisp(date: item.lastPlayedDate!))")
-                                    .font(.caption)
+                                Text("Last Play")
+                                    .foregroundColor(.gray)
+                                Text(":" + "\(Util.dateDisp(date: item.lastPlayedDate!))")
                                     .foregroundColor(.gray)
                             default:
-                                Text("Play Count:\(item.playCount)")
-                                    .font(.caption)
+                                Text("Play Count")
+                                    .foregroundColor(.gray)
+                                Text(":\(item.playCount)")
                                     .foregroundColor(.gray)
                             }
                             Spacer()
                             if item.albumArtist != nil {
                                 Text("\(item.albumArtist!)")
-                                    .font(.caption)
                             }
                             else {
                                 Text("\(item.artist!)")
-                                    .font(.caption)
                             }
                         }
+                        .font(.caption)
                     }
                 }
                 Spacer()

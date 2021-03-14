@@ -10,7 +10,7 @@ import Foundation
 class Util {
     static func dateDisp(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
+        dateFormatter.dateStyle = .long
         dateFormatter.timeStyle = .none
         dateFormatter.locale = .current
         return dateFormatter.string(from: date)

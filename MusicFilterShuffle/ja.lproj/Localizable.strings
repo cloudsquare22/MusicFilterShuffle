@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  MusicFilterShuffle
+
+  Created by Shin Inaba on 2021/03/14.
+  
+*/
+
+"Last Play" = "再生日";
+"Play Count" = "再生回数";
+"Play Songs" = "再生曲";
+"Setting" = "設定";
+"All" = "全て";
+"Use iCloud" = "iCloud使用";
+"Auto play" = "自動再生";
+"Song select" = "曲選択";
+"Select song count" = "選択曲数";
+"Release Year" = "リリース年選択";
+"About" = "音彩について";
+"A long time ago in a..." = "遠い昔、、、";
+"Nowadays" = "最近";
+"Forgotten" = "忘却の彼方";
+"Heavy Rotation" = "ヘビロテ";
+"Album Play Complete" = "アルバム\n未再生曲";
+"Release" = "リリース年";
+"Shuffle" = "全曲\nシャッフル";

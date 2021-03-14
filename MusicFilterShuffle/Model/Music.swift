@@ -21,6 +21,7 @@ final class Music: ObservableObject {
         case albumshuffle
         case albumnotcomplete
         case release
+        case shuffle
     }
     
     init() {
@@ -44,6 +45,8 @@ final class Music: ObservableObject {
             self.playAlbumComplete()
         case .release:
             self.songsReleaseYear(selectMusicCount: selectMusicCount)
+        case .shuffle:
+            self.songsShuffle(selectMusicCount: selectMusicCount)
         }
     }
     
@@ -161,6 +164,13 @@ final class Music: ObservableObject {
         let filteritems = items.filter{$0.releaseDate != nil && startDate <= $0.releaseDate! && $0.releaseDate! <= endDate}
         print("---------- play items ----------")
         self.playItems = Array(filteritems.prefix(selectMusicCount))
+        self.printPlayItems()
+    }
+    
+    func songsShuffle(selectMusicCount: Int) {
+        let items = self.songs()
+        print("---------- play items ----------")
+        self.playItems = Array(items.prefix(selectMusicCount))
         self.printPlayItems()
     }
 
