@@ -34,17 +34,7 @@ struct FiltersView: View {
                     ForEach(0..<filtersData.count) { index in
                         FilterView(onTap: self.$onTap, title: self.filtersData[index].0, filter: self.filtersData[index].1, size: width, color: self.filtersData[index].2)
                     }
-                    Image(systemName: "gearshape")
-                        .resizable()
-                        .foregroundColor(Color(UIColor.gray).opacity(0.5))
-                        .frame(width: CGFloat(abs(width / 2 - 24)), height: CGFloat(abs(width / 2 - 24)), alignment: .center)
-                        .onTapGesture {
-                            self.tapSetting.toggle()
-                        }
-                        .sheet(isPresented: self.$tapSetting, content: {
-                            SettingView()
-                                .environmentObject(self.settingData)
-                        })
+                    SettingMenuView(width: width)
                 }
                 .padding(16)
             }
@@ -139,5 +129,26 @@ struct OverlaySettingView: View {
                 .foregroundColor(.gray)
                 .padding(8)
         }
+    }
+}
+
+struct SettingMenuView: View {
+    let width: CGFloat
+
+    @EnvironmentObject var settingData: SettingData
+    @State var tapSetting: Bool = false
+
+    var body: some View {
+        Image(systemName: "gearshape")
+            .resizable()
+            .foregroundColor(Color(UIColor.gray).opacity(0.5))
+            .frame(width: CGFloat(abs(width / 2 - 24)), height: CGFloat(abs(width / 2 - 24)), alignment: .center)
+            .onTapGesture {
+                self.tapSetting.toggle()
+            }
+            .sheet(isPresented: self.$tapSetting, content: {
+                SettingView()
+                    .environmentObject(self.settingData)
+            })
     }
 }
