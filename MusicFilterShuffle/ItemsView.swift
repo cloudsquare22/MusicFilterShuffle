@@ -59,7 +59,7 @@ struct ItemsView: View {
             }
             .padding(8.0)
             .overlay(Button(action: {
-                    self.music.play()
+                self.music.play()
                 self.dispPlay = false
             }, label: {
                 if self.dispPlay == true {

@@ -91,6 +91,9 @@ struct FilterView: View {
                     self.music.runFilter(filter: self.filter)
                     self.dispProgress.toggle()
                     self.onTap = false
+                    if self.settingData.autoPlay == true {
+                        self.music.play()
+                    }
                     self.disapItemsView.toggle()
                 }
             }
