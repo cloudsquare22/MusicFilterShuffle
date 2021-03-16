@@ -213,9 +213,11 @@ final class Music: ObservableObject {
     }
     
     func play() {
-        let playQueue: MPMediaItemCollection = MPMediaItemCollection(items: self.playItems)
-        player?.setQueue(with: playQueue)
-        player?.play()
+        if self.playItems.isEmpty == false {
+            let playQueue: MPMediaItemCollection = MPMediaItemCollection(items: self.playItems)
+            player?.setQueue(with: playQueue)
+            player?.play()
+        }
     }
     
     func printPlayItems() {
