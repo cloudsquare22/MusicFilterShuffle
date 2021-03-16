@@ -175,7 +175,7 @@ final class Music: ObservableObject {
     }
 
     func songs() -> [MPMediaItem] {
-        var retsult: [MPMediaItem] = []
+        var result: [MPMediaItem] = []
         let iCloudFilter = MPMediaPropertyPredicate(value: MusicFilterShuffleApp.settingData.iCloud,
                                                     forProperty: MPMediaItemPropertyIsCloudItem,
                                                     comparisonType: .equalTo)
@@ -188,9 +188,9 @@ final class Music: ObservableObject {
             print(Date())
             let randamcitems = items.randomSample(count: items.count)
             print(Date())
-            retsult = randamcitems
+            result = randamcitems
         }
-        return retsult
+        return result
     }
     
     func albums() ->  [MPMediaItemCollection] {
