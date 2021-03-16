@@ -79,9 +79,9 @@ struct ItemsView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear() {
             print("ItemsView.onAppear")
-            if self.dispPlay == false {
-                self.music.play()
-            }
+//            if self.dispPlay == false {
+//                self.music.play()
+//            }
         }
     }
 }

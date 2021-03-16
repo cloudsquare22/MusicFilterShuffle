@@ -83,17 +83,18 @@ struct FilterView: View {
             .padding(16)
 
         )
+        .overlay(OverlayProgressView(dispProgress: self.$dispProgress))
         .onTapGesture {
             if self.onTap == false {
                 self.onTap = true
                 self.dispProgress.toggle()
                 DispatchQueue.global().async {
                     self.music.runFilter(filter: self.filter)
-                    self.dispProgress.toggle()
                     self.onTap = false
-//                    if self.settingData.autoPlay == true {
-//                        self.music.play()
-//                    }
+                    if self.settingData.autoPlay == true {
+                        self.music.play()
+                    }
+                    self.dispProgress.toggle()
                     self.disapItemsView.toggle()
                 }
             }
