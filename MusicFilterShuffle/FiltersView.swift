@@ -35,7 +35,7 @@ struct FiltersView: View {
                         FilterView(onTap: self.$onTap,
                                    title: self.filtersData[index].0,
                                    filter: self.filtersData[index].1,
-                                   size: width, color: self.filtersData[index].2,
+                                   width: width, color: self.filtersData[index].2,
                                    columns: self.settingData.colums().count)
                     }
                     SettingMenuView(width: width,
@@ -64,20 +64,21 @@ struct FilterView: View {
     @Binding var onTap: Bool
     let title: String
     let filter: Music.Filter
-    let size: CGFloat
+    let width: CGFloat
     let color: UIColor
     let columns: Int
     
     var body: some View {
+        let size = CGFloat(abs(width / CGFloat(columns) - 24))
         ZStack {
             Image(systemName: "opticaldisc")
                 .resizable()
                 .foregroundColor(Color(color).opacity(1.0))
         }
-        .frame(width: CGFloat(abs(size / CGFloat(columns) - 24)), height: CGFloat(abs(size / CGFloat(columns) - 24)), alignment: .center)
+        .frame(width: size, height: size, alignment: .center)
         .overlay(Circle().foregroundColor(Color(UIColor.systemGray6).opacity(0.6)))
         .overlay(
-            VStack(alignment: .center, spacing: 8) {
+            VStack(alignment: .center, spacing: 0) {
                 Text(NSLocalizedString(self.title, comment: ""))
                     .fontWeight(.medium)
                 if self.filter == .release {
@@ -150,10 +151,11 @@ struct SettingMenuView: View {
     let columns: Int
 
     var body: some View {
+        let size = CGFloat(abs(width / CGFloat(columns) - 24))
         Image(systemName: "gearshape")
             .resizable()
             .foregroundColor(Color(UIColor.gray).opacity(0.5))
-            .frame(width: CGFloat(abs(width / CGFloat(columns) - 24)), height: CGFloat(abs(width / CGFloat(columns) - 24)), alignment: .center)
+            .frame(width: size, height: size, alignment: .center)
             .onTapGesture {
                 self.tapSetting.toggle()
             }
