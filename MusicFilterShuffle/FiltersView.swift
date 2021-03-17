@@ -30,11 +30,16 @@ struct FiltersView: View {
         GeometryReader { geometry in
             let width = geometry.size.width
             ScrollView {
-                LazyVGrid(columns: columns) {
+                LazyVGrid(columns: self.settingData.colums()) {
                     ForEach(0..<filtersData.count) { index in
-                        FilterView(onTap: self.$onTap, title: self.filtersData[index].0, filter: self.filtersData[index].1, size: width, color: self.filtersData[index].2)
+                        FilterView(onTap: self.$onTap,
+                                   title: self.filtersData[index].0,
+                                   filter: self.filtersData[index].1,
+                                   size: width, color: self.filtersData[index].2,
+                                   columns: self.settingData.colums().count)
                     }
-                    SettingMenuView(width: width)
+                    SettingMenuView(width: width,
+                                    columns: self.settingData.colums().count)
                 }
                 .padding(16)
             }
@@ -61,6 +66,7 @@ struct FilterView: View {
     let filter: Music.Filter
     let size: CGFloat
     let color: UIColor
+    let columns: Int
     
     var body: some View {
         ZStack {
@@ -68,7 +74,7 @@ struct FilterView: View {
                 .resizable()
                 .foregroundColor(Color(color).opacity(1.0))
         }
-        .frame(width: CGFloat(abs(size / 2 - 24)), height: CGFloat(abs(size / 2 - 24)), alignment: .center)
+        .frame(width: CGFloat(abs(size / CGFloat(columns) - 24)), height: CGFloat(abs(size / CGFloat(columns) - 24)), alignment: .center)
         .overlay(Circle().foregroundColor(Color(UIColor.systemGray6).opacity(0.6)))
         .overlay(
             VStack(alignment: .center, spacing: 8) {
@@ -141,12 +147,13 @@ struct SettingMenuView: View {
 
     @EnvironmentObject var settingData: SettingData
     @State var tapSetting: Bool = false
+    let columns: Int
 
     var body: some View {
         Image(systemName: "gearshape")
             .resizable()
             .foregroundColor(Color(UIColor.gray).opacity(0.5))
-            .frame(width: CGFloat(abs(width / 2 - 24)), height: CGFloat(abs(width / 2 - 24)), alignment: .center)
+            .frame(width: CGFloat(abs(width / CGFloat(columns) - 24)), height: CGFloat(abs(width / CGFloat(columns) - 24)), alignment: .center)
             .onTapGesture {
                 self.tapSetting.toggle()
             }

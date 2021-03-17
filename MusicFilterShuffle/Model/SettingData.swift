@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class SettingData: ObservableObject {
     @Published var selectMusicCount: Int = 10
@@ -42,5 +43,17 @@ final class SettingData: ObservableObject {
         self.userdefault.set(self.autoPlay, forKey: "autoPlay")
         self.userdefault.set(self.iCloud, forKey: "iCloud")
         self.userdefault.set(self.releaseYear, forKey: "releaseYear")
+    }
+    
+    func colums() -> [GridItem] {
+        var result: [GridItem] = []
+        var items = 2
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            items = 4
+        }
+        for _ in 0..<items {
+            result.append(GridItem(spacing: 16))
+        }            
+        return result
     }
 }
