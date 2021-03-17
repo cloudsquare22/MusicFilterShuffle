@@ -16,7 +16,7 @@ struct FiltersView: View {
 
     var columns: [GridItem] = [GridItem(spacing: 16), GridItem(spacing: 16)]
     
-    let filtersData: [(String, Music.Filter, UIColor)] =
+    static let filtersData: [(String, Music.Filter, UIColor)] =
         [("A long time ago in a...", .oldday, .blue),
          ("Nowadays", .nowaday, .brown),
          ("Forgotten", .forgotten, .cyan),
@@ -31,11 +31,11 @@ struct FiltersView: View {
             let width = geometry.size.width
             ScrollView {
                 LazyVGrid(columns: self.settingData.colums()) {
-                    ForEach(0..<filtersData.count) { index in
+                    ForEach(0..<FiltersView.filtersData.count) { index in
                         FilterView(onTap: self.$onTap,
-                                   title: self.filtersData[index].0,
-                                   filter: self.filtersData[index].1,
-                                   width: width, color: self.filtersData[index].2,
+                                   title: FiltersView.filtersData[index].0,
+                                   filter: FiltersView.filtersData[index].1,
+                                   width: width, color: FiltersView.filtersData[index].2,
                                    columns: self.settingData.colums().count)
                     }
                     SettingMenuView(width: width,

@@ -24,3 +24,10 @@
 "Album Play Complete" = "アルバム\n未再生曲";
 "Release" = "リリース年";
 "Shuffle" = "全曲\nシャッフル";
+"Oldest song with last played date, except for unplayed songs." = "未再生曲以外の最終再生日の古い曲。";
+"New song on last play date." = "最終再生日の新しい曲。";
+"Songs with a low number of plays." = "再生回数の少ない曲。";
+"Songs with a large number of plays." = "再生回数の多い曲。";
+"Unplayed songs in the album." = "アルバム内の未再生曲。";
+"Songs with the specified release year." = "指定リリース年の曲。";
+"Shuffle all songs." = "全曲シャッフル。";

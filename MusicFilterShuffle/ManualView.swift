@@ -1,0 +1,42 @@
+//
+//  ManualView.swift
+//  MusicFilterShuffle
+//
+//  Created by Shin Inaba on 2021/03/18.
+//
+
+import SwiftUI
+
+struct ManualView: View {
+    let manuals: [String] = [
+        "Oldest song with last played date, except for unplayed songs.",
+        "New song on last play date.",
+        "Songs with a low number of plays.",
+        "Songs with a large number of plays.",
+        "Unplayed songs in the album.",
+        "Songs with the specified release year.",
+        "Shuffle all songs."
+    ]
+    
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(0..<FiltersView.filtersData.count) { index in
+                    VStack(alignment: .leading) {
+                        Text(FiltersView.filtersData[index].0)
+                            .font(.title)
+                        Text(self.manuals[index])
+                    }
+                }
+            }
+            .navigationBarTitle("Manual", displayMode: .inline)
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
+struct ManualView_Previews: PreviewProvider {
+    static var previews: some View {
+        ManualView()
+    }
+}
