@@ -14,8 +14,6 @@ struct FiltersView: View {
     @State var onTap = false
     @State var tapSetting: Bool = false
 
-    var columns: [GridItem] = [GridItem(spacing: 16), GridItem(spacing: 16)]
-    
     static let filtersData: [(String, Music.Filter, UIColor)] =
         [("A long time ago in a...", .oldday, .blue),
          ("Nowadays", .nowaday, .brown),
@@ -126,19 +124,6 @@ struct OverlayProgressView: View {
                 ProgressView("selecting music...")
                 Spacer()
             }
-        }
-    }
-}
-
-struct OverlaySettingView: View {
-    let filter: Music.Filter
-
-    var body: some View {
-        if self.filter == .release {
-            Image(systemName: "gearshape")
-                .font(Font.system(size: 24))
-                .foregroundColor(.gray)
-                .padding(8)
         }
     }
 }
