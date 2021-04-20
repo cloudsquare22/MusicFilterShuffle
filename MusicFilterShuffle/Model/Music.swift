@@ -136,6 +136,12 @@ final class Music: ObservableObject {
 //            }
             items = self.albumNotPlay(items: collection.items)
             if items.isEmpty == false {
+                items.sort(by: { (item1, item2) in
+                    item1.discNumber < item2.discNumber && item1.albumTrackNumber < item2.albumTrackNumber
+                })
+//                for item in items {
+//                    print("** \(item.title!):\(item.discNumber):\(item.albumTrackNumber)")
+//                }
                 break
             }
         }
