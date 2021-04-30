@@ -22,7 +22,8 @@ struct FiltersView: View {
 //         ("Album Shuffle", .albumshuffle, .red),
          ("Album Play Complete", .albumnotcomplete, .orange),
          ("Release", .release, .green),
-         ("Shuffle", .shuffle, .red)]
+         ("Shuffle", .shuffle, .red),
+         ("Shuffle Limit Time", .playtime, .purple)]
 
     var body: some View {
         GeometryReader { geometry in

@@ -22,6 +22,7 @@ final class Music: ObservableObject {
         case albumnotcomplete
         case release
         case shuffle
+        case playtime
     }
     
     init() {
@@ -47,6 +48,8 @@ final class Music: ObservableObject {
             self.songsReleaseYear(selectMusicCount: selectMusicCount)
         case .shuffle:
             self.songsShuffle(selectMusicCount: selectMusicCount)
+        case .playtime:
+            self.songsShufflePlayTime()
         }
     }
     
@@ -177,6 +180,23 @@ final class Music: ObservableObject {
         let items = self.songs()
         print("---------- play items ----------")
         self.playItems = Array(items.prefix(selectMusicCount))
+        self.printPlayItems()
+    }
+
+    func songsShufflePlayTime() {
+        let items = self.songs()
+        print("---------- play items ----------")
+        var totalTime = 0.0
+        var playItems: [MPMediaItem] = []
+        for item in items {
+            totalTime = totalTime + item.playbackDuration
+            if totalTime > 3600 {
+                print("Total Time:\(totalTime - item.playbackDuration)")
+                break
+            }
+            playItems.append(item)
+        }
+        self.playItems = playItems
         self.printPlayItems()
     }
 
