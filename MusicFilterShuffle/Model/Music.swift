@@ -188,13 +188,24 @@ final class Music: ObservableObject {
         print("---------- play items ----------")
         var totalTime = 0.0
         var playItems: [MPMediaItem] = []
+        var lastSelectCount = 0
         for item in items {
-            totalTime = totalTime + item.playbackDuration
-            if totalTime > 3600 {
-                print("Total Time:\(totalTime - item.playbackDuration)")
-                break
+            if totalTime + item.playbackDuration > 3600 {
+                if lastSelectCount > 100 {
+                    print("Total Time:\(totalTime)")
+                    break
+                }
+                else {
+                    lastSelectCount = lastSelectCount + 1
+                }
             }
-            playItems.append(item)
+            else {
+                if lastSelectCount > 0 {
+                    print("last 1 mile:\(item.title!)")
+                }
+                totalTime = totalTime + item.playbackDuration
+                playItems.append(item)
+            }
         }
         self.playItems = playItems
         self.printPlayItems()
