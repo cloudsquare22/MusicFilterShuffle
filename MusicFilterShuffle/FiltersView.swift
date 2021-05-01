@@ -23,7 +23,7 @@ struct FiltersView: View {
          ("Album Play Complete", .albumnotcomplete, .orange),
          ("Release", .release, .green),
          ("Shuffle", .shuffle, .red),
-         ("Shuffle Limit Time", .playtime, .purple)]
+         ("Time Limit", .playtime, .purple)]
 
     var body: some View {
         GeometryReader { geometry in
