@@ -18,6 +18,7 @@ struct SettingView: View {
                 SongsSettingView()
 //                AlbumSettingView()
                 ReleaseYearSettingView()
+                TimeLimitSettingView()
                 AboutView()
             }
             .navigationBarTitle("Setting", displayMode: .inline)
@@ -115,6 +116,27 @@ struct ReleaseYearSettingView: View {
                 Text(Int(self.settingData.releaseYear).description)
                 Slider(value: self.$settingData.releaseYear, in: 1950...2021, step: 1)
                     .onChange(of: self.settingData.releaseYear, perform: { value in
+                        print("Setting onChange:\(value)")
+                        self.settingData.save()
+                    })
+            }
+        }
+    }
+}
+
+struct TimeLimitSettingView: View {
+    @EnvironmentObject var settingData: SettingData
+
+    var body: some View {
+        Section(header: HStack {
+            Image(systemName: "timer")
+            Text("Time Limit")
+        })
+        {
+            HStack {
+                Text(Int(self.settingData.timeLimit).description)
+                Slider(value: self.$settingData.timeLimit, in: 10...180, step: 1)
+                    .onChange(of: self.settingData.timeLimit, perform: { value in
                         print("Setting onChange:\(value)")
                         self.settingData.save()
                     })

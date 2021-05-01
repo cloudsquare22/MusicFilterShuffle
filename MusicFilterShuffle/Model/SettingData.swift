@@ -14,6 +14,7 @@ final class SettingData: ObservableObject {
     @Published var autoPlay: Bool = true
     @Published var iCloud: Bool = false
     @Published var releaseYear: Double = 2000
+    @Published var timeLimit: Double = 60
     
     let userdefault = UserDefaults.standard
     
