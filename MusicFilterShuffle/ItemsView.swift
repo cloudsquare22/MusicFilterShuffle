@@ -25,7 +25,14 @@ struct ItemsView: View {
                         }
                         Spacer()
                     }
-
+                }
+                else if self.filter == .playtime {
+                    HStack {
+                        Spacer()
+                        Text("\(self.music.totalTime) " + NSLocalizedString("sec", comment: ""))
+                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        Spacer()
+                    }
                 }
                 ForEach(0..<self.music.playItems.count) { index in
                     let item = self.music.playItems[index]

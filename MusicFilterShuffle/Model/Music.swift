@@ -12,6 +12,7 @@ import Algorithms
 final class Music: ObservableObject {
     var player: MPMusicPlayerController? = nil
     var playItems: [MPMediaItem] = []
+    var totalTime: Double = 0.0
 
     enum Filter {
         case oldday
@@ -186,13 +187,13 @@ final class Music: ObservableObject {
     func songsShufflePlayTime() {
         let items = self.songs()
         print("---------- play items ----------")
-        var totalTime = 0.0
+        self.totalTime = 0.0
         var playItems: [MPMediaItem] = []
         var lastSelectCount = 0
         for item in items {
-            if totalTime + item.playbackDuration > MusicFilterShuffleApp.settingData.timeLimitSec {
+            if self.totalTime + item.playbackDuration > MusicFilterShuffleApp.settingData.timeLimitSec {
                 if lastSelectCount > 100 {
-                    print("Total Time:\(totalTime)")
+                    print("Total Time:\(self.totalTime)")
                     break
                 }
                 else {
@@ -203,7 +204,7 @@ final class Music: ObservableObject {
                 if lastSelectCount > 0 {
                     print("last 1 mile:\(item.title!)")
                 }
-                totalTime = totalTime + item.playbackDuration
+                self.totalTime = self.totalTime + item.playbackDuration
                 playItems.append(item)
             }
         }
