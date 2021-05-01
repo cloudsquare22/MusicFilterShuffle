@@ -190,7 +190,7 @@ final class Music: ObservableObject {
         var playItems: [MPMediaItem] = []
         var lastSelectCount = 0
         for item in items {
-            if totalTime + item.playbackDuration > 3600 {
+            if totalTime + item.playbackDuration > MusicFilterShuffleApp.settingData.timeLimitSec {
                 if lastSelectCount > 100 {
                     print("Total Time:\(totalTime)")
                     break

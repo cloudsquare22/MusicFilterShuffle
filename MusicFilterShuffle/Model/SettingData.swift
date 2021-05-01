@@ -16,6 +16,10 @@ final class SettingData: ObservableObject {
     @Published var releaseYear: Double = 2000
     @Published var timeLimit: Double = 60
     
+    var timeLimitSec: Double {
+        self.timeLimit * 60
+    }
+    
     let userdefault = UserDefaults.standard
     
     init() {
@@ -35,6 +39,9 @@ final class SettingData: ObservableObject {
         if let releaseYear = userdefault.object(forKey: "releaseYear") as? Double {
             self.releaseYear = releaseYear
         }
+        if let timeLimit = userdefault.object(forKey: "timeLimit") as? Double {
+            self.timeLimit = timeLimit
+        }
     }
     
     func save() {
@@ -44,6 +51,7 @@ final class SettingData: ObservableObject {
         self.userdefault.set(self.autoPlay, forKey: "autoPlay")
         self.userdefault.set(self.iCloud, forKey: "iCloud")
         self.userdefault.set(self.releaseYear, forKey: "releaseYear")
+        self.userdefault.set(self.timeLimit, forKey: "timeLimit")
     }
     
     func colums() -> [GridItem] {
