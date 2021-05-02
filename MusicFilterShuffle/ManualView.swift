@@ -16,7 +16,8 @@ struct ManualView: View {
         "Unplayed songs in the album.",
         "Songs with the specified release year.",
         "Shuffle all songs.",
-        "All songs will be shuffled within the time limit."
+        "Select time limit for shuffling all songs.",
+        "Shuffle by album."
     ]
     
     var body: some View {
