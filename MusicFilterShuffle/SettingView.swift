@@ -16,9 +16,9 @@ struct SettingView: View {
                 NavigationLink("Manual", destination: ManualView())
                 AllSettingView()
                 SongsSettingView()
-//                AlbumSettingView()
                 ReleaseYearSettingView()
                 TimeLimitSettingView()
+                AlbumSettingView()
                 AboutView()
             }
             .navigationBarTitle("Setting", displayMode: .inline)
@@ -91,10 +91,10 @@ struct AlbumSettingView: View {
     var body: some View {
         Section(header: HStack {
             Image(systemName: "opticaldisc")
-            Text("Album select")
+            Text("Album Shuffle")
         })
         {
-            NumberPlusMinusInputView(title: "Select min tracks", bounds: 1...100, number: self.$settingData.selectAlbumMinTracks)
+            NumberPlusMinusInputView(title: NSLocalizedString("Select min tracks", comment: ""), bounds: 1...100, number: self.$settingData.selectAlbumMinTracks)
                 .onChange(of: self.settingData.selectAlbumMinTracks, perform: { value in
                     print("Setting onChange:\(value)")
                     self.settingData.save()

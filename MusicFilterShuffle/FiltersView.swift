@@ -19,11 +19,11 @@ struct FiltersView: View {
          ("Nowadays", .nowaday, .brown),
          ("Forgotten", .forgotten, .cyan),
          ("Heavy Rotation", .heavyrotation, .magenta),
-//         ("Album Shuffle", .albumshuffle, .red),
          ("Album Play Complete", .albumnotcomplete, .orange),
          ("Release", .release, .green),
          ("Shuffle", .shuffle, .red),
-         ("Time Limit", .playtime, .purple)]
+         ("Time Limit", .playtime, .purple),
+         ("Album Shuffle", .albumshuffle, .yellow)]
 
     var body: some View {
         GeometryReader { geometry in

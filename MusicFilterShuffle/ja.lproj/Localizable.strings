@@ -16,6 +16,7 @@
 "Song select" = "曲選択";
 "Select song count" = "選択曲数";
 "Release Year" = "リリース年選択";
+"Select min tracks" = "選択最小曲数";
 "About" = "音彩について";
 "A long time ago in a..." = "遠い昔、、、";
 "Nowadays" = "最近";
@@ -25,6 +26,7 @@
 "Release" = "リリース年";
 "Shuffle" = "全曲シャッフル";
 "Time Limit" = "時間制限";
+"Album Shuffle" = "アルバムシャッフル";
 "Oldest song with last played date, except for unplayed songs." = "未再生曲以外の最終再生日の古い曲。";
 "New song on last play date." = "最終再生日の新しい曲。";
 "Songs with a low number of plays." = "再生回数の少ない曲。";
