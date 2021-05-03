@@ -29,7 +29,7 @@ struct ItemsView: View {
                 else if self.filter == .playtime {
                     HStack {
                         Spacer()
-                        Text("\(self.music.totalTime) " + NSLocalizedString("sec", comment: ""))
+                        Text(String(format: "%.1f", self.music.totalTime) + NSLocalizedString("sec", comment: ""))
                             .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         Spacer()
                     }
