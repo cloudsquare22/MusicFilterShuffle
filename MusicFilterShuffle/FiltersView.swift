@@ -84,6 +84,10 @@ struct FilterView: View {
                         Text(Int(self.settingData.releaseYear).description)
                             .fontWeight(.medium)
                 }
+                else if self.filter == .playtime {
+                    Text(String(format: "%.1f", self.settingData.timeLimitSec) + NSLocalizedString("sec", comment: ""))
+                        .fontWeight(.medium)
+                }
             }
             .font(.title2)
             .padding(16)
