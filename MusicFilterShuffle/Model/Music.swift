@@ -31,30 +31,29 @@ final class Music: ObservableObject {
     }
 
     func runFilter(filter: Filter) {
-        let selectMusicCount = MusicFilterShuffleApp.settingData.selectMusicCount
         switch filter {
         case .oldday:
-            self.lastPlayedDateOld(selectMusicCount: selectMusicCount)
+            self.lastPlayedDateOld()
         case .nowaday:
-            self.lastPlayedDateNew(selectMusicCount: selectMusicCount)
+            self.lastPlayedDateNew()
         case .forgotten:
-            self.playCountMin(selectMusicCount: selectMusicCount)
+            self.playCountMin()
         case .heavyrotation:
-            self.playCountMax(selectMusicCount: selectMusicCount)
+            self.playCountMax()
         case .albumshuffle:
             self.playAlbumShuffle()
         case .albumnotcomplete:
             self.playAlbumComplete()
         case .release:
-            self.songsReleaseYear(selectMusicCount: selectMusicCount)
+            self.songsReleaseYear()
         case .shuffle:
-            self.songsShuffle(selectMusicCount: selectMusicCount)
+            self.songsShuffle()
         case .playtime:
             self.songsShufflePlayTime()
         }
     }
     
-    func lastPlayedDateOld(selectMusicCount: Int) {
+    func lastPlayedDateOld() {
         let items = self.songs()
         let filteritems = items.filter{$0.lastPlayedDate != nil}
         print("---------- sort ----------")
@@ -66,11 +65,11 @@ final class Music: ObservableObject {
         })
         print(Date())
         print("---------- play items ----------")
-        self.playItems = Array(sortcitems.prefix(selectMusicCount))
+        self.playItems = Array(sortcitems.prefix(MusicFilterShuffleApp.settingData.selectMusicCount))
         self.printPlayItems()
     }
     
-    func lastPlayedDateNew(selectMusicCount: Int) {
+    func lastPlayedDateNew() {
         let items = self.songs()
         let filteritems = items.filter{$0.lastPlayedDate != nil}
         print("---------- sort ----------")
@@ -82,11 +81,11 @@ final class Music: ObservableObject {
         })
         print(Date())
         print("---------- play items ----------")
-        self.playItems = Array(sortcitems.prefix(selectMusicCount))
+        self.playItems = Array(sortcitems.prefix(MusicFilterShuffleApp.settingData.selectMusicCount))
         self.printPlayItems()
     }
 
-    func playCountMax(selectMusicCount: Int) {
+    func playCountMax() {
         let items = self.songs()
         print("---------- sort ----------")
         print(Date())
@@ -95,11 +94,11 @@ final class Music: ObservableObject {
         })
         print(Date())
         print("---------- play items ----------")
-        self.playItems = Array(sortcitems.prefix(selectMusicCount))
+        self.playItems = Array(sortcitems.prefix(MusicFilterShuffleApp.settingData.selectMusicCount))
         self.printPlayItems()
     }
     
-    func playCountMin(selectMusicCount: Int) {
+    func playCountMin() {
         let items = self.songs()
         print("---------- sort ----------")
         print(Date())
@@ -108,7 +107,7 @@ final class Music: ObservableObject {
         })
         print(Date())
         print("---------- play items ----------")
-        self.playItems = Array(sortcitems.prefix(selectMusicCount))
+        self.playItems = Array(sortcitems.prefix(MusicFilterShuffleApp.settingData.selectMusicCount))
         self.printPlayItems()
     }
     
@@ -165,7 +164,7 @@ final class Music: ObservableObject {
         return result
     }
 
-    func songsReleaseYear(selectMusicCount: Int) {
+    func songsReleaseYear() {
         let releaseYear = Int(MusicFilterShuffleApp.settingData.releaseYear)
         let calendar = Calendar(identifier: .gregorian)
         let startDate = calendar.date(from: DateComponents(year: releaseYear, month: 1, day: 1))!
@@ -173,14 +172,14 @@ final class Music: ObservableObject {
         let items = self.songs()
         let filteritems = items.filter{$0.releaseDate != nil && startDate <= $0.releaseDate! && $0.releaseDate! <= endDate}
         print("---------- play items ----------")
-        self.playItems = Array(filteritems.prefix(selectMusicCount))
+        self.playItems = Array(filteritems.prefix(MusicFilterShuffleApp.settingData.selectMusicCount))
         self.printPlayItems()
     }
     
-    func songsShuffle(selectMusicCount: Int) {
+    func songsShuffle() {
         let items = self.songs()
         print("---------- play items ----------")
-        self.playItems = Array(items.prefix(selectMusicCount))
+        self.playItems = Array(items.prefix(MusicFilterShuffleApp.settingData.selectMusicCount))
         self.printPlayItems()
     }
 
