@@ -85,7 +85,7 @@ struct FilterView: View {
                             .fontWeight(.medium)
                 }
                 else if self.filter == .playtime {
-                    Text(String(format: "%.1f", self.settingData.timeLimitSec) + NSLocalizedString("sec", comment: ""))
+                    Text(String(format: "%d", Int(self.settingData.timeLimit)) + NSLocalizedString("min", comment: ""))
                         .fontWeight(.medium)
                 }
             }

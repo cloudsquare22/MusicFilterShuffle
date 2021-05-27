@@ -37,4 +37,4 @@
 "Select time limit for shuffling all songs." = "全曲シャッフルの制限時間選択。";
 "Shuffle by album." = "アルバム単位のシャッフル。";
 "Manual" = "マニュアル";
-"sec" = "秒";
+"min" = "分";

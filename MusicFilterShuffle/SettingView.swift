@@ -130,7 +130,10 @@ struct TimeLimitSettingView: View {
     var body: some View {
         Section(header: HStack {
             Image(systemName: "timer")
-            Text("Time Limit")
+            Text(NSLocalizedString("Time Limit", comment: "") +
+                    "(" +
+                    NSLocalizedString("min", comment: "") +
+                    ")")
         })
         {
             HStack {
