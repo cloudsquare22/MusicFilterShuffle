@@ -72,10 +72,7 @@ struct SongsSettingView: View {
     @EnvironmentObject var settingData: SettingData
 
     var body: some View {
-        Section(header: HStack {
-            Image(systemName: "music.note")
-            Text("Song select")
-        }) {
+        Section(header: Label("Song select", systemImage: "music.note")) {
             NumberPlusMinusInputView(title: NSLocalizedString("Select song count", comment: ""), bounds: 1...100, number: self.$settingData.selectMusicCount)
                 .onChange(of: self.settingData.selectMusicCount, perform: { value in
                     print("Setting onChange:\(value)")
@@ -89,11 +86,7 @@ struct AlbumSettingView: View {
     @EnvironmentObject var settingData: SettingData
 
     var body: some View {
-        Section(header: HStack {
-            Image(systemName: "opticaldisc")
-            Text("Album Shuffle")
-        })
-        {
+        Section(header: Label("Album Shuffle", systemImage: "opticaldisc")) {
             NumberPlusMinusInputView(title: NSLocalizedString("Select min tracks", comment: ""), bounds: 1...100, number: self.$settingData.selectAlbumMinTracks)
                 .onChange(of: self.settingData.selectAlbumMinTracks, perform: { value in
                     print("Setting onChange:\(value)")
@@ -107,11 +100,7 @@ struct ReleaseYearSettingView: View {
     @EnvironmentObject var settingData: SettingData
 
     var body: some View {
-        Section(header: HStack {
-            Image(systemName: "calendar")
-            Text("Release Year")
-        })
-        {
+        Section(header: Label("Release Year", systemImage: "calendar")) {
             HStack {
                 Text(Int(self.settingData.releaseYear).description)
                 Slider(value: self.$settingData.releaseYear, in: 1950...2021, step: 1)
