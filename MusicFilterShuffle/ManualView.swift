@@ -32,7 +32,8 @@ struct ManualView: View {
                     .padding(8.0)
                 }
             }
-            .navigationBarTitle("Manual", displayMode: .inline)
+            .navigationTitle("Manual")
+            .navigationBarTitleDisplayMode(.large)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

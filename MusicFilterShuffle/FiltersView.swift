@@ -114,7 +114,9 @@ struct FilterView: View {
         }
         .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {
         }, content: {
-            ItemsView(filter: self.filter, dispPlay: !self.settingData.autoPlay)
+            ItemsView(filter: self.filter,
+                      title: self.title,
+                      dispPlay: !self.settingData.autoPlay)
         })
     }
 }

@@ -21,7 +21,8 @@ struct SettingView: View {
                 AlbumSettingView()
                 AboutView()
             }
-            .navigationBarTitle("Setting", displayMode: .inline)
+            .navigationTitle("Setting")
+            .navigationBarTitleDisplayMode(.large)
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear() {

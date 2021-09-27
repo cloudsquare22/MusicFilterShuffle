@@ -11,6 +11,7 @@ struct ItemsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var music: Music
     let filter: Music.Filter
+    let title: String
     @State var dispPlay: Bool
 
     var body: some View {
@@ -75,7 +76,8 @@ struct ItemsView: View {
                         .padding(8.0)
                 }
             }), alignment: .bottom)
-            .navigationBarTitle("Play Songs", displayMode: .inline)
+            .navigationTitle(NSLocalizedString(self.title, comment: ""))
+            .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing: Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
@@ -95,7 +97,7 @@ struct ItemsView: View {
 
 struct ItemsView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemsView(filter: Music.Filter.forgotten, dispPlay: true)
+        ItemsView(filter: Music.Filter.forgotten, title: "Test", dispPlay: true)
             .environmentObject(Music())
     }
 }
