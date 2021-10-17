@@ -13,6 +13,7 @@
 "All" = "全て";
 "Use iCloud" = "iCloud使用";
 "Auto play" = "自動再生";
+"Hide song title" = "曲タイトルを隠す";
 "Song select" = "曲選択";
 "Select song count" = "選択曲数";
 "Release Year" = "リリース年選択";
@@ -38,3 +39,4 @@
 "Shuffle by album." = "アルバム単位のシャッフル。";
 "Manual" = "マニュアル";
 "min" = "分";
+"- Hidden by setting -" = "- 非表示設定中 -";
