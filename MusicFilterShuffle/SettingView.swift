@@ -64,7 +64,16 @@ struct AllSettingView: View {
                     self.settingData.save()
                 })
             }
-            
+            HStack {
+                Toggle(isOn: self.$settingData.hideSongTitle, label: {
+                    Text("Hide song title")
+                })
+                .onChange(of: self.settingData.hideSongTitle, perform: { value in
+                    print("Setting onChange:\(value)")
+                    self.settingData.save()
+                })
+            }
+
         }
     }
 }

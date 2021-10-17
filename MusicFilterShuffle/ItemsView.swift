@@ -10,6 +10,7 @@ import SwiftUI
 struct ItemsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var music: Music
+    @EnvironmentObject var settingData: SettingData
     let filter: Music.Filter
     let title: String
     @State var dispPlay: Bool
@@ -38,7 +39,13 @@ struct ItemsView: View {
                 ForEach(0..<self.music.playItems.count) { index in
                     let item = self.music.playItems[index]
                     VStack(alignment: .leading) {
-                        Text("\(item.title!)")
+                        if self.settingData.hideSongTitle == false {
+                            Text("\(item.title!)")
+                        }
+                        else {
+                            Text("- Hidden by setting -")
+                                .foregroundColor(.gray)
+                        }
                         HStack(spacing: 0) {
                             switch self.filter {
                             case .oldday, .nowaday:

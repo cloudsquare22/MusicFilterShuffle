@@ -12,6 +12,7 @@ final class SettingData: ObservableObject {
     @Published var selectMusicCount: Int = 10
     @Published var selectAlbumMinTracks: Int = 6
     @Published var autoPlay: Bool = true
+    @Published var hideSongTitle = false
     @Published var iCloud: Bool = false
     @Published var releaseYear: Double = 2000
     @Published var timeLimit: Double = 60
@@ -33,6 +34,9 @@ final class SettingData: ObservableObject {
         if let autoPlay = userdefault.object(forKey: "autoPlay") as? Bool {
             self.autoPlay = autoPlay
         }
+        if let hideSongTitle = userdefault.object(forKey: "hideSongTitle") as? Bool {
+            self.hideSongTitle = hideSongTitle
+        }
         if let iCloud = userdefault.object(forKey: "iCloud") as? Bool {
             self.iCloud = iCloud
         }
@@ -49,6 +53,7 @@ final class SettingData: ObservableObject {
         self.userdefault.set(self.selectAlbumMinTracks, forKey: "selectAlbumMinTracks")
         self.userdefault.set(self.selectMusicCount, forKey: "selectMusicCount")
         self.userdefault.set(self.autoPlay, forKey: "autoPlay")
+        self.userdefault.set(self.hideSongTitle, forKey: "hideSongTitle")
         self.userdefault.set(self.iCloud, forKey: "iCloud")
         self.userdefault.set(self.releaseYear, forKey: "releaseYear")
         self.userdefault.set(self.timeLimit, forKey: "timeLimit")
