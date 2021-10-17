@@ -21,21 +21,18 @@ struct ManualView: View {
     ]
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(0..<FiltersView.filtersData.count) { index in
-                    VStack(alignment: .leading, spacing: 8.0) {
-                        Text(NSLocalizedString(FiltersView.filtersData[index].0, comment: ""))
-                            .font(.title2)
-                        Text(NSLocalizedString(self.manuals[index], comment: ""))
-                    }
-                    .padding(8.0)
+        List {
+            ForEach(0..<FiltersView.filtersData.count) { index in
+                VStack(alignment: .leading, spacing: 8.0) {
+                    Text(NSLocalizedString(FiltersView.filtersData[index].0, comment: ""))
+                        .font(.title2)
+                    Text(NSLocalizedString(self.manuals[index], comment: ""))
                 }
+                .padding(8.0)
             }
-            .navigationTitle("Manual")
-            .navigationBarTitleDisplayMode(.large)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationTitle("Manual")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 
