@@ -268,4 +268,12 @@ final class Music: ObservableObject {
         })
     }
 
+    func totalTimeToString() -> String {
+        var result = ""
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .short
+        formatter.allowedUnits = [.minute, .second]
+        result = formatter.string(from: self.totalTime)!
+        return result
+    }
 }
