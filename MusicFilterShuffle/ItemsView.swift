@@ -84,7 +84,6 @@ struct ItemsView: View {
                 }
             }), alignment: .bottom)
             .navigationTitle(NSLocalizedString(self.title, comment: ""))
-            .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing: Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
