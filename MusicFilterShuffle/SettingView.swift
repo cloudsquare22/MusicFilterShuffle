@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingView: View {
     @EnvironmentObject var settingData: SettingData
+    @EnvironmentObject var music: Music
 
     var body: some View {
         NavigationView {
@@ -19,6 +20,7 @@ struct SettingView: View {
                 ReleaseYearSettingView()
                 TimeLimitSettingView()
                 AlbumSettingView()
+                CountView()
                 AboutView()
             }
             .navigationTitle("Setting")
@@ -144,6 +146,23 @@ struct TimeLimitSettingView: View {
                     })
             }
         }
+    }
+}
+
+struct CountView: View {
+    @EnvironmentObject var music: Music
+
+    var body: some View {
+        Section(header: HStack {
+            Image(systemName: "textformat.123")
+            Text("Count")
+        })
+        {
+            Text("Count")
+        }
+        .onAppear(perform: {
+//            self.music.count()
+        })
     }
 }
 

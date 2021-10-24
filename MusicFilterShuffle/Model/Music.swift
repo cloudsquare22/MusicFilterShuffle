@@ -286,4 +286,16 @@ final class Music: ObservableObject {
         result = formatter.string(from: self.totalTime)!
         return result
     }
+
+    func count() {
+        print(#function)
+        let items = self.songs()
+        var maps: [Int : Int] = [:]
+        items.forEach({ item in
+            let count = maps[item.playCount] == nil ? 0 : maps[item.playCount]
+            maps[item.playCount] = count! + 1
+        })
+        print(maps)
+    }
+
 }
