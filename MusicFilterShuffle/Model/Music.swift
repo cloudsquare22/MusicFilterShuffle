@@ -106,6 +106,16 @@ final class Music: ObservableObject {
             return a.playCount < b.playCount
         })
         print(Date())
+        var maps: [Int : Int] = [:]
+        sortcitems.forEach({ item in
+            if let count = maps[item.playCount] {
+                maps[item.playCount] = count + 1
+            }
+            else {
+                maps[item.playCount] = 1
+            }
+        })
+        print(maps)
         print("---------- play items ----------")
         self.playItems = Array(sortcitems.prefix(MusicFilterShuffleApp.settingData.selectMusicCount))
         self.printPlayItems()
