@@ -13,6 +13,7 @@ final class Music: ObservableObject {
     var player: MPMusicPlayerController? = nil
     var playItems: [MPMediaItem] = []
     var totalTime: Double = 0.0
+    var playCountMaps: [String] = []
 
     enum Filter {
         case oldday
@@ -287,8 +288,9 @@ final class Music: ObservableObject {
         return result
     }
 
-    func count() {
+    func count() -> [Int : Int] {
         print(#function)
+        self.playCountMaps = []
         let items = self.songs()
         var maps: [Int : Int] = [:]
         items.forEach({ item in
@@ -296,6 +298,11 @@ final class Music: ObservableObject {
             maps[item.playCount] = count! + 1
         })
         print(maps)
+        for key in maps.keys.sorted() {
+            let text = "\(key) play, \(maps[key]!) songs"
+            self.playCountMaps.append(text)
+        }
+        return maps
     }
 
 }
