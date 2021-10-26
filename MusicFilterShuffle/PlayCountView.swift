@@ -13,9 +13,15 @@ struct PlayCountView: View {
     var body: some View {
         List {
             ForEach(0..<self.music.playCountMaps.count) { index in
-                Text(self.music.playCountMaps[index])
+                HStack {
+                    Text(self.music.playCountMaps[index].0)
+                    Spacer()
+                    Text(self.music.playCountMaps[index].1)
+                }
             }
         }
+        .navigationTitle("Play Count")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 

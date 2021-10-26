@@ -13,7 +13,7 @@ final class Music: ObservableObject {
     var player: MPMusicPlayerController? = nil
     var playItems: [MPMediaItem] = []
     var totalTime: Double = 0.0
-    var playCountMaps: [String] = []
+    var playCountMaps: [(String, String)] = []
 
     enum Filter {
         case oldday
@@ -299,8 +299,9 @@ final class Music: ObservableObject {
         })
         print(maps)
         for key in maps.keys.sorted() {
-            let text = "\(key) play, \(maps[key]!) songs"
-            self.playCountMaps.append(text)
+            let textleft = NSLocalizedString("Play ", comment: "") + String(key) + NSLocalizedString(" times", comment: "")
+            let textright = String(maps[key]!) + NSLocalizedString(" songs", comment: "")
+            self.playCountMaps.append((textleft, textright))
         }
         return maps
     }
