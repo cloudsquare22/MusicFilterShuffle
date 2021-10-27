@@ -10,6 +10,7 @@
 		8D34A41A25ED9257005450CE /* NumberPlusMinusInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D34A41925ED9257005450CE /* NumberPlusMinusInputView.swift */; };
 		8D34A41D25ED96EF005450CE /* SettingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D34A41C25ED96EF005450CE /* SettingData.swift */; };
 		8D34A42125F1030E005450CE /* ItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D34A42025F1030E005450CE /* ItemsView.swift */; };
+		8D8DFCD4272970DA00EF0045 /* ReleaseYearCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DFCD3272970DA00EF0045 /* ReleaseYearCountView.swift */; };
 		8DB3F2932602AB1A00E278C6 /* ManualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB3F2922602AB1A00E278C6 /* ManualView.swift */; };
 		8DB74DC225FE1B96004C12E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DB74DC425FE1B96004C12E0 /* Localizable.strings */; };
 		8DB74DCB25FE2D16004C12E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DB74DCD25FE2D16004C12E0 /* InfoPlist.strings */; };
@@ -29,6 +30,7 @@
 		8D34A41925ED9257005450CE /* NumberPlusMinusInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPlusMinusInputView.swift; sourceTree = "<group>"; };
 		8D34A41C25ED96EF005450CE /* SettingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingData.swift; sourceTree = "<group>"; };
 		8D34A42025F1030E005450CE /* ItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsView.swift; sourceTree = "<group>"; };
+		8D8DFCD3272970DA00EF0045 /* ReleaseYearCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseYearCountView.swift; sourceTree = "<group>"; };
 		8DB3F2922602AB1A00E278C6 /* ManualView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualView.swift; sourceTree = "<group>"; };
 		8DB74DC325FE1B96004C12E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8DB74DC625FE1BB7004C12E0 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				8DB74DC425FE1B96004C12E0 /* Localizable.strings */,
 				8DB3F2922602AB1A00E278C6 /* ManualView.swift */,
 				8DBCEBEC2726C9CD00CD0116 /* PlayCountView.swift */,
+				8D8DFCD3272970DA00EF0045 /* ReleaseYearCountView.swift */,
 			);
 			path = MusicFilterShuffle;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 				8D34A42125F1030E005450CE /* ItemsView.swift in Sources */,
 				8DEFFC4F25EB724E00A2FAE5 /* SettingView.swift in Sources */,
 				8DBCEBED2726C9CD00CD0116 /* PlayCountView.swift in Sources */,
+				8D8DFCD4272970DA00EF0045 /* ReleaseYearCountView.swift in Sources */,
 				8DB8F4D225E5ACE800ED995F /* MusicFilterShuffleApp.swift in Sources */,
 				8D34A41D25ED96EF005450CE /* SettingData.swift in Sources */,
 				8D34A41A25ED9257005450CE /* NumberPlusMinusInputView.swift in Sources */,

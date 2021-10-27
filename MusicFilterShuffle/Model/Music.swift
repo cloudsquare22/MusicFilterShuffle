@@ -14,6 +14,7 @@ final class Music: ObservableObject {
     var playItems: [MPMediaItem] = []
     var totalTime: Double = 0.0
     var playCountMaps: [(String, String)] = []
+    var releaseYearMaps: [(String, String)] = []
 
     enum Filter {
         case oldday
@@ -303,6 +304,28 @@ final class Music: ObservableObject {
             let textright = String(maps[key]!) + NSLocalizedString(" songs", comment: "")
             self.playCountMaps.append((textleft, textright))
         }
+        
+        maps = [:]
+        items.forEach({ item in
+            if let release = item.releaseDate {
+                let datecomponents = Calendar.current.dateComponents(in: .current, from: release)
+                if let year = datecomponents.year {
+                    let count = maps[year] == nil ? 0 : maps[year]
+                    maps[year] = count! + 1
+                }
+                else {
+                    let count = maps[0] == nil ? 0 : maps[0]
+                    maps[0] = count! + 1
+                }
+            }
+        })
+        print(maps)
+        for key in maps.keys.sorted() {
+            let textleft = String(key) + NSLocalizedString(" year", comment: "")
+            let textright = String(maps[key]!) + NSLocalizedString(" songs", comment: "")
+            self.releaseYearMaps.append((textleft, textright))
+        }
+
         return maps
     }
 
