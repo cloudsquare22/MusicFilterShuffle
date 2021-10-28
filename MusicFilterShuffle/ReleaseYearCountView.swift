@@ -20,7 +20,7 @@ struct ReleaseYearCountView: View {
                 }
             }
         }
-        .navigationTitle("Release Year Count")
+        .navigationTitle("Release Year")
         .navigationBarTitleDisplayMode(.large)
     }
 }

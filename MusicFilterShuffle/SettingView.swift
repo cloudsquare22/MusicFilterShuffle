@@ -160,7 +160,7 @@ struct CountView: View {
         })
         {
             NavigationLink("Play count", destination: PlayCountView())
-            NavigationLink("Release Year count", destination: ReleaseYearCountView())
+            NavigationLink("Release Year", destination: ReleaseYearCountView())
         }
         .onAppear(perform: {
         })

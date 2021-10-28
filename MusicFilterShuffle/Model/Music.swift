@@ -320,8 +320,15 @@ final class Music: ObservableObject {
             }
         })
         print(maps)
+        print(Locale.current.identifier)
         for key in maps.keys.sorted() {
-            let textleft = String(key) + NSLocalizedString(" year", comment: "")
+            var textleft = ""
+            if Locale.current.identifier == "en_US" {
+                textleft = String(key) + "."
+            }
+            else {
+                textleft = String(key) + NSLocalizedString(" year", comment: "")
+            }
             let textright = String(maps[key]!) + NSLocalizedString(" songs", comment: "")
             self.releaseYearMaps.append((textleft, textright))
         }
