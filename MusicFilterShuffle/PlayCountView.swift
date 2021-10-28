@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct PlayCountView: View {
-    @EnvironmentObject var music: Music
+    var playCountMaps: [(String, String)]
 
     var body: some View {
         List {
-            ForEach(0..<self.music.playCountMaps.count) { index in
+            ForEach(0..<self.playCountMaps.count) { index in
                 HStack {
-                    Text(self.music.playCountMaps[index].0)
+                    Text(self.playCountMaps[index].0)
                     Spacer()
-                    Text(self.music.playCountMaps[index].1)
+                    Text(self.playCountMaps[index].1)
                 }
             }
         }
@@ -27,6 +27,6 @@ struct PlayCountView: View {
 
 struct PlayCountView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayCountView()
+        PlayCountView(playCountMaps: [])
     }
 }

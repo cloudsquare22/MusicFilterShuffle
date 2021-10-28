@@ -159,7 +159,7 @@ struct CountView: View {
             Text("Count")
         })
         {
-            NavigationLink("Play count", destination: PlayCountView())
+            NavigationLink("Play count", destination: PlayCountView(playCountMaps: self.music.countPlayCount()))
             NavigationLink("Release Year", destination: ReleaseYearCountView())
         }
         .onAppear(perform: {

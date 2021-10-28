@@ -336,4 +336,23 @@ final class Music: ObservableObject {
         return maps
     }
 
+    func countPlayCount() -> [(String, String)] {
+        print(#function)
+
+        let items = self.songs()
+        var maps: [Int : Int] = [:]
+        items.forEach({ item in
+            let count = maps[item.playCount] == nil ? 0 : maps[item.playCount]
+            maps[item.playCount] = count! + 1
+        })
+        print(maps)
+        var mapsString: [(String, String)] = []
+        for key in maps.keys.sorted() {
+            let textleft = NSLocalizedString("Play ", comment: "") + String(key) + NSLocalizedString(" times", comment: "")
+            let textright = String(maps[key]!) + NSLocalizedString(" songs", comment: "")
+            mapsString.append((textleft, textright))
+        }
+
+        return mapsString
+    }
 }
