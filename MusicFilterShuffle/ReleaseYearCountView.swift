@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ReleaseYearCountView: View {
-    @EnvironmentObject var music: Music
+    var releaseYearMaps: [(String, String)]
 
     var body: some View {
         List {
-            ForEach(0..<self.music.releaseYearMaps.count) { index in
+            ForEach(0..<self.releaseYearMaps.count) { index in
                 HStack {
-                    Text(self.music.releaseYearMaps[index].0)
+                    Text(self.releaseYearMaps[index].0)
                     Spacer()
-                    Text(self.music.releaseYearMaps[index].1)
+                    Text(self.releaseYearMaps[index].1)
                 }
             }
         }
@@ -27,6 +27,6 @@ struct ReleaseYearCountView: View {
 
 struct ReleaseYearCountView_Previews: PreviewProvider {
     static var previews: some View {
-        ReleaseYearCountView()
+        ReleaseYearCountView(releaseYearMaps: [])
     }
 }

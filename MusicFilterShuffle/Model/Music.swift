@@ -13,8 +13,6 @@ final class Music: ObservableObject {
     var player: MPMusicPlayerController? = nil
     var playItems: [MPMediaItem] = []
     var totalTime: Double = 0.0
-    var playCountMaps: [(String, String)] = []
-    var releaseYearMaps: [(String, String)] = []
 
     enum Filter {
         case oldday
@@ -289,9 +287,9 @@ final class Music: ObservableObject {
         return result
     }
 
-    func count() -> [Int : Int] {
+    func countPlayCount() -> [(String, String)] {
         print(#function)
-        self.playCountMaps = []
+
         let items = self.songs()
         var maps: [Int : Int] = [:]
         items.forEach({ item in
@@ -299,13 +297,21 @@ final class Music: ObservableObject {
             maps[item.playCount] = count! + 1
         })
         print(maps)
+        var mapsString: [(String, String)] = []
         for key in maps.keys.sorted() {
             let textleft = NSLocalizedString("Play ", comment: "") + String(key) + NSLocalizedString(" times", comment: "")
             let textright = String(maps[key]!) + NSLocalizedString(" songs", comment: "")
-            self.playCountMaps.append((textleft, textright))
+            mapsString.append((textleft, textright))
         }
-        
-        maps = [:]
+
+        return mapsString
+    }
+
+    func countReleaseYear() -> [(String, String)] {
+        print(#function)
+
+        let items = self.songs()
+        var maps: [Int : Int] = [:]
         items.forEach({ item in
             if let release = item.releaseDate {
                 let datecomponents = Calendar.current.dateComponents(in: .current, from: release)
@@ -321,6 +327,7 @@ final class Music: ObservableObject {
         })
         print(maps)
         print(Locale.current.identifier)
+        var mapsString: [(String, String)] = []
         for key in maps.keys.sorted() {
             var textleft = ""
             if Locale.current.identifier == "en_US" {
@@ -329,26 +336,6 @@ final class Music: ObservableObject {
             else {
                 textleft = String(key) + NSLocalizedString(" year", comment: "")
             }
-            let textright = String(maps[key]!) + NSLocalizedString(" songs", comment: "")
-            self.releaseYearMaps.append((textleft, textright))
-        }
-
-        return maps
-    }
-
-    func countPlayCount() -> [(String, String)] {
-        print(#function)
-
-        let items = self.songs()
-        var maps: [Int : Int] = [:]
-        items.forEach({ item in
-            let count = maps[item.playCount] == nil ? 0 : maps[item.playCount]
-            maps[item.playCount] = count! + 1
-        })
-        print(maps)
-        var mapsString: [(String, String)] = []
-        for key in maps.keys.sorted() {
-            let textleft = NSLocalizedString("Play ", comment: "") + String(key) + NSLocalizedString(" times", comment: "")
             let textright = String(maps[key]!) + NSLocalizedString(" songs", comment: "")
             mapsString.append((textleft, textright))
         }

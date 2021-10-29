@@ -29,7 +29,6 @@ struct SettingView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear() {
             print("Setting onAppear")
-            let _ = self.music.count()
         }
         .onDisappear() {
             print("Setting onDisappear")
@@ -160,7 +159,7 @@ struct CountView: View {
         })
         {
             NavigationLink("Play count", destination: PlayCountView(playCountMaps: self.music.countPlayCount()))
-            NavigationLink("Release Year", destination: ReleaseYearCountView())
+            NavigationLink("Release Year", destination: ReleaseYearCountView(releaseYearMaps: self.music.countReleaseYear()))
         }
         .onAppear(perform: {
         })
