@@ -59,6 +59,7 @@ struct FilterView: View {
     @EnvironmentObject var settingData: SettingData
     @State var dispProgress: Bool = false
     @State var disapItemsView: Bool = false
+    @State var onReleaseSettingView: Bool = false
 
     @Binding var onTap: Bool
     let title: String
@@ -112,11 +113,20 @@ struct FilterView: View {
                 print("onTap Noaction!!")
             }
         }
+        .onLongPressGesture(perform: {
+            print("onLongPressGesture")
+            if self.filter == .release {
+                self.onReleaseSettingView.toggle()
+            }
+        })
         .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {
         }, content: {
             ItemsView(filter: self.filter,
                       title: self.title,
                       dispPlay: !self.settingData.autoPlay)
+        })
+        .popover(isPresented: self.$onReleaseSettingView, content: {
+            ReleaseSettingView()
         })
     }
 }
