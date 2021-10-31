@@ -15,8 +15,11 @@ struct ReleaseSettingView: View {
         VStack {
             Spacer()
             VStack {
+                Label("Release Year", systemImage: "calendar.circle")
+                    .font(.largeTitle)
                 Text(Int(self.settingData.releaseYear).description)
                     .font(.title)
+                    .padding(16.0)
                 Slider(value: self.$settingData.releaseYear, in: 1950...2021, step: 1)
                     .onChange(of: self.settingData.releaseYear, perform: { value in
                         print("Setting onChange:\(value)")
