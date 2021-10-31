@@ -60,6 +60,7 @@ struct FilterView: View {
     @State var dispProgress: Bool = false
     @State var disapItemsView: Bool = false
     @State var onReleaseSettingView: Bool = false
+    @State var onTimeLimitSettingView: Bool = false
 
     @Binding var onTap: Bool
     let title: String
@@ -118,6 +119,9 @@ struct FilterView: View {
             if self.filter == .release {
                 self.onReleaseSettingView.toggle()
             }
+            else if self.filter == .playtime {
+                self.onTimeLimitSettingView.toggle()
+            }
         })
         .fullScreenCover(isPresented: self.$disapItemsView, onDismiss: {
         }, content: {
@@ -127,6 +131,9 @@ struct FilterView: View {
         })
         .popover(isPresented: self.$onReleaseSettingView, content: {
             ReleaseSettingView()
+        })
+        .popover(isPresented: self.$onTimeLimitSettingView, content: {
+            TimeLimitSettingView()
         })
     }
 }

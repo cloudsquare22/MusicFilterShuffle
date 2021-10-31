@@ -18,7 +18,7 @@ struct SettingView: View {
                 AllSettingView()
                 SongsSettingView()
                 ReleaseYearSettingView()
-                TimeLimitSettingView()
+                TimeLimitSettingFormView()
                 AlbumSettingView()
                 CountView()
                 AboutView()
@@ -125,7 +125,7 @@ struct ReleaseYearSettingView: View {
     }
 }
 
-struct TimeLimitSettingView: View {
+struct TimeLimitSettingFormView: View {
     @EnvironmentObject var settingData: SettingData
 
     var body: some View {
