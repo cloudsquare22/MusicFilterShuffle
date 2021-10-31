@@ -17,11 +17,11 @@ struct TimeLimitSettingView: View {
             VStack {
                 Label("Time Limit", systemImage: "timer")
                     .font(.largeTitle)
-                Text(Int(self.settingData.releaseYear).description)
+                Text(Int(self.settingData.timeLimit).description)
                     .font(.title)
                     .padding(16.0)
-                Slider(value: self.$settingData.releaseYear, in: 1950...2021, step: 1)
-                    .onChange(of: self.settingData.releaseYear, perform: { value in
+                Slider(value: self.$settingData.timeLimit, in: 10...180, step: 1)
+                    .onChange(of: self.settingData.timeLimit, perform: { value in
                         print("Setting onChange:\(value)")
                         self.settingData.save()
                     })
