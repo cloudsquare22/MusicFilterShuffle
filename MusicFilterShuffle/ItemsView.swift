@@ -73,6 +73,7 @@ struct ItemsView: View {
                 Spacer()
             }
             .padding(8.0)
+            .listStyle(PlainListStyle())
             .overlay(Button(action: {
                 self.music.play()
                 self.dispPlay = false
