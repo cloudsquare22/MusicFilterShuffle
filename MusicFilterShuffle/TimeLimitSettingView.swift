@@ -25,8 +25,8 @@ struct TimeLimitSettingView: View {
                         print("Setting onChange:\(value)")
                         self.settingData.save()
                     })
+                    .padding(16.0)
             }
-            .padding(8)
             Spacer()
         }
         .overlay(Button(action: {
