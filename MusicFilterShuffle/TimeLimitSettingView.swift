@@ -17,9 +17,13 @@ struct TimeLimitSettingView: View {
             VStack {
                 Label("Time Limit", systemImage: "timer")
                     .font(.largeTitle)
-                Text(Int(self.settingData.timeLimit).description)
-                    .font(.title)
-                    .padding(16.0)
+                HStack {
+                    Text(Int(self.settingData.timeLimit).description)
+                        .font(.title)
+                    Text("min")
+                        .font(.title)
+                }
+                .padding(16.0)
                 Slider(value: self.$settingData.timeLimit, in: 10...180, step: 1)
                     .onChange(of: self.settingData.timeLimit, perform: { value in
                         print("Setting onChange:\(value)")
