@@ -20,7 +20,7 @@ struct ReleaseSettingView: View {
                 Text(Int(self.settingData.releaseYear).description)
                     .font(.title)
                     .padding(16.0)
-                Slider(value: self.$settingData.releaseYear, in: 1950...2021, step: 1)
+                Slider(value: self.$settingData.releaseYear, in: 1950...self.settingData.currentYear, step: 1)
                     .onChange(of: self.settingData.releaseYear, perform: { value in
                         print("Setting onChange:\(value)")
                         self.settingData.save()

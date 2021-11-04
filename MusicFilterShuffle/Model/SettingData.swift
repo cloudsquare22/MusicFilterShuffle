@@ -21,6 +21,15 @@ final class SettingData: ObservableObject {
         self.timeLimit * 60
     }
     
+    var currentYear: Double {
+        let dc = Calendar.current.dateComponents(in: .current, from: Date())
+        var result: Double = 1950
+        if let year = dc.year {
+            result = Double(year)
+        }
+        return result
+    }
+    
     let userdefault = UserDefaults.standard
     
     init() {
