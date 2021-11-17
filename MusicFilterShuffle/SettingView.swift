@@ -75,7 +75,11 @@ struct AllSettingView: View {
                     self.settingData.save()
                 })
             }
-
+            NavigationLink(destination: {
+                FilterDispOnOffView()
+            }, label: {
+                Text("Filter Disp On/Off")
+            })
         }
     }
 }
