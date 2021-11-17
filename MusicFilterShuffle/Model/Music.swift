@@ -14,7 +14,7 @@ final class Music: ObservableObject {
     var playItems: [MPMediaItem] = []
     var totalTime: Double = 0.0
 
-    enum Filter {
+    enum Filter: String {
         case oldday
         case nowaday
         case forgotten

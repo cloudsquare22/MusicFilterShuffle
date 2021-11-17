@@ -31,11 +31,14 @@ struct FiltersView: View {
             ScrollView {
                 LazyVGrid(columns: self.settingData.colums()) {
                     ForEach(0..<FiltersView.filtersData.count) { index in
-                        FilterView(onTap: self.$onTap,
-                                   title: FiltersView.filtersData[index].0,
-                                   filter: FiltersView.filtersData[index].1,
-                                   width: width, color: FiltersView.filtersData[index].2,
-                                   columns: self.settingData.colums().count)
+                        if self.settingData.filterDispOnOffMap[FiltersView.filtersData[index].1.rawValue] == nil ||
+                            self.settingData.filterDispOnOffMap[FiltersView.filtersData[index].1.rawValue] == true{
+                            FilterView(onTap: self.$onTap,
+                                       title: FiltersView.filtersData[index].0,
+                                       filter: FiltersView.filtersData[index].1,
+                                       width: width, color: FiltersView.filtersData[index].2,
+                                       columns: self.settingData.colums().count)
+                        }
                     }
                     SettingMenuView(width: width,
                                     columns: self.settingData.colums().count)

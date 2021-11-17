@@ -63,7 +63,9 @@ final class SettingData: ObservableObject {
                 }
             }
         }
-//        filterDispOnOffMap[Music.Filter.release] = false
+//        print(Music.Filter.release.rawValue)
+//        print(self.filterDispOnOffMap[Music.Filter.release.rawValue])
+//        self.filterDispOnOffMap[Music.Filter.release.rawValue] = false
         print("filterDispOnOffMap:\(self.filterDispOnOffMap)")
     }
     
