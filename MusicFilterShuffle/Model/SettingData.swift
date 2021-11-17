@@ -16,6 +16,7 @@ final class SettingData: ObservableObject {
     @Published var iCloud: Bool = false
     @Published var releaseYear: Double = 2000
     @Published var timeLimit: Double = 60
+    @Published var filterDispOnOffMap: [String: Bool] = [:]
     
     var timeLimitSec: Double {
         self.timeLimit * 60
@@ -55,6 +56,15 @@ final class SettingData: ObservableObject {
         if let timeLimit = userdefault.object(forKey: "timeLimit") as? Double {
             self.timeLimit = timeLimit
         }
+        if let filterDispOnOffMap = userdefault.dictionary(forKey: "filterDispOnOffMap") {
+            for filterDispOnOff in filterDispOnOffMap {
+                if let value = filterDispOnOff.value as? Bool {
+                    self.filterDispOnOffMap[filterDispOnOff.key] = value
+                }
+            }
+        }
+//        filterDispOnOffMap[Music.Filter.release] = false
+        print("filterDispOnOffMap:\(self.filterDispOnOffMap)")
     }
     
     func save() {
