@@ -14,6 +14,8 @@ struct FilterDispOnOffView: View {
                 Text(FiltersView.filtersData[index].1.rawValue)
             }
         }
+        .navigationTitle("Show/hide filters")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 

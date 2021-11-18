@@ -78,7 +78,7 @@ struct AllSettingView: View {
             NavigationLink(destination: {
                 FilterDispOnOffView()
             }, label: {
-                Text("Filter Disp On/Off")
+                Text("Show/hide filters")
             })
         }
     }
