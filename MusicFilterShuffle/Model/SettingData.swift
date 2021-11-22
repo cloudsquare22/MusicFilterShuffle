@@ -78,6 +78,7 @@ final class SettingData: ObservableObject {
         self.userdefault.set(self.iCloud, forKey: "iCloud")
         self.userdefault.set(self.releaseYear, forKey: "releaseYear")
         self.userdefault.set(self.timeLimit, forKey: "timeLimit")
+        self.userdefault.set(self.filterDispOnOffMap, forKey: "filterDispOnOffMap")
     }
     
     func colums() -> [GridItem] {
