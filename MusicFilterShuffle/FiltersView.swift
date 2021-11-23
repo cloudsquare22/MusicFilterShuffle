@@ -132,10 +132,10 @@ struct FilterView: View {
                       title: self.title,
                       dispPlay: !self.settingData.autoPlay)
         })
-        .popover(isPresented: self.$onReleaseSettingView, content: {
+        .sheet(isPresented: self.$onReleaseSettingView, content: {
             ReleaseSettingView()
         })
-        .popover(isPresented: self.$onTimeLimitSettingView, content: {
+        .sheet(isPresented: self.$onTimeLimitSettingView, content: {
             TimeLimitSettingView()
         })
     }
