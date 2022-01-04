@@ -22,11 +22,20 @@ struct ItemsView: View {
                     HStack {
                         Spacer()
                         if self.music.playItems.count > 0 {
-                            Text(self.music.playItems[0].albumTitle!)
-                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                            VStack {
+                                Text(self.music.playItems[0].albumTitle!)
+                                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                                let artwork = self.music.artwork(item: self.music.playItems[0])
+                                artwork
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 150, height: 150, alignment: .center)
+                                    .clipShape(Circle())
+                            }
                         }
                         Spacer()
                     }
+                    .padding(16.0)
                 }
                 else if self.filter == .playtime {
                     HStack {

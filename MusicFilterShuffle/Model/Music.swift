@@ -8,6 +8,7 @@
 import Foundation
 import MediaPlayer
 import Algorithms
+import SwiftUI
 
 final class Music: ObservableObject {
     var player: MPMusicPlayerController? = nil
@@ -341,5 +342,15 @@ final class Music: ObservableObject {
         }
 
         return mapsString
+    }
+
+    func artwork(item: MPMediaItem) -> Image {
+        var result: Image = Image(systemName: "opticaldisc")
+        if let value = item.artwork {
+            if let image = value.image(at: CGSize(width: value.bounds.width, height: value.bounds.height)) {
+                result = Image(uiImage: image)
+            }
+        }
+        return result
     }
 }
