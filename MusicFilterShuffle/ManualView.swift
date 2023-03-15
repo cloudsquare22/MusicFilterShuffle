@@ -22,7 +22,7 @@ struct ManualView: View {
     
     var body: some View {
         List {
-            ForEach(0..<FiltersView.filtersData.count) { index in
+            ForEach(0..<FiltersView.filtersData.count, id: \.self) { index in
                 VStack(alignment: .leading, spacing: 8.0) {
                     Text(NSLocalizedString(FiltersView.filtersData[index].0, comment: ""))
                         .font(.title2)

@@ -45,7 +45,7 @@ struct ItemsView: View {
                         Spacer()
                     }
                 }
-                ForEach(0..<self.music.playItems.count) { index in
+                ForEach(0..<self.music.playItems.count, id: \.self) { index in
                     let item = self.music.playItems[index]
                     VStack(alignment: .leading) {
                         if self.settingData.hideSongTitle == false {

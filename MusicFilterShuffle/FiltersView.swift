@@ -30,7 +30,7 @@ struct FiltersView: View {
             let width = geometry.size.width
             ScrollView {
                 LazyVGrid(columns: self.settingData.colums()) {
-                    ForEach(0..<FiltersView.filtersData.count) { index in
+                    ForEach(0..<FiltersView.filtersData.count, id: \.self) { index in
                         if self.settingData.filterDispOnOffMap[FiltersView.filtersData[index].1.rawValue] == nil ||
                             self.settingData.filterDispOnOffMap[FiltersView.filtersData[index].1.rawValue] == true{
                             FilterView(onTap: self.$onTap,

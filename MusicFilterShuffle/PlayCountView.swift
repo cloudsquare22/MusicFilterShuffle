@@ -12,7 +12,7 @@ struct PlayCountView: View {
 
     var body: some View {
         List {
-            ForEach(0..<self.playCountMaps.count) { index in
+            ForEach(0..<self.playCountMaps.count, id: \.self) { index in
                 HStack {
                     Text(self.playCountMaps[index].0)
                     Spacer()

@@ -12,7 +12,7 @@ struct ReleaseYearCountView: View {
 
     var body: some View {
         List {
-            ForEach(0..<self.releaseYearMaps.count) { index in
+            ForEach(0..<self.releaseYearMaps.count, id: \.self) { index in
                 HStack {
                     Text(self.releaseYearMaps[index].0)
                     Spacer()
