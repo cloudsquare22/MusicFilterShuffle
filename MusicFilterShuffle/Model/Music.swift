@@ -14,7 +14,7 @@ final class Music: ObservableObject {
     var player: MPMusicPlayerController? = nil
     var playItems: [MPMediaItem] = []
     var totalTime: Double = 0.0
-
+    
     enum Filter: String {
         case oldday
         case nowaday
@@ -30,7 +30,7 @@ final class Music: ObservableObject {
     init() {
         self.player = MPMusicPlayerController.systemMusicPlayer
     }
-
+    
     func runFilter(filter: Filter) {
         switch filter {
         case .oldday:
@@ -85,7 +85,7 @@ final class Music: ObservableObject {
         self.playItems = Array(sortcitems.prefix(MusicFilterShuffleApp.settingData.selectMusicCount))
         self.printPlayItems()
     }
-
+    
     func playCountMax() {
         let items = self.songs()
         print("---------- sort ----------")
@@ -138,24 +138,24 @@ final class Music: ObservableObject {
         self.playItems = items
         self.printPlayItems()
     }
-
+    
     func playAlbumComplete() {
         let collections = self.albums()
         print("---------- select ----------")
         print(Date())
         var items: [MPMediaItem] = []
         for collection in collections {
-//            if collection.items.count < MusicFilterShuffleApp.settingData.selectAlbumMinTracks {
-//                continue
-//            }
+            //            if collection.items.count < MusicFilterShuffleApp.settingData.selectAlbumMinTracks {
+            //                continue
+            //            }
             items = self.albumNotPlay(items: collection.items)
             if items.isEmpty == false {
                 items.sort(by: { (item1, item2) in
                     item1.discNumber < item2.discNumber && item1.albumTrackNumber < item2.albumTrackNumber
                 })
-//                for item in items {
-//                    print("** \(item.title!):\(item.discNumber):\(item.albumTrackNumber)")
-//                }
+                //                for item in items {
+                //                    print("** \(item.title!):\(item.discNumber):\(item.albumTrackNumber)")
+                //                }
                 break
             }
         }
@@ -174,7 +174,7 @@ final class Music: ObservableObject {
         }
         return result
     }
-
+    
     func songsReleaseYear() {
         let releaseYear = Int(MusicFilterShuffleApp.settingData.releaseYear)
         let calendar = Calendar(identifier: .gregorian)
@@ -193,7 +193,7 @@ final class Music: ObservableObject {
         self.playItems = Array(items.prefix(MusicFilterShuffleApp.settingData.selectMusicCount))
         self.printPlayItems()
     }
-
+    
     func songsShufflePlayTime() {
         let items = self.songs()
         print("---------- play items ----------")
@@ -221,7 +221,7 @@ final class Music: ObservableObject {
         self.playItems = playItems
         self.printPlayItems()
     }
-
+    
     func songs() -> [MPMediaItem] {
         var result: [MPMediaItem] = []
         let iCloudFilter = MPMediaPropertyPredicate(value: MusicFilterShuffleApp.settingData.iCloud,
@@ -229,15 +229,25 @@ final class Music: ObservableObject {
                                                     comparisonType: .equalTo)
         let mPMediaQuery = MPMediaQuery.songs()
         mPMediaQuery.addFilterPredicate(iCloudFilter)
-        if let items = mPMediaQuery.items {
-            print(items.count)
+        let items = self.playList(playlistid: 15729017707599856105)
+        print(items.count)
+        
+        print("---------- randam ----------")
+        print(Date())
+        let randamcitems = items.randomSample(count: items.count)
+        print(Date())
+        result = randamcitems
 
-            print("---------- randam ----------")
-            print(Date())
-            let randamcitems = items.randomSample(count: items.count)
-            print(Date())
-            result = randamcitems
-        }
+        
+//        if let items = mPMediaQuery.items {
+//            print(items.count)
+//
+//            print("---------- randam ----------")
+//            print(Date())
+//            let randamcitems = items.randomSample(count: items.count)
+//            print(Date())
+//            result = randamcitems
+//        }
         return result
     }
     
@@ -250,7 +260,7 @@ final class Music: ObservableObject {
         mPMediaQuery.addFilterPredicate(iCloudFilter)
         if let collections = mPMediaQuery.collections {
             print(collections.count)
-
+            
             print("---------- randam ----------")
             print(Date())
             let randamcollections = collections.randomSample(count: collections.count)
@@ -278,7 +288,7 @@ final class Music: ObservableObject {
             }
         })
     }
-
+    
     func totalTimeToString() -> String {
         var result = ""
         let formatter = DateComponentsFormatter()
@@ -287,10 +297,10 @@ final class Music: ObservableObject {
         result = formatter.string(from: self.totalTime)!
         return result
     }
-
+    
     func countPlayCount() -> [(String, String)] {
         print(#function)
-
+        
         let items = self.songs()
         var maps: [Int : Int] = [:]
         items.forEach({ item in
@@ -304,13 +314,13 @@ final class Music: ObservableObject {
             let textright = String(maps[key]!) + NSLocalizedString(" songs", comment: "")
             mapsString.append((textleft, textright))
         }
-
+        
         return mapsString
     }
-
+    
     func countReleaseYear() -> [(String, String)] {
         print(#function)
-
+        
         let items = self.songs()
         var maps: [Int : Int] = [:]
         items.forEach({ item in
@@ -340,16 +350,40 @@ final class Music: ObservableObject {
             let textright = String(maps[key]!) + NSLocalizedString(" songs", comment: "")
             mapsString.append((textleft, textright))
         }
-
+        
         return mapsString
     }
-
+    
     func artwork(item: MPMediaItem) -> Image {
         var result: Image = Image(systemName: "opticaldisc")
         if let value = item.artwork {
             if let image = value.image(at: CGSize(width: value.bounds.width, height: value.bounds.height)) {
                 result = Image(uiImage: image)
             }
+        }
+        return result
+    }
+    
+    func playList(playlistid: UInt64) -> [MPMediaItem] {
+        var result: [MPMediaItem] = []
+        let iCloudFilter = MPMediaPropertyPredicate(value: true,
+                                                    forProperty: MPMediaItemPropertyIsCloudItem,
+                                                    comparisonType: .equalTo)
+        let idFilter = MPMediaPropertyPredicate(value: playlistid,
+                                                forProperty: MPMediaPlaylistPropertyPersistentID,
+                                                comparisonType: .equalTo)
+        let mPMediaQuery = MPMediaQuery.playlists()
+        mPMediaQuery.addFilterPredicate(iCloudFilter)
+        mPMediaQuery.addFilterPredicate(idFilter)
+        if let collections = mPMediaQuery.collections, collections.count > 0 {
+            for item in collections[0].items {
+                if MusicFilterShuffleApp.settingData.iCloud == false, item.isCloudItem == true {
+                    continue
+                }
+                print(String(item.albumPersistentID) + ":" + item.albumTitle! + ":" + item.title!)
+                result.append(item)
+            }
+            print(result.count)
         }
         return result
     }
