@@ -29,6 +29,7 @@ struct SettingView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear() {
             print("Setting onAppear")
+            self.music.setPlaylistList()
         }
         .onDisappear() {
             print("Setting onDisappear")
@@ -45,6 +46,7 @@ struct SettingView_Previews: PreviewProvider {
 
 struct AllSettingView: View {
     @EnvironmentObject var settingData: SettingData
+    @EnvironmentObject var music: Music
 
     var body: some View {
         Section(header: Text("All")) {
@@ -55,6 +57,7 @@ struct AllSettingView: View {
                 .onChange(of: self.settingData.iCloud, perform: { value in
                     print("Setting onChange:\(value)")
                     self.settingData.save()
+                    self.music.setPlaylistList()
                 })
             }
             HStack {
