@@ -15,6 +15,7 @@ struct SettingView: View {
         NavigationView {
             Form {
                 NavigationLink("Manual", destination: ManualView())
+                LibrarySettingView()
                 AllSettingView()
                 SongsSettingView()
                 ReleaseYearSettingView()
@@ -41,6 +42,121 @@ struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
         SettingView()
             .environmentObject(SettingData())
+    }
+}
+
+struct LibrarySettingView: View {
+    @EnvironmentObject var settingData: SettingData
+    @EnvironmentObject var music: Music
+    
+    var body: some View {
+        Section(content: {
+            if #available(iOS 16.0, *) {
+                Picker(selection: self.$settingData.selectLibrary, content: {
+                    ForEach(0..<self.music.playlistList.count, id: \.self) { index in
+                        HStack {
+                            if index == 0 {
+                                Image(systemName: "square.stack")
+                            }
+                            else {
+                                Image(systemName: "music.note.list")
+                            }
+                            Text(self.music.playlistList[index].1)
+                        }
+                        .tag(self.music.playlistList[index].0)
+                        .foregroundColor(.primary)
+                    }
+                }, label: {
+                    LibraryLabelView()
+                })
+//                .onChange(of: self.music.selectLibrary, perform: { newvalue in
+//                    self.changeSelectLibrary()
+//                })
+                .pickerStyle(.navigationLink)
+                .labelsHidden()
+            }
+            else {
+                Picker(selection: self.$settingData.selectLibrary, content: {
+                    ForEach(0..<self.music.playlistList.count, id: \.self) { index in
+                        Text(self.music.playlistList[index].1)
+                            .tag(self.music.playlistList[index].0)
+                            .foregroundColor(.primary)
+                    }
+                }, label: {
+                    LibraryLabelView()
+                })
+//                .onChange(of: self.music.selectLibrary, perform: { newvalue in
+//                    self.changeSelectLibrary()
+//                })
+                .labelsHidden()
+            }
+        }, header: {
+            HStack {
+                Label("Library", systemImage: "ipod")
+            }
+        })
+    }
+}
+
+struct LibraryLabelView: View {
+    @State var onLibraryInformation = false
+
+    var body: some View {
+        Text("Library")
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            Image(systemName: "info.bubble")
+                .font(.title2)
+                .foregroundColor(.blue)
+                .onTapGesture {
+                    self.onLibraryInformation.toggle()
+                }
+                .popover(isPresented: self.$onLibraryInformation, content: {
+                    LibraryInfomationView()
+                })
+        }
+        else {
+            Image(systemName: "info.bubble")
+                .font(.title2)
+                .foregroundColor(.blue)
+                .onTapGesture {
+                    self.onLibraryInformation.toggle()
+                }
+                .sheet(isPresented: self.$onLibraryInformation, content: {
+                    LibraryInfomationView()
+                    if #available(iOS 16.0, *) {
+                        Spacer()
+                            .presentationDetents([.height(375.0)])
+                    }
+                    else {
+                        Spacer()
+                    }
+                })
+        }
+        Spacer()
+    }
+}
+
+struct LibraryInfomationView: View {
+    var body: some View {
+        Label("Library", systemImage: "info.bubble")
+            .font(.title)
+            .padding(16.0)
+        Text("You can choose from the music library and playlists.")
+        VStack(alignment: .leading, spacing: 8.0) {
+            Label("Music Library", systemImage: "music.note.list")
+                .font(.title3)
+            Text("All albums are eligible.")
+                .padding(.leading, 16.0)
+            Text("")
+                .padding(.leading, 16.0)
+            Label("Playlist", systemImage: "music.note.list")
+                .font(.title3)
+            Text("Albums in the playlist are eligible.")
+                .padding(.leading, 16.0)
+            Text("The songs in the album are only those registered in the playlist.")
+                .padding(.leading, 16.0)
+        }
+        .padding(16.0)
     }
 }
 
