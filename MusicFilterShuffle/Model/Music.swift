@@ -417,7 +417,33 @@ final class Music: ObservableObject {
         self.playlistList.insert((0, NSLocalizedString("Music Library", comment: "")), at: 0)
         print("playlist:\(self.playlistList)")
     }
-    
+
+    func setPlaylistListAlbum() {
+        print(#function)
+        self.playlistList = []
+        let iCloudFilter = MPMediaPropertyPredicate(value: true,
+                                                    forProperty: MPMediaItemPropertyIsCloudItem,
+                                                    comparisonType: .equalTo)
+        let mPMediaQuery = MPMediaQuery.playlists()
+        mPMediaQuery.addFilterPredicate(iCloudFilter)
+        if let collections = mPMediaQuery.collections {
+            for collection in collections {
+                if (collection.mediaTypes == .music) && (collection.items.count > 0) {
+                    if let id = collection.value(forProperty: MPMediaPlaylistPropertyPersistentID) as? UInt64,
+                        let name = collection.value(forProperty: MPMediaPlaylistPropertyName) as? String {
+                        self.playlistList.append((id, name))
+                    }
+                }
+            }
+        }
+        self.playlistList.sort(by: {
+            p1, p2 in
+            p1.1 < p2.1
+        })
+        self.playlistList.insert((0, NSLocalizedString("Music Library", comment: "")), at: 0)
+        print("playlist:\(self.playlistList)")
+    }
+
     func matchSelectLibrary(selectLibrary: UInt64) -> UInt64 {
         var result: UInt64  = 0
         self.setPlaylistList()
