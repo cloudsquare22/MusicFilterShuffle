@@ -64,6 +64,11 @@ final class SettingData: ObservableObject {
                 }
             }
         }
+        if let selectLibrary = userdefault.object(forKey: "selectLibrary") as? UInt64 {
+            self.selectLibrary = selectLibrary
+//            MusicFilterShuffleApp.music.matchSelectLibrary(selectLibrary: selectLibrary)
+        }
+
 //        print(Music.Filter.release.rawValue)
 //        print(self.filterDispOnOffMap[Music.Filter.release.rawValue])
 //        self.filterDispOnOffMap[Music.Filter.release.rawValue] = false
@@ -80,6 +85,7 @@ final class SettingData: ObservableObject {
         self.userdefault.set(self.releaseYear, forKey: "releaseYear")
         self.userdefault.set(self.timeLimit, forKey: "timeLimit")
         self.userdefault.set(self.filterDispOnOffMap, forKey: "filterDispOnOffMap")
+        self.userdefault.set(self.selectLibrary, forKey: "selectLibrary")
     }
     
     func colums() -> [GridItem] {

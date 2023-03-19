@@ -69,9 +69,9 @@ struct LibrarySettingView: View {
                 }, label: {
                     LibraryLabelView()
                 })
-                //                .onChange(of: self.music.selectLibrary, perform: { newvalue in
-                //                    self.changeSelectLibrary()
-                //                })
+                .onChange(of: self.settingData.selectLibrary, perform: { newvalue in
+                    self.changeSelectLibrary()
+                })
                 .pickerStyle(.navigationLink)
                 .labelsHidden()
             }
@@ -85,9 +85,9 @@ struct LibrarySettingView: View {
                 }, label: {
                     LibraryLabelView()
                 })
-                //                .onChange(of: self.music.selectLibrary, perform: { newvalue in
-                //                    self.changeSelectLibrary()
-                //                })
+                .onChange(of: self.settingData.selectLibrary, perform: { newvalue in
+                    self.changeSelectLibrary()
+                })
                 .labelsHidden()
             }
         }, header: {
@@ -99,6 +99,7 @@ struct LibrarySettingView: View {
     
     func changeSelectLibrary() {
         self.music.matchSelectLibrary(selectLibrary: self.settingData.selectLibrary)
+        self.settingData.save()
     }
 }
 
