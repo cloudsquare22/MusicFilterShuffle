@@ -232,7 +232,17 @@ final class Music: ObservableObject {
                                                     comparisonType: .equalTo)
         let mPMediaQuery = MPMediaQuery.songs()
         mPMediaQuery.addFilterPredicate(iCloudFilter)
-        let items = self.playList(playlistid: 15729017707599856105)
+
+        var items: [MPMediaItem] = []
+
+        if MusicFilterShuffleApp.settingData.selectLibrary == 0 {
+            if let mPMediaQueryItems = mPMediaQuery.items {
+                items = mPMediaQueryItems
+            }
+        }
+        else {
+            items = self.playList(playlistid: MusicFilterShuffleApp.settingData.selectLibrary)
+        }
         print(items.count)
         
         print("---------- randam ----------")
@@ -241,16 +251,6 @@ final class Music: ObservableObject {
         print(Date())
         result = randamcitems
         
-        
-        //        if let items = mPMediaQuery.items {
-        //            print(items.count)
-        //
-        //            print("---------- randam ----------")
-        //            print(Date())
-        //            let randamcitems = items.randomSample(count: items.count)
-        //            print(Date())
-        //            result = randamcitems
-        //        }
         return result
     }
     
@@ -418,4 +418,14 @@ final class Music: ObservableObject {
         print("playlist:\(self.playlistList)")
     }
     
+    func matchSelectLibrary(selectLibrary: UInt64) {
+        MusicFilterShuffleApp.settingData.selectLibrary = 0
+        self.setPlaylistList()
+        for playlist in self.playlistList {
+            if playlist.0 == selectLibrary {
+                MusicFilterShuffleApp.settingData.selectLibrary = selectLibrary
+                break
+            }
+        }
+    }
 }
