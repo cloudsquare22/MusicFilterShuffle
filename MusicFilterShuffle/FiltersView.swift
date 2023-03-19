@@ -138,6 +138,10 @@ struct FilterView: View {
         .sheet(isPresented: self.$onTimeLimitSettingView, content: {
             TimeLimitSettingView()
         })
+        .onAppear() {
+            print("FilterVCiew onAppear")
+            self.settingData.selectLibrary = self.music.matchSelectLibrary(selectLibrary: self.settingData.selectLibrary)
+        }
     }
 }
 

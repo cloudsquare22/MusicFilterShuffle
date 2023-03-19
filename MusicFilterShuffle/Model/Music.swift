@@ -418,14 +418,15 @@ final class Music: ObservableObject {
         print("playlist:\(self.playlistList)")
     }
     
-    func matchSelectLibrary(selectLibrary: UInt64) {
-        MusicFilterShuffleApp.settingData.selectLibrary = 0
+    func matchSelectLibrary(selectLibrary: UInt64) -> UInt64 {
+        var result: UInt64  = 0
         self.setPlaylistList()
         for playlist in self.playlistList {
             if playlist.0 == selectLibrary {
-                MusicFilterShuffleApp.settingData.selectLibrary = selectLibrary
+                result = selectLibrary
                 break
             }
         }
+        return result
     }
 }

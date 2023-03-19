@@ -98,7 +98,7 @@ struct LibrarySettingView: View {
     }
     
     func changeSelectLibrary() {
-        self.music.matchSelectLibrary(selectLibrary: self.settingData.selectLibrary)
+        self.settingData.selectLibrary = self.music.matchSelectLibrary(selectLibrary: self.settingData.selectLibrary)
         self.settingData.save()
     }
 }
