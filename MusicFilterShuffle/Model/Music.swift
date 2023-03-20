@@ -261,15 +261,24 @@ final class Music: ObservableObject {
                                                     comparisonType: .equalTo)
         let mPMediaQuery = MPMediaQuery.albums()
         mPMediaQuery.addFilterPredicate(iCloudFilter)
-        if let collections = mPMediaQuery.collections {
-            print(collections.count)
-            
-            print("---------- randam ----------")
-            print(Date())
-            let randamcollections = collections.randomSample(count: collections.count)
-            print(Date())
-            result = randamcollections
+        
+        var collections: [MPMediaItemCollection] = []
+        if MusicFilterShuffleApp.settingData.selectLibrary == 0 {
+            if let mPMediaQueryCollections = mPMediaQuery.collections {
+                collections = mPMediaQueryCollections
+            }
         }
+        else {
+            collections = self.playList(playlistid: MusicFilterShuffleApp.settingData.selectLibrary)
+        }
+        print(collections.count)
+        
+        print("---------- randam ----------")
+        print(Date())
+        let randamcollections = collections.randomSample(count: collections.count)
+        print(Date())
+        result = randamcollections
+
         return result
     }
     
@@ -392,6 +401,43 @@ final class Music: ObservableObject {
         return result
     }
     
+    func playList(playlistid: UInt64) -> [MPMediaItemCollection] {
+        var result: [MPMediaItemCollection] = []
+        let iCloudFilter = MPMediaPropertyPredicate(value: true,
+                                                    forProperty: MPMediaItemPropertyIsCloudItem,
+                                                    comparisonType: .equalTo)
+        let idFilter = MPMediaPropertyPredicate(value: playlistid,
+                                                forProperty: MPMediaPlaylistPropertyPersistentID,
+                                                comparisonType: .equalTo)
+        let mPMediaQuery = MPMediaQuery.playlists()
+        mPMediaQuery.addFilterPredicate(iCloudFilter)
+        mPMediaQuery.addFilterPredicate(idFilter)
+        if let collections = mPMediaQuery.collections, collections.count > 0 {
+            var maps: [UInt64:MPMediaItemCollection] = [:]
+            for item in collections[0].items {
+                if MusicFilterShuffleApp.settingData.iCloud == false, item.isCloudItem == true {
+                    continue
+                }
+                print(String(item.albumPersistentID) + ":" + item.albumTitle! + ":" + item.title!)
+                if let itemCollection = maps[item.albumPersistentID] {
+                    var items = itemCollection.items
+                    items.append(item)
+                    let itemCollection = MPMediaItemCollection(items: items)
+                    maps[item.albumPersistentID] = itemCollection
+                }
+                else {
+                    let itemCollection = MPMediaItemCollection(items: [item])
+                    maps[item.albumPersistentID] = itemCollection
+                }
+            }
+            print(maps.count)
+            for map in maps {
+                result.append(map.value)
+            }
+        }
+        return result
+    }
+
     func setPlaylistList() {
         print(#function)
         self.playlistList = []
