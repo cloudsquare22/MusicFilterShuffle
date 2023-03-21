@@ -29,6 +29,10 @@ final class Music: ObservableObject {
         case playtime
     }
     
+    let iCloudFilter = MPMediaPropertyPredicate(value: true,
+                                                forProperty: MPMediaItemPropertyIsCloudItem,
+                                                comparisonType: .equalTo)
+
     init() {
         self.player = MPMusicPlayerController.systemMusicPlayer
         self.setPlaylistList()
@@ -403,14 +407,11 @@ final class Music: ObservableObject {
     
     func playList(playlistid: UInt64) -> [MPMediaItemCollection] {
         var result: [MPMediaItemCollection] = []
-        let iCloudFilter = MPMediaPropertyPredicate(value: true,
-                                                    forProperty: MPMediaItemPropertyIsCloudItem,
-                                                    comparisonType: .equalTo)
+        let mPMediaQuery = MPMediaQuery.playlists()
         let idFilter = MPMediaPropertyPredicate(value: playlistid,
                                                 forProperty: MPMediaPlaylistPropertyPersistentID,
                                                 comparisonType: .equalTo)
-        let mPMediaQuery = MPMediaQuery.playlists()
-        mPMediaQuery.addFilterPredicate(iCloudFilter)
+        mPMediaQuery.addFilterPredicate(self.iCloudFilter)
         mPMediaQuery.addFilterPredicate(idFilter)
         if let collections = mPMediaQuery.collections, collections.count > 0 {
             var maps: [UInt64:MPMediaItemCollection] = [:]
@@ -441,11 +442,8 @@ final class Music: ObservableObject {
     func setPlaylistList() {
         print(#function)
         self.playlistList = []
-        let iCloudFilter = MPMediaPropertyPredicate(value: true,
-                                                    forProperty: MPMediaItemPropertyIsCloudItem,
-                                                    comparisonType: .equalTo)
         let mPMediaQuery = MPMediaQuery.playlists()
-        mPMediaQuery.addFilterPredicate(iCloudFilter)
+        mPMediaQuery.addFilterPredicate(self.iCloudFilter)
         if let collections = mPMediaQuery.collections {
             for collection in collections {
                 if (collection.mediaTypes == .music) && (collection.items.count > 0) {
