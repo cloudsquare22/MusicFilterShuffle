@@ -383,14 +383,11 @@ final class Music: ObservableObject {
     func playList(playlistid: UInt64) -> [MPMediaItem] {
         print("\(playlistid)")
         var result: [MPMediaItem] = []
-        let iCloudFilter = MPMediaPropertyPredicate(value: true,
-                                                    forProperty: MPMediaItemPropertyIsCloudItem,
-                                                    comparisonType: .equalTo)
         let idFilter = MPMediaPropertyPredicate(value: playlistid,
                                                 forProperty: MPMediaPlaylistPropertyPersistentID,
                                                 comparisonType: .equalTo)
         let mPMediaQuery = MPMediaQuery.playlists()
-        mPMediaQuery.addFilterPredicate(iCloudFilter)
+        mPMediaQuery.addFilterPredicate(self.iCloudFilter)
         mPMediaQuery.addFilterPredicate(idFilter)
         if let collections = mPMediaQuery.collections, collections.count > 0 {
             for item in collections[0].items {
