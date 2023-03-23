@@ -383,12 +383,9 @@ final class Music: ObservableObject {
     func playList(playlistid: UInt64) -> [MPMediaItem] {
         print("\(playlistid)")
         var result: [MPMediaItem] = []
-        let idFilter = MPMediaPropertyPredicate(value: playlistid,
-                                                forProperty: MPMediaPlaylistPropertyPersistentID,
-                                                comparisonType: .equalTo)
         let mPMediaQuery = MPMediaQuery.playlists()
         mPMediaQuery.addFilterPredicate(self.iCloudFilter)
-        mPMediaQuery.addFilterPredicate(idFilter)
+        mPMediaQuery.addFilterPredicate(createMPMediaPropertyPredicatePersistentID(playlistid: playlistid))
         if let collections = mPMediaQuery.collections, collections.count > 0 {
             for item in collections[0].items {
                 if MusicFilterShuffleApp.settingData.iCloud == false, item.isCloudItem == true {
@@ -402,14 +399,17 @@ final class Music: ObservableObject {
         return result
     }
     
+    func createMPMediaPropertyPredicatePersistentID(playlistid: UInt64) -> MPMediaPropertyPredicate {
+        return MPMediaPropertyPredicate(value: playlistid,
+                                        forProperty: MPMediaPlaylistPropertyPersistentID,
+                                        comparisonType: .equalTo)
+    }
+    
     func playList(playlistid: UInt64) -> [MPMediaItemCollection] {
         var result: [MPMediaItemCollection] = []
         let mPMediaQuery = MPMediaQuery.playlists()
-        let idFilter = MPMediaPropertyPredicate(value: playlistid,
-                                                forProperty: MPMediaPlaylistPropertyPersistentID,
-                                                comparisonType: .equalTo)
         mPMediaQuery.addFilterPredicate(self.iCloudFilter)
-        mPMediaQuery.addFilterPredicate(idFilter)
+        mPMediaQuery.addFilterPredicate(createMPMediaPropertyPredicatePersistentID(playlistid: playlistid))
         if let collections = mPMediaQuery.collections, collections.count > 0 {
             var maps: [UInt64:MPMediaItemCollection] = [:]
             for item in collections[0].items {
