@@ -152,17 +152,11 @@ final class Music: ObservableObject {
         print(Date())
         var items: [MPMediaItem] = []
         for collection in collections {
-            //            if collection.items.count < MusicFilterShuffleApp.settingData.selectAlbumMinTracks {
-            //                continue
-            //            }
             items = self.albumNotPlay(items: collection.items)
             if items.isEmpty == false {
                 items.sort(by: { (item1, item2) in
                     item1.discNumber < item2.discNumber && item1.albumTrackNumber < item2.albumTrackNumber
                 })
-                //                for item in items {
-                //                    print("** \(item.title!):\(item.discNumber):\(item.albumTrackNumber)")
-                //                }
                 break
             }
         }
