@@ -47,3 +47,10 @@
 "Release Year" = "リリース年";
 " year" = "年";
 "Show/hide filters" = "フィルターの表示／非表示";
+"Library" = "ライブラリ";
+"Music Library" = "ミュージックライブラリ";
+"Playlist" = "プレイリスト";
+"You can choose from the music library and playlists." = "ミュージックライブラリとプレイリストから選択できます。";
+"All albums are eligible." = "全てのアルバムが対象となります。";
+"Albums in the playlist are eligible." = "プレイリスト内のアルバムが対象となります。";
+"The songs in the album are only those registered in the playlist." = "アルバム内の曲は、プレイリストに登録されている曲のみとなります。";
