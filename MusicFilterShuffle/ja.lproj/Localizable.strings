@@ -28,6 +28,7 @@
 "Shuffle" = "全曲\nシャッフル";
 "Time Limit" = "時間制限";
 "Album Shuffle" = "アルバム\nシャッフル";
+"Album-Shuffle" = "アルバムシャッフル";
 "Oldest song with last played date, except for unplayed songs." = "未再生曲以外の最終再生日の古い曲。";
 "New song on last play date." = "最終再生日の新しい曲。";
 "Songs with a low number of plays." = "再生回数の少ない曲。";

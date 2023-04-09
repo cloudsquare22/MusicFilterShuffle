@@ -226,7 +226,7 @@ struct AlbumSettingView: View {
     @EnvironmentObject var settingData: SettingData
 
     var body: some View {
-        Section(header: Label("Album Shuffle", systemImage: "opticaldisc")) {
+        Section(header: Label("Album-Shuffle", systemImage: "opticaldisc")) {
             NumberPlusMinusInputView(title: NSLocalizedString("Select min tracks", comment: ""), bounds: 1...100, number: self.$settingData.selectAlbumMinTracks)
                 .onChange(of: self.settingData.selectAlbumMinTracks, perform: { value in
                     print("Setting onChange:\(value)")
