@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import MediaPlayer
 import Algorithms
 import SwiftUI
+import MediaPlayer
 
 final class Music: ObservableObject {
     var player: MPMusicPlayerController? = nil
