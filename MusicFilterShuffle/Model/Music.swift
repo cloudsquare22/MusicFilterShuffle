@@ -203,16 +203,25 @@ final class Music: ObservableObject {
         var lastSelectCount = 0
         for item in items {
             if self.totalTime + item.playbackDuration > MusicFilterShuffleApp.settingData.timeLimitSec {
-                if lastSelectCount > 100 {
+//                if lastSelectCount > 100 {
+//                    print("Total Time:\(self.totalTime)")
+//                    break
+//                }
+//                else {
+                if MusicFilterShuffleApp.settingData.timeLimitSec - 15 <= self.totalTime {
                     print("Total Time:\(self.totalTime)")
                     break
                 }
-                else {
                     lastSelectCount = lastSelectCount + 1
-                }
+                    print("lastSelectCount up:\(lastSelectCount)")
+//                }
             }
             else {
                 if lastSelectCount > 0 {
+                    if self.totalTime + item.playbackDuration < MusicFilterShuffleApp.settingData.timeLimitSec - 15 {
+                        print("Next Item!!")
+                        continue
+                    }
                     print("last 1 mile:\(item.title!)")
                 }
                 self.totalTime = self.totalTime + item.playbackDuration
