@@ -55,6 +55,12 @@ struct ItemsView: View {
                             Text("- Hidden by setting -")
                                 .foregroundColor(.gray)
                         }
+                        if self.filter != .albumshuffle && self.filter != .albumnotcomplete {
+                            Text("\(item.albumTitle!)")
+                                .foregroundColor(.gray)
+                                .font(.caption)
+                                .lineLimit(1)
+                        }
                         HStack(spacing: 0) {
                             switch self.filter {
                             case .oldday, .nowaday:
