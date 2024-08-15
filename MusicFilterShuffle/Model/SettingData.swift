@@ -69,6 +69,12 @@ final class SettingData: ObservableObject {
             self.selectLibrary = selectLibrary
 //            MusicFilterShuffleApp.music.matchSelectLibrary(selectLibrary: selectLibrary)
         }
+        if let selectLibrarys = userdefault.object(forKey: "selectLibrarys") as? [UInt64] {
+            
+        }
+        else {
+            self.selectLibrarys.append(self.selectLibrary)
+        }
 
 //        print(Music.Filter.release.rawValue)
 //        print(self.filterDispOnOffMap[Music.Filter.release.rawValue])

@@ -16,7 +16,11 @@ struct LibraryMultiSelectSettingView: View {
             NavigationLink(destination: {
                 LibraryMultiSekectView()
             }, label: {
-                LibraryLabelView()
+                HStack {
+                    LibraryLabelView()
+                    Text("\(self.settingData.selectLibrarys.count)")
+                    Text("Library")
+                }
             })
         },
         header: {

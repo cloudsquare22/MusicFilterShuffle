@@ -242,13 +242,13 @@ final class Music: ObservableObject {
 
         var items: [MPMediaItem] = []
 
-        if MusicFilterShuffleApp.settingData.selectLibrary == 0 {
+        if MusicFilterShuffleApp.settingData.selectLibrarys.contains(0) == true {
             if let mPMediaQueryItems = mPMediaQuery.items {
                 items = mPMediaQueryItems
             }
         }
         else {
-            items = self.playList(playlistid: MusicFilterShuffleApp.settingData.selectLibrary)
+            items = self.playList(playlistids: MusicFilterShuffleApp.settingData.selectLibrarys)
         }
         print(items.count)
         
@@ -270,13 +270,13 @@ final class Music: ObservableObject {
         mPMediaQuery.addFilterPredicate(iCloudFilter)
         
         var collections: [MPMediaItemCollection] = []
-        if MusicFilterShuffleApp.settingData.selectLibrary == 0 {
+        if MusicFilterShuffleApp.settingData.selectLibrarys.contains(0) == true {
             if let mPMediaQueryCollections = mPMediaQuery.collections {
                 collections = mPMediaQueryCollections
             }
         }
         else {
-            collections = self.playList(playlistid: MusicFilterShuffleApp.settingData.selectLibrary)
+            collections = self.playList(playlistids: MusicFilterShuffleApp.settingData.selectLibrarys)
         }
         print(collections.count)
         
@@ -409,6 +409,27 @@ final class Music: ObservableObject {
         return result
     }
     
+    func playList(playlistids: [UInt64]) -> [MPMediaItem] {
+        print("\(playlistids)")
+        var result: [MPMediaItem] = []
+        for playlistid in playlistids {
+            let mPMediaQuery = MPMediaQuery.playlists()
+            mPMediaQuery.addFilterPredicate(self.iCloudFilter)
+            mPMediaQuery.addFilterPredicate(createMPMediaPropertyPredicatePersistentID(playlistid: playlistid))
+            if let collections = mPMediaQuery.collections, collections.count > 0 {
+                for item in collections[0].items {
+                    if MusicFilterShuffleApp.settingData.iCloud == false, item.isCloudItem == true {
+                        continue
+                    }
+    //                print(String(item.albumPersistentID) + ":" + item.albumTitle! + ":" + item.title!)
+                    result.append(item)
+                }
+                print(result.count)
+            }
+        }
+        return result
+    }
+
     func createMPMediaPropertyPredicatePersistentID(playlistid: UInt64) -> MPMediaPropertyPredicate {
         return MPMediaPropertyPredicate(value: playlistid,
                                         forProperty: MPMediaPlaylistPropertyPersistentID,
@@ -441,6 +462,39 @@ final class Music: ObservableObject {
             print(maps.count)
             for map in maps {
                 result.append(map.value)
+            }
+        }
+        return result
+    }
+
+    func playList(playlistids: [UInt64]) -> [MPMediaItemCollection] {
+        var result: [MPMediaItemCollection] = []
+        for playlistid in playlistids {
+            let mPMediaQuery = MPMediaQuery.playlists()
+            mPMediaQuery.addFilterPredicate(self.iCloudFilter)
+            mPMediaQuery.addFilterPredicate(createMPMediaPropertyPredicatePersistentID(playlistid: playlistid))
+            if let collections = mPMediaQuery.collections, collections.count > 0 {
+                var maps: [UInt64:MPMediaItemCollection] = [:]
+                for item in collections[0].items {
+                    if MusicFilterShuffleApp.settingData.iCloud == false, item.isCloudItem == true {
+                        continue
+                    }
+                    print(String(item.albumPersistentID) + ":" + item.albumTitle! + ":" + item.title!)
+                    if let itemCollection = maps[item.albumPersistentID] {
+                        var items = itemCollection.items
+                        items.append(item)
+                        let itemCollection = MPMediaItemCollection(items: items)
+                        maps[item.albumPersistentID] = itemCollection
+                    }
+                    else {
+                        let itemCollection = MPMediaItemCollection(items: [item])
+                        maps[item.albumPersistentID] = itemCollection
+                    }
+                }
+                print(maps.count)
+                for map in maps {
+                    result.append(map.value)
+                }
             }
         }
         return result
