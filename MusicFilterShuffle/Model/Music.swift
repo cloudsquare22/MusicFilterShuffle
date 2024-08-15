@@ -354,13 +354,20 @@ final class Music: ObservableObject {
                     maps[0] = count! + 1
                 }
             }
+            else {
+                let count = maps[0] == nil ? 0 : maps[0]
+                maps[0] = count! + 1
+            }
         })
         print(maps)
         print(Locale.current.identifier)
         var mapsString: [(String, String)] = []
         for key in maps.keys.sorted() {
             var textleft = ""
-            if Locale.current.identifier == "en_US" {
+            if key == 0 {
+                textleft = "-"
+            }
+            else if Locale.current.identifier == "en_US" {
                 textleft = String(key) + "."
             }
             else {

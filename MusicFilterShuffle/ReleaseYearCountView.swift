@@ -27,6 +27,6 @@ struct ReleaseYearCountView: View {
 
 struct ReleaseYearCountView_Previews: PreviewProvider {
     static var previews: some View {
-        ReleaseYearCountView(releaseYearMaps: [])
+        ReleaseYearCountView(releaseYearMaps: [("1976", "2")])
     }
 }

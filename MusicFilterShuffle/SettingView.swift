@@ -42,6 +42,7 @@ struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
         SettingView()
             .environmentObject(SettingData())
+            .environmentObject(Music())
     }
 }
 

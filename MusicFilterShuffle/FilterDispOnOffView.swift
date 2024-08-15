@@ -46,5 +46,6 @@ struct FilterDispOnOffView: View {
 struct FilterDispOnOffView_Previews: PreviewProvider {
     static var previews: some View {
         FilterDispOnOffView()
+            .environmentObject(SettingData())
     }
 }

@@ -27,6 +27,6 @@ struct PlayCountView: View {
 
 struct PlayCountView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayCountView(playCountMaps: [])
+        PlayCountView(playCountMaps: [("10", "10")])
     }
 }
