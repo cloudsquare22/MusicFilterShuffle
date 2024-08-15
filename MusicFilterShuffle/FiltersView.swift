@@ -140,7 +140,7 @@ struct FilterView: View {
         })
         .onAppear() {
             print("FilterVCiew onAppear")
-            self.settingData.selectLibrary = self.music.matchSelectLibrary(selectLibrary: self.settingData.selectLibrary)
+            self.settingData.selectLibrarys = self.music.matchSelectLibrary(selectLibrarys: self.settingData.selectLibrarys)
         }
     }
 }

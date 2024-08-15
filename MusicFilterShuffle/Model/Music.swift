@@ -32,7 +32,7 @@ final class Music: ObservableObject {
     let iCloudFilter = MPMediaPropertyPredicate(value: true,
                                                 forProperty: MPMediaItemPropertyIsCloudItem,
                                                 comparisonType: .equalTo)
-
+    
     init() {
         self.player = MPMusicPlayerController.systemMusicPlayer
         self.setPlaylistList()
@@ -203,18 +203,18 @@ final class Music: ObservableObject {
         var lastSelectCount = 0
         for item in items {
             if self.totalTime + item.playbackDuration > MusicFilterShuffleApp.settingData.timeLimitSec {
-//                if lastSelectCount > 100 {
-//                    print("Total Time:\(self.totalTime)")
-//                    break
-//                }
-//                else {
+                //                if lastSelectCount > 100 {
+                //                    print("Total Time:\(self.totalTime)")
+                //                    break
+                //                }
+                //                else {
                 if MusicFilterShuffleApp.settingData.timeLimitSec - 15 <= self.totalTime {
                     print("Total Time:\(self.totalTime)")
                     break
                 }
-                    lastSelectCount = lastSelectCount + 1
-                    print("lastSelectCount up:\(lastSelectCount)")
-//                }
+                lastSelectCount = lastSelectCount + 1
+                print("lastSelectCount up:\(lastSelectCount)")
+                //                }
             }
             else {
                 if lastSelectCount > 0 {
@@ -239,9 +239,9 @@ final class Music: ObservableObject {
                                                     comparisonType: .equalTo)
         let mPMediaQuery = MPMediaQuery.songs()
         mPMediaQuery.addFilterPredicate(iCloudFilter)
-
+        
         var items: [MPMediaItem] = []
-
+        
         if MusicFilterShuffleApp.settingData.selectLibrarys.count == 0 ||
             MusicFilterShuffleApp.settingData.selectLibrarys.contains(0) == true {
             if let mPMediaQueryItems = mPMediaQuery.items {
@@ -287,7 +287,7 @@ final class Music: ObservableObject {
         let randamcollections = collections.randomSample(count: collections.count)
         print(Date())
         result = randamcollections
-
+        
         return result
     }
     
@@ -403,7 +403,7 @@ final class Music: ObservableObject {
                 if MusicFilterShuffleApp.settingData.iCloud == false, item.isCloudItem == true {
                     continue
                 }
-//                print(String(item.albumPersistentID) + ":" + item.albumTitle! + ":" + item.title!)
+                //                print(String(item.albumPersistentID) + ":" + item.albumTitle! + ":" + item.title!)
                 result.append(item)
             }
             print(result.count)
@@ -423,7 +423,7 @@ final class Music: ObservableObject {
                     if MusicFilterShuffleApp.settingData.iCloud == false, item.isCloudItem == true {
                         continue
                     }
-    //                print(String(item.albumPersistentID) + ":" + item.albumTitle! + ":" + item.title!)
+                    //                print(String(item.albumPersistentID) + ":" + item.albumTitle! + ":" + item.title!)
                     result.append(item)
                 }
                 print(result.count)
@@ -431,7 +431,7 @@ final class Music: ObservableObject {
         }
         return result
     }
-
+    
     func createMPMediaPropertyPredicatePersistentID(playlistid: UInt64) -> MPMediaPropertyPredicate {
         return MPMediaPropertyPredicate(value: playlistid,
                                         forProperty: MPMediaPlaylistPropertyPersistentID,
@@ -468,7 +468,7 @@ final class Music: ObservableObject {
         }
         return result
     }
-
+    
     func playList(playlistids: [UInt64]) -> [MPMediaItemCollection] {
         var result: [MPMediaItemCollection] = []
         for playlistid in playlistids {
@@ -501,7 +501,7 @@ final class Music: ObservableObject {
         }
         return result
     }
-
+    
     func setPlaylistList() {
         print(#function)
         self.playlistList = []
@@ -511,7 +511,7 @@ final class Music: ObservableObject {
             for collection in collections {
                 if (collection.mediaTypes == .music) && (collection.items.count > 0) {
                     if let id = collection.value(forProperty: MPMediaPlaylistPropertyPersistentID) as? UInt64,
-                        let name = collection.value(forProperty: MPMediaPlaylistPropertyName) as? String {
+                       let name = collection.value(forProperty: MPMediaPlaylistPropertyName) as? String {
                         self.playlistList.append((id, name))
                     }
                 }
@@ -524,7 +524,7 @@ final class Music: ObservableObject {
         self.playlistList.insert((0, NSLocalizedString("Music Library", comment: "")), at: 0)
         print("playlist:\(self.playlistList)")
     }
-
+    
     func setPlaylistListAlbum() {
         print(#function)
         self.playlistList = []
@@ -537,7 +537,7 @@ final class Music: ObservableObject {
             for collection in collections {
                 if (collection.mediaTypes == .music) && (collection.items.count > 0) {
                     if let id = collection.value(forProperty: MPMediaPlaylistPropertyPersistentID) as? UInt64,
-                        let name = collection.value(forProperty: MPMediaPlaylistPropertyName) as? String {
+                       let name = collection.value(forProperty: MPMediaPlaylistPropertyName) as? String {
                         self.playlistList.append((id, name))
                     }
                 }
@@ -550,15 +550,17 @@ final class Music: ObservableObject {
         self.playlistList.insert((0, NSLocalizedString("Music Library", comment: "")), at: 0)
         print("playlist:\(self.playlistList)")
     }
-
-    func matchSelectLibrary(selectLibrary: UInt64) -> UInt64 {
-        var result: UInt64  = 0
+    
+    func matchSelectLibrary(selectLibrarys: [UInt64]) -> [UInt64] {
+        var result: [UInt64] = []
         self.setPlaylistList()
         for playlist in self.playlistList {
-            if playlist.0 == selectLibrary {
-                result = selectLibrary
-                break
+            if selectLibrarys.contains(playlist.0) == true {
+                result.append(playlist.0)
             }
+        }
+        if result.count == 0 {
+            result.append(0)
         }
         return result
     }

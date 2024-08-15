@@ -69,8 +69,8 @@ final class SettingData: ObservableObject {
             self.selectLibrary = selectLibrary
 //            MusicFilterShuffleApp.music.matchSelectLibrary(selectLibrary: selectLibrary)
         }
-        if let selectLibrarys = userdefault.object(forKey: "selectLibrarys") as? [UInt64] {
-            
+        if let selectLibrarys = userdefault.object(forKey: "selectLibrarys") as? [UInt64], selectLibrarys.count != 0 {
+            self.selectLibrarys = selectLibrarys
         }
         else {
             self.selectLibrarys.append(self.selectLibrary)
@@ -93,6 +93,7 @@ final class SettingData: ObservableObject {
         self.userdefault.set(self.timeLimit, forKey: "timeLimit")
         self.userdefault.set(self.filterDispOnOffMap, forKey: "filterDispOnOffMap")
         self.userdefault.set(self.selectLibrary, forKey: "selectLibrary")
+        self.userdefault.set(self.selectLibrarys, forKey: "selectLibrarys")
     }
     
     func colums() -> [GridItem] {

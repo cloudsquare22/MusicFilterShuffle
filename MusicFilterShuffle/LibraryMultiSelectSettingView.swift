@@ -62,6 +62,7 @@ struct LibraryMultiSekectView: View {
                                 if self.settingData.selectLibrarys.contains(0) == false {
                                     self.settingData.selectLibrarys.append(self.music.playlistList[index].0)
                                 }
+                                self.settingData.save()
                                 print(self.settingData.selectLibrarys)
                             }
                             .font(.title)
@@ -75,6 +76,7 @@ struct LibraryMultiSekectView: View {
                                 self.settingData.selectLibrarys = nowSelectLibrarys.filter({ value in
                                     value != self.music.playlistList[index].0
                                 })
+                                self.settingData.save()
                                 print(self.settingData.selectLibrarys)
                             }
                             .font(.title)
@@ -88,6 +90,7 @@ struct LibraryMultiSekectView: View {
             print("LibraryMultiSekectView.\(#function)")
             if self.settingData.selectLibrarys.count == 0 {
                 self.settingData.selectLibrarys.append(0)
+                self.settingData.save()
             }
         }
     }
