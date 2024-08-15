@@ -317,7 +317,7 @@ struct AboutView: View {
                 HStack {
                     Spacer()
                     Image("cloudsquare")
-                    Text("©️ 2021-2023 cloudsquare.jp")
+                    Text("©️ 2021-2024 cloudsquare.jp")
                         .font(.footnote)
                     Spacer()
                 }
