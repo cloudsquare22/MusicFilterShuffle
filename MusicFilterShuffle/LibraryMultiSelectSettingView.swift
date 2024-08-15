@@ -84,6 +84,12 @@ struct LibraryMultiSekectView: View {
             }
         }
         .navigationTitle("Library")
+        .onDisappear() {
+            print("LibraryMultiSekectView.\(#function)")
+            if self.settingData.selectLibrarys.count == 0 {
+                self.settingData.selectLibrarys.append(0)
+            }
+        }
     }
 }
 
@@ -91,4 +97,66 @@ struct LibraryMultiSekectView: View {
     LibraryMultiSelectSettingView()
         .environmentObject(SettingData())
         .environmentObject(Music())
+}
+
+struct LibraryLabelView: View {
+    @State var onLibraryInformation = false
+
+    var body: some View {
+        Text("Library")
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            Image(systemName: "info.bubble")
+                .font(.title2)
+                .foregroundColor(.blue)
+                .onTapGesture {
+                    self.onLibraryInformation.toggle()
+                }
+                .popover(isPresented: self.$onLibraryInformation, content: {
+                    LibraryInfomationView()
+                })
+        }
+        else {
+            Image(systemName: "info.bubble")
+                .font(.title2)
+                .foregroundColor(.blue)
+                .onTapGesture {
+                    self.onLibraryInformation.toggle()
+                }
+                .sheet(isPresented: self.$onLibraryInformation, content: {
+                    LibraryInfomationView()
+                    if #available(iOS 16.0, *) {
+                        Spacer()
+                            .presentationDetents([.height(375.0)])
+                    }
+                    else {
+                        Spacer()
+                    }
+                })
+        }
+        Spacer()
+    }
+}
+
+struct LibraryInfomationView: View {
+    var body: some View {
+        Label("Library", systemImage: "info.bubble")
+            .font(.title)
+            .padding(16.0)
+        Text("You can choose from the music library and playlists.")
+        VStack(alignment: .leading, spacing: 8.0) {
+            Label("Music Library", systemImage: "music.note.list")
+                .font(.title3)
+            Text("All albums are eligible.")
+                .padding(.leading, 16.0)
+            Text("")
+                .padding(.leading, 16.0)
+            Label("Playlist", systemImage: "music.note.list")
+                .font(.title3)
+            Text("Albums in the playlist are eligible.")
+                .padding(.leading, 16.0)
+            Text("The songs in the album are only those registered in the playlist.")
+                .padding(.leading, 16.0)
+        }
+        .padding(16.0)
+    }
 }

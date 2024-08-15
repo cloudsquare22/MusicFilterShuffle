@@ -242,7 +242,8 @@ final class Music: ObservableObject {
 
         var items: [MPMediaItem] = []
 
-        if MusicFilterShuffleApp.settingData.selectLibrarys.contains(0) == true {
+        if MusicFilterShuffleApp.settingData.selectLibrarys.count == 0 ||
+            MusicFilterShuffleApp.settingData.selectLibrarys.contains(0) == true {
             if let mPMediaQueryItems = mPMediaQuery.items {
                 items = mPMediaQueryItems
             }
@@ -270,7 +271,8 @@ final class Music: ObservableObject {
         mPMediaQuery.addFilterPredicate(iCloudFilter)
         
         var collections: [MPMediaItemCollection] = []
-        if MusicFilterShuffleApp.settingData.selectLibrarys.contains(0) == true {
+        if MusicFilterShuffleApp.settingData.selectLibrarys.count == 0 ||
+            MusicFilterShuffleApp.settingData.selectLibrarys.contains(0) == true {
             if let mPMediaQueryCollections = mPMediaQuery.collections {
                 collections = mPMediaQueryCollections
             }
