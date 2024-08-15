@@ -92,7 +92,6 @@ final class SettingData: ObservableObject {
         self.userdefault.set(self.releaseYear, forKey: "releaseYear")
         self.userdefault.set(self.timeLimit, forKey: "timeLimit")
         self.userdefault.set(self.filterDispOnOffMap, forKey: "filterDispOnOffMap")
-        self.userdefault.set(self.selectLibrary, forKey: "selectLibrary")
         self.userdefault.set(self.selectLibrarys, forKey: "selectLibrarys")
     }
     
