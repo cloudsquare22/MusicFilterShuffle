@@ -18,6 +18,7 @@ final class SettingData: ObservableObject {
     @Published var timeLimit: Double = 60
     @Published var filterDispOnOffMap: [String: Bool] = [:]
     @Published var selectLibrary: UInt64 = 0
+    @Published var selectLibrarys: [UInt64] = []
 
     var timeLimitSec: Double {
         self.timeLimit * 60

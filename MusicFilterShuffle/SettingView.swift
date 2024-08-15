@@ -16,6 +16,7 @@ struct SettingView: View {
             Form {
                 NavigationLink("Manual", destination: ManualView())
                 LibrarySettingView()
+                LibraryMultiSelectSettingView()
                 AllSettingView()
                 SongsSettingView()
                 ReleaseYearSettingView()

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,7 @@
 		8DB8F4E325E5AD2100ED995F /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8F4E225E5AD2100ED995F /* Music.swift */; };
 		8DBA83BA25F81E8300D32051 /* ReleaseSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA83B925F81E8300D32051 /* ReleaseSettingView.swift */; };
 		8DBCEBED2726C9CD00CD0116 /* PlayCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCEBEC2726C9CD00CD0116 /* PlayCountView.swift */; };
+		8DC7457C2C6DEB3500B245C7 /* LibraryMultiSelectSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC7457B2C6DEB3500B245C7 /* LibraryMultiSelectSettingView.swift */; };
 		8DDD1AE725FD818800CE9408 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1AE625FD818800CE9408 /* Util.swift */; };
 		8DEFFC4C25EB723E00A2FAE5 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEFFC4B25EB723E00A2FAE5 /* FiltersView.swift */; };
 		8DEFFC4F25EB724E00A2FAE5 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEFFC4E25EB724E00A2FAE5 /* SettingView.swift */; };
@@ -47,6 +48,7 @@
 		8DB8F4E225E5AD2100ED995F /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 		8DBA83B925F81E8300D32051 /* ReleaseSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseSettingView.swift; sourceTree = "<group>"; };
 		8DBCEBEC2726C9CD00CD0116 /* PlayCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCountView.swift; sourceTree = "<group>"; };
+		8DC7457B2C6DEB3500B245C7 /* LibraryMultiSelectSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryMultiSelectSettingView.swift; sourceTree = "<group>"; };
 		8DDD1AE625FD818800CE9408 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		8DEFFC4B25EB723E00A2FAE5 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		8DEFFC4E25EB724E00A2FAE5 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				8DB8F4D725E5ACE900ED995F /* Preview Content */,
 				8DEFFC4B25EB723E00A2FAE5 /* FiltersView.swift */,
 				8DEFFC4E25EB724E00A2FAE5 /* SettingView.swift */,
+				8DC7457B2C6DEB3500B245C7 /* LibraryMultiSelectSettingView.swift */,
 				8D34A41925ED9257005450CE /* NumberPlusMinusInputView.swift */,
 				8D34A42025F1030E005450CE /* ItemsView.swift */,
 				8DBA83B925F81E8300D32051 /* ReleaseSettingView.swift */,
@@ -153,7 +156,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					8DB8F4CD25E5ACE800ED995F = {
 						CreatedOnToolsVersion = 12.4;
@@ -201,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DC7457C2C6DEB3500B245C7 /* LibraryMultiSelectSettingView.swift in Sources */,
 				8DB3F2932602AB1A00E278C6 /* ManualView.swift in Sources */,
 				8DEFFC4C25EB723E00A2FAE5 /* FiltersView.swift in Sources */,
 				8DDD1AE725FD818800CE9408 /* Util.swift in Sources */,
@@ -279,6 +283,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -341,6 +346,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
