@@ -14,38 +14,42 @@ struct FiltersView: View {
     @State var onTap = false
     @State var tapSetting: Bool = false
 
-    static let filtersData: [(String, Music.Filter, UIColor)] =
-        [("A long time ago in a...", .oldday, .blue),
-         ("Nowadays", .nowaday, .brown),
-         ("Forgotten", .forgotten, .cyan),
-         ("Heavy Rotation", .heavyrotation, .magenta),
-         ("Album Play Complete", .albumnotcomplete, .orange),
-         ("Release", .release, .green),
-         ("Shuffle", .shuffle, .red),
-         ("Time Limit", .playtime, .purple),
-         ("Album Shuffle", .albumshuffle, .yellow)]
+    static let filtersData: [(UUID, String, Music.Filter, UIColor)] =
+        [(UUID(), "A long time ago in a...", .oldday, .blue),
+         (UUID(), "Nowadays", .nowaday, .brown),
+         (UUID(), "Forgotten", .forgotten, .cyan),
+         (UUID(), "Heavy Rotation", .heavyrotation, .magenta),
+         (UUID(), "Album Play Complete", .albumnotcomplete, .orange),
+         (UUID(), "Release", .release, .green),
+         (UUID(), "Shuffle", .shuffle, .red),
+         (UUID(), "Time Limit", .playtime, .purple),
+         (UUID(), "Album Shuffle", .albumshuffle, .yellow)]
 
     var body: some View {
-        GeometryReader { geometry in
-            let width = geometry.size.width
-            ScrollView {
-                LazyVGrid(columns: self.settingData.colums()) {
-                    ForEach(0..<FiltersView.filtersData.count, id: \.self) { index in
-                        if self.settingData.filterDispOnOffMap[FiltersView.filtersData[index].1.rawValue] == nil ||
-                            self.settingData.filterDispOnOffMap[FiltersView.filtersData[index].1.rawValue] == true{
-                            FilterView(onTap: self.$onTap,
-                                       title: FiltersView.filtersData[index].0,
-                                       filter: FiltersView.filtersData[index].1,
-                                       width: width, color: FiltersView.filtersData[index].2,
-                                       columns: self.settingData.colums().count)
-                        }
-                    }
-                    SettingMenuView(width: width,
-                                    columns: self.settingData.colums().count)
-                }
-                .padding(16)
-            }
+        List(FiltersView.filtersData, id: \.0) { filter in
+            Text("\(filter.1)")
         }
+//        
+//        GeometryReader { geometry in
+//            let width = geometry.size.width
+//            ScrollView {
+//                LazyVGrid(columns: self.settingData.colums()) {
+//                    ForEach(0..<FiltersView.filtersData.count, id: \.self) { index in
+//                        if self.settingData.filterDispOnOffMap[FiltersView.filtersData[index].1.rawValue] == nil ||
+//                            self.settingData.filterDispOnOffMap[FiltersView.filtersData[index].1.rawValue] == true{
+//                            FilterView(onTap: self.$onTap,
+//                                       title: FiltersView.filtersData[index].0,
+//                                       filter: FiltersView.filtersData[index].1,
+//                                       width: width, color: FiltersView.filtersData[index].2,
+//                                       columns: self.settingData.colums().count)
+//                        }
+//                    }
+//                    SettingMenuView(width: width,
+//                                    columns: self.settingData.colums().count)
+//                }
+//                .padding(16)
+//            }
+//        }
     }
 }
 

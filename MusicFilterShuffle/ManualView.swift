@@ -24,7 +24,7 @@ struct ManualView: View {
         List {
             ForEach(0..<FiltersView.filtersData.count, id: \.self) { index in
                 VStack(alignment: .leading, spacing: 8.0) {
-                    Text(NSLocalizedString(FiltersView.filtersData[index].0, comment: ""))
+                    Text(NSLocalizedString(FiltersView.filtersData[index].1, comment: ""))
                         .font(.title2)
                     Text(NSLocalizedString(self.manuals[index], comment: ""))
                 }
