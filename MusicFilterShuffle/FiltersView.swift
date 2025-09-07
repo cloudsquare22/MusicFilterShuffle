@@ -185,3 +185,10 @@ struct SettingMenuView: View {
             })
     }
 }
+
+struct FilterData: Identifiable {
+    var id: Int
+    var description: String
+    var filter: Music.Filter
+    var color: UIColor
+}
