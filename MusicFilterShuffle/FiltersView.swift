@@ -29,7 +29,7 @@ struct FiltersView: View {
         FilterData(id: 1, title: "A long time ago in a...", description: "Old songs with last played date.", filter: .oldday, color: .blue),
         FilterData(id: 2, title: "Nowadays", description: "New songs with last played date.", filter: .nowaday, color: .brown),
         FilterData(id: 3, title: "Forgotten", description: "Songs with a low number of plays.", filter: .forgotten, color: .cyan),
-        FilterData(id: 4, title: "Heavy Rotation", description: "Songs with a large number of plays.", filter: .heavyrotation, color: .magenta),
+        FilterData(id: 4, title: "Heavy Rotation", description: "Songs with a large number of plays.", filter: .heavyrotation, color: .indigo),
         FilterData(id: 5, title: "Album Play Complete", description: "Unplayed songs in the album.", filter: .albumnotcomplete, color: .orange),
         FilterData(id: 6, title: "Release", description: "Songs with the specified release year.", filter: .release, color: .green),
         FilterData(id: 7, title: "Shuffle", description: "Shuffle all songs.", filter: .shuffle, color: .red),
@@ -41,7 +41,7 @@ struct FiltersView: View {
         List(FiltersView.filterDatas) { filterData in
             HStack {
                 Image(systemName: "opticaldisc")
-                    .foregroundStyle(Color(uiColor: filterData.color))
+                    .foregroundStyle(filterData.color)
                     .font(.title)
                 VStack(alignment: .leading) {
                     Text("\(filterData.title)")
@@ -215,5 +215,5 @@ struct FilterData: Identifiable {
     var title: String
     var description: String
     var filter: Music.Filter
-    var color: UIColor
+    var color: Color
 }
