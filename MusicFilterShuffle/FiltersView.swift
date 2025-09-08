@@ -24,12 +24,36 @@ struct FiltersView: View {
          (UUID(), "Shuffle", .shuffle, .red),
          (UUID(), "Time Limit", .playtime, .purple),
          (UUID(), "Album Shuffle", .albumshuffle, .yellow)]
+    
+    static let filterDatas: [FilterData] = [
+        FilterData(id: 1, title: "A long time ago in a...", description: "Old songs with last played date.", filter: .oldday, color: .blue),
+        FilterData(id: 2, title: "Nowadays", description: "New songs with last played date.", filter: .nowaday, color: .brown),
+        FilterData(id: 3, title: "Forgotten", description: "Songs with a low number of plays.", filter: .forgotten, color: .cyan),
+        FilterData(id: 4, title: "Heavy Rotation", description: "Songs with a large number of plays.", filter: .heavyrotation, color: .magenta),
+        FilterData(id: 5, title: "Album Play Complete", description: "Unplayed songs in the album.", filter: .albumnotcomplete, color: .orange),
+        FilterData(id: 6, title: "Release", description: "Songs with the specified release year.", filter: .release, color: .green),
+        FilterData(id: 7, title: "Shuffle", description: "Shuffle all songs.", filter: .shuffle, color: .red),
+        FilterData(id: 8, title: "Time Limit", description: "Select songs to be played closer to the designated time.", filter: .playtime, color: .purple),
+        FilterData(id: 9, title: "Album Shuffle", description: "Shuffle by album.", filter: .albumshuffle, color: .yellow),
+    ]
 
     var body: some View {
-        List(FiltersView.filtersData, id: \.0) { filter in
-            Text("\(filter.1)")
+        List(FiltersView.filterDatas) { filterData in
+            HStack {
+                Image(systemName: "opticaldisc")
+                    .foregroundStyle(Color(uiColor: filterData.color))
+                    .font(.title)
+                VStack(alignment: .leading) {
+                    Text("\(filterData.title)")
+                        .font(.title)
+                    Text("\(filterData.description)")
+                }
+            }
+            .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                0
+            })
         }
-//        
+        //
 //        GeometryReader { geometry in
 //            let width = geometry.size.width
 //            ScrollView {
@@ -188,6 +212,7 @@ struct SettingMenuView: View {
 
 struct FilterData: Identifiable {
     var id: Int
+    var title: String
     var description: String
     var filter: Music.Filter
     var color: UIColor
